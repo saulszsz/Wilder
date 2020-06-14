@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "Wilder"
+  "defaultProject": "Wilder",
+  "cli": {
+    "analytics": false
+  }
 }
