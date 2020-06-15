@@ -3,6 +3,7 @@ import { AskedComponent } from './components/asked/asked.component';
 import { AboutComponent } from './components/about/about.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { ActivosprewComponent } from './components/activosprew/activosprew.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'asked', component: AskedComponent},
   {path: 'contact', component: ContactComponent},
+  {path: 'inventario', component: ActivosprewComponent},
   {path: '**', component: InicioComponent}
 ];
 

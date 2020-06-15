@@ -13,6 +13,7 @@ import { ActivoscrudComponent } from './components/activoscrud/activoscrud.compo
 import { AboutComponent } from './components/about/about.component';
 import { AskedComponent } from './components/asked/asked.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ActivosprewComponent } from './components/activosprew/activosprew.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ContactComponent } from './components/contact/contact.component';
     ActivoscrudComponent,
     AboutComponent,
     AskedComponent,
-    ContactComponent
+    ContactComponent,
+    ActivosprewComponent
   ],
   imports: [
     BrowserModule,

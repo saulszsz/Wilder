@@ -1,18 +1,10 @@
 .example-card {
     max-width: 250px;
+    max-height: 45px;
   }
   
   .example-header-image {
     background-image: url('https://www.radioshack.com.mx/medias/79232.gif-1200ftw?context=cmFkaW9zaGFja3xyb290fDIzMDI0MXxpbWFnZS9naWZ8aDI5L2gyYi84ODMwMTI3Mzc0MzY2LmdpZnxkZTNlZDYwNmNhZWFiMmFlYWZkOWIxOTE0NDg5ZmRiNTlhN2QxNjZkNjZjMzhkNjFmYTU2OTg1NjNhZWMwNjkw');
     background-size: cover;
-  }
-  .example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
   }
   
