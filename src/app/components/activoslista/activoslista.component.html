@@ -1,1 +1,24 @@
-<p>activoslista works!</p>
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input type="text"
+             placeholder="Pick one"
+             aria-label="Number"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+</form>
+
+<!--Tarjeta-->
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>LOGITECH</mat-card-title>
+      <mat-card-subtitle>G203</mat-card-subtitle>
+    </mat-card-header>
+</mat-card>
