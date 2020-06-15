@@ -1,1 +1,59 @@
-<p>inicio works!</p>
+<mat-grid-list cols="6" rowHeight="2:2">
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile colspan="2">
+        <a href="#">
+            <mat-card>
+                <mat-card-title align="center">Mi Usuario</mat-card-title>
+                <mat-card-content>
+                    <br>
+                        <img mat-card-lg-image src="../../../assets/img_inicio/usuario.svg">
+                        <br>
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+        <a href="#">
+            <mat-card>
+                <mat-card-title align="center">Notas</mat-card-title>
+                <mat-card-content>
+                    <br>
+                    <img mat-card-lg-image src="../../../assets/img_inicio/bloc.svg" align="center">
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile colspan="2">
+        <a href="#">
+            <mat-card>
+                <mat-card-title align="center">Mis Archivos</mat-card-title>
+                <mat-card-content>
+                    <img mat-card-lg-image src="../../../assets/img_inicio/papel.svg"  layoutAlign="center">
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+        <a href="#">
+            <mat-card>
+                <mat-card-title align="center">Escanear QR</mat-card-title>
+                <mat-card-content>
+                    <img mat-card-lg-image src="../../../assets/img_inicio/codigo-qr.svg"  layoutAlign="center">
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile colspan="4" rowspan="3">
+        <mat-card>
+            <mat-card-title align="center">Agenda</mat-card-title>
+            <mat-card-content>
+                <app-calendar></app-calendar>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+</mat-grid-list>
