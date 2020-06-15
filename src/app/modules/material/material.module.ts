@@ -51,12 +51,12 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule, MatButtonModule, MatToolbarModule, MatNativeDateModule, MatIconModule, MatSidenavModule,
     MatListModule, MatMenuModule, MatCardModule, MatGridListModule, MatInputModule, FormsModule, ReactiveFormsModule, MatExpansionModule,
-    MatDatepickerModule, MatMomentDateModule, MatSlideToggleModule
+    MatDatepickerModule, MatMomentDateModule, MatSlideToggleModule, MatAutocompleteModule, MatBottomSheetModule
   ],
   exports: [
     CommonModule, MatButtonModule, MatToolbarModule, MatNativeDateModule, MatIconModule, MatSidenavModule,
     MatListModule, MatMenuModule, MatCardModule, MatGridListModule, MatInputModule, FormsModule, ReactiveFormsModule, MatExpansionModule,
-    MatDatepickerModule, MatMomentDateModule, MatSlideToggleModule, MatAutocompleteModule
+    MatDatepickerModule, MatMomentDateModule, MatSlideToggleModule, MatAutocompleteModule, MatBottomSheetModule
   ]
 })
 export class MaterialModule { }
