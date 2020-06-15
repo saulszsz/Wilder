@@ -10,6 +10,9 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { ListgenComponent } from './listgen/listgen.component';
 import { ActivoslistaComponent } from './components/activoslista/activoslista.component';
 import { ActivoscrudComponent } from './components/activoscrud/activoscrud.component';
+import { AboutComponent } from './components/about/about.component';
+import { AskedComponent } from './components/asked/asked.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { ActivoscrudComponent } from './components/activoscrud/activoscrud.compo
     CalendarComponent,
     ListgenComponent,
     ActivoslistaComponent,
-    ActivoscrudComponent
+    ActivoscrudComponent,
+    AboutComponent,
+    AskedComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

@@ -10,3 +10,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 5px;
     margin-top: 10px;
 }
+
+.headers-align  {
+    flex-basis: 0;
+}
+
+.headers-align {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headers-align {
+    margin-left: 8px;
+}
+
+.example-full-width {
+    width: 100%;
+}
