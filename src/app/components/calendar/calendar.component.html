@@ -1,16 +1,4 @@
-<h3>Calendario de pendientes</h3>
-<mat-grid-list cols="4" gutterSize="10px">
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-        <mat-calendar class="calendario"></mat-calendar>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="1">
-        <mat-grid-tile-header>
-            <h2>Entregables para este día:</h2>
-        </mat-grid-tile-header>
-        <app-listgen></app-listgen>
-        <mat-grid-tile-footer>
-            <button mat-raised-button color="primary" style="margin-right: 20px;">Entregado</button>
-            <button mat-raised-button color="accent">Extender tiempo de entrega</button>
-        </mat-grid-tile-footer>
-    </mat-grid-tile>
-</mat-grid-list>
+<mat-calendar class="calendario"></mat-calendar>
+<app-listgen></app-listgen>
+<button mat-raised-button color="primary" style="margin-right: 20px;">Entregado</button>
+<button mat-raised-button color="accent">Extender tiempo de entrega</button>
