@@ -56,7 +56,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   exports: [
     CommonModule, MatButtonModule, MatToolbarModule, MatNativeDateModule, MatIconModule, MatSidenavModule,
     MatListModule, MatMenuModule, MatCardModule, MatGridListModule, MatInputModule, FormsModule, ReactiveFormsModule, MatExpansionModule,
-    MatDatepickerModule, MatMomentDateModule
+    MatDatepickerModule, MatMomentDateModule, MatSlideToggleModule
   ]
 })
 export class MaterialModule { }
