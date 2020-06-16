@@ -2,3 +2,13 @@
     margin-right: 5px;
     margin-bottom: 5px;
 }
+
+.log-in{
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: #ebfffb;
+    font-size: 35px;
+    transition: .3s ease all;
+    padding-left: 40%;
+}
