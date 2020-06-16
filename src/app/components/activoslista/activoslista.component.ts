@@ -4,6 +4,8 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import {MatDialog} from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-activoslista',
@@ -16,11 +18,11 @@ export class ActivoslistaComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
   //constructor() { }
-  constructor(private _bottomSheet: MatBottomSheet) {}
+  /*constructor(private _bottomSheet: MatBottomSheet) {}
 
   openBottomSheet(): void {
-    this._bottomSheet.open(BottomSheetOverviewExampleSheet);
-  }
+    this._bottomSheet.open(Overview);
+  }*/
 
   //ngOnInit(): void {  }
 
@@ -36,18 +38,30 @@ export class ActivoslistaComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
-}
+/*
+  
+  constructor(public dialog: MatDialog) {}
 
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }*/
+}
+/*
 @Component({
   selector: 'app-activoscrud',
   templateUrl: '../activoscrud/activoscrud.component.html',
   styleUrls: ['../activoscrud/activoscrud.component.css']
 })
-export class BottomSheetOverviewExampleSheet {
-  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>) {}
+export class DialogContentExampleDialog {}/*
+export class Overview {
+  constructor(private _bottomSheetRef: MatBottomSheetRef<Overview>) {}
 
   openLink(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
     event.preventDefault();
   }
-}
+}*/
