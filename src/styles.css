@@ -92,3 +92,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
     color: #00C6EE;
     margin-bottom: 20px;
 }
+
+/*Iconos de Redes sociales*/
+.red-social{
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: #ebfffb;
+    font-size: 35px;
+    transition: .3s ease all;
+}
