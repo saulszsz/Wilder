@@ -6,22 +6,30 @@
     <title>Inventario</title>
 </head>
 <body>
-    <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <input type="text"
-                 placeholder="Pick one"
-                 aria-label="Number"
-                 matInput
-                 [formControl]="myControl"
-                 [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-    </form>
-    
+  <mat-grid-list cols="3" rowHeight="60px">
+    <mat-grid-tile colspan="1">
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input type="text"
+                   placeholder="Activo a buscar"
+                   aria-label="Number"
+                   matInput
+                   [formControl]="myControl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+      </form>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <button class="button" mat-button [routerLink]="['/activo']">Registrar activo</button>
+    </mat-grid-tile>
+  </mat-grid-list>
     <!--Tarjeta-->
     <mat-card class="example-card">
         <mat-card-header>
@@ -30,6 +38,16 @@
           <mat-card-subtitle>G203</mat-card-subtitle>
           <!--<button class="button" mat-raised-button (click)="openBottomSheet()">Open</button>-->
           <!--<button mat-button (click)="openDialog()">Open dialog</button>-->
+          <button class="button" mat-button [routerLink]="['/activo']">Abrir</button>
+        </mat-card-header>
+    </mat-card>
+    
+    <!--Tarjeta-->
+    <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>LOGITECH</mat-card-title>
+          <mat-card-subtitle>G203</mat-card-subtitle>
           <button class="button" mat-button [routerLink]="['/activo']">Abrir</button>
         </mat-card-header>
     </mat-card>
