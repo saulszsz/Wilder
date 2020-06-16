@@ -15,6 +15,7 @@ import { AskedComponent } from './components/asked/asked.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ActivosprewComponent } from './components/activosprew/activosprew.component';
 import { HelpComponent } from './components/help/help.component';
+import { MyfilesComponent } from './components/myfiles/myfiles.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HelpComponent } from './components/help/help.component';
     AskedComponent,
     ContactComponent,
     ActivosprewComponent,
-    HelpComponent
+    HelpComponent,
+    MyfilesComponent
   ],
   imports: [
     BrowserModule,

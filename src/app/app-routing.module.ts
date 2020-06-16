@@ -6,6 +6,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { ActivoslistaComponent } from './components/activoslista/activoslista.component';
 import { ActivoscrudComponent } from './components/activoscrud/activoscrud.component';
 import { HelpComponent } from './components/help/help.component';
+import { MyfilesComponent } from './components/myfiles/myfiles.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'inventario', component: ActivoslistaComponent},
   {path: 'activo', component: ActivoscrudComponent},
   {path: 'ayuda',component: HelpComponent},
+  {path: 'archivos', component: MyfilesComponent},
   {path: '**', component: InicioComponent}
 ];
 
