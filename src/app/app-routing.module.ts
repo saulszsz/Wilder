@@ -4,6 +4,7 @@ import { AboutComponent } from './components/about/about.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { ActivoslistaComponent } from './components/activoslista/activoslista.component';
+import { ActivoscrudComponent } from './components/activoscrud/activoscrud.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'asked', component: AskedComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'inventario', component: ActivoslistaComponent},
+  {path: 'activo', component: ActivoscrudComponent},
   {path: '**', component: InicioComponent}
 ];
 
