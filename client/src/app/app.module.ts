@@ -3,6 +3,12 @@ import { MaterialModule } from './modules/material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { environment } from '../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +22,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ActivosprewComponent } from './components/activosprew/activosprew.component';
 import { HelpComponent } from './components/help/help.component';
 import { MyfilesComponent } from './components/myfiles/myfiles.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,9 +43,15 @@ import { MyfilesComponent } from './components/myfiles/myfiles.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    HttpClientModule,
+    MaterialModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
