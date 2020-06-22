@@ -1,0 +1,43 @@
+<div *ngIf="!registro">
+    <mat-card>
+        <mat-card-header>
+            <h3>Iniciar Sesión</h3>
+        </mat-card-header>
+        <mat-card-content>
+            <form (submit)="login('password', $event)">
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input name="email" #email="ngModel" [(ngModel)]="mail" matInput type="email"
+                        placeholder="Ej. email@dominio.com" required>
+                    <mat-error *ngIf="email.touched && !email.valid">
+                        Por favor introduce un correo válido.
+                    </mat-error>
+                </mat-form-field><br>
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input name="pwd" #pwd="ngModel" [(ngModel)]="password" matInput type="password"
+                        placeholder="Introduce tu contraseña">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-footer>
+            <button mat-raised-button color="primary" style="margin-bottom: 10px;">Iniciar Sesión</button>
+            <button mat-raised-button color="secondary" [routerLink]="['/users/register']"
+                style="margin: 0 0 10px 10px;">Regístrate Aquí</button>
+        </mat-card-footer>
+    </mat-card>
+    <br><br>
+    <mat-card>
+        <mat-card-header>
+            <h3>O inicia sesión con los siguientes servicios:</h3>
+        </mat-card-header>
+        <mat-card-content>
+            <i class="red-social black-icon fab fa-google" (click)="login('google')"></i>
+            <!-- <a class="red-social black-icon" href="https://www.facebook.com"><i class="fab fa-facebook-square"></i></a>
+        <a class="red-social black-icon" href="https://linkedin.com"><i class="fab fa-linkedin-in"></i></a>
+        <a class="red-social black-icon" href="https://web.whatsapp.com/"><i class="fab fa-whatsapp"></i></a>
+        <a class="red-social black-icon" href="https://github.com/"><i class="fab fa-github"></i></a>-->
+        </mat-card-content>
+    </mat-card>
+</div>
+<app-register-user *ngIf="registro" uid="{{ uid }}">Cargando Registro.</app-register-user>
