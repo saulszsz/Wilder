@@ -1,5 +1,6 @@
 import { FireService } from './../../../../services/fire.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-user',
@@ -19,7 +20,8 @@ export class RegisterUserComponent implements OnInit {
   @Input() uid: string;
 
   constructor(
-    private _fs: FireService
+    private _fs: FireService,
+    private _router: Router
   ) {
 
   }
@@ -37,10 +39,30 @@ export class RegisterUserComponent implements OnInit {
     }
   }
 
-  envioPrevioRegistro() {
+  envioPrevioRegistro(evt) {
+    evt.preventDefault();
     let payload = {
-      
+      uid: this.uid,
+      tipo: 'admin',
+      correo: this.mail,
+      trabajo: this.workplace,
+      nombre: this.name,
+      apellido: this.lastname,
+      nacimiento: this.birthday,
+      telefono: this.phone
     }
+    this._fs.createUserPreviousRegistering(payload).subscribe(
+      (result: any) => {
+        if (result.creado)
+          alert("creado!");
+        else
+          alert("no creado!");
+        this._router.navigate(['/']);
+      },
+      (error: any) => {
+        alert("Error!!! "+JSON.stringify(error));
+      }
+    );
   }
 
   envio() {

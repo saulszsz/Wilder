@@ -15,6 +15,12 @@
   <button mat-button [routerLink]="['/asked']">Preguntas Frecuentes</button>
   <button mat-button [routerLink]="['/contact']">Contacto</button>
   <button mat-button [routerLink]="['/ayuda']">Ayuda</button>
-  <a class="log-in" [routerLink]="['/users/login']" style="margin-right: 0px;"><i class="fas fa-sign-in-alt"></i></a>
+  <a *ngIf="user | async else login" class="log-in" [routerLink]="['/users/logout']" style="margin-right: 0px;"><i
+      class="fas fa-sign-out-alt"></i></a>
+  <ng-template #login>
+    <a class="log-in" [routerLink]="['/users/login']" style="margin-right: 0px;"><i class="fas fa-sign-in-alt"></i></a>
+  </ng-template>
+
 </mat-toolbar>
+<h3 *ngIf="user | async as user">Hola {{ user.nombre }}</h3>
 <router-outlet></router-outlet>

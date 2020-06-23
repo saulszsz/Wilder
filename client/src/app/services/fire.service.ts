@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,10 @@ import { Observable } from 'rxjs';
 export class FireService {
 
   constructor(
-    private _afAuth: AngularFireAuth,
+    public _afAuth: AngularFireAuth,
     private _fireDb: AngularFireDatabaseModule,
     private _http: HttpClient,
-    public _cs: CookieService
+    public _cs: CookieService,
   ) { }
 
   loginGoogle() {
@@ -23,7 +24,15 @@ export class FireService {
   }
 
   cerrarSesion() {
-    return this._afAuth.signOut();
+    var that = this;
+    return this._afAuth.signOut().then(function () {
+      that._http.post("logout", {}).subscribe(
+        (r) => {
+          var landingUrl = window.location.host + "/users/login";
+          window.open(landingUrl, "_self");
+        }
+      );
+    });
   }
 
   getEmailLogged(uid: string) {
@@ -32,9 +41,28 @@ export class FireService {
     );
   }
 
+  createUserPreviousRegistering(payload: any) {
+    return this._http.post(
+      `create_user_pr`,
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
+    );
+  }
+
   needRegistration(idToken: string): Observable<any> {
     return this._http.get(
       `needs_register/${idToken}`
+    );
+  }
+
+  getUser(uid: string) {
+    return this._http.get(
+      `get_user/${uid}`
     );
   }
 }

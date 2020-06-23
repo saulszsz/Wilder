@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-content>
-        <form *ngIf="uid else nouid" (submit)="envioPrevioRegistro()">
+        <form *ngIf="uid else nouid">
             <h2>Es necesario que se registre.</h2>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Correo Eletrónico</mat-label>
@@ -36,7 +36,7 @@
                 <input name="telefono" #telefono="ngModel" [(ngModel)]="phone" matInput type="tel"
                     placeholder="Introduce tu teléfono" required>
             </mat-form-field>
-            <button type="submit" mat-raised-button color="primary">Terminar Registro</button>
+            <button type="submit" (click)="envioPrevioRegistro($event)" mat-raised-button color="primary">Terminar Registro</button>
         </form>
         <ng-template #nouid>
             <form (submit)="envio()">

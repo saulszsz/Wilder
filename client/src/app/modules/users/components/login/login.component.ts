@@ -1,5 +1,7 @@
 import { FireService } from './../../../../services/fire.service';
 import { Component, OnInit } from '@angular/core';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,8 @@ export class LoginComponent implements OnInit {
   registro = false;
 
   constructor(
-    private _fs: FireService
+    private _fs: FireService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,15 +30,8 @@ export class LoginComponent implements OnInit {
     if (method == 'google') {
       let that = this;
       this._fs.loginGoogle().then(({ user }) => {
-        that.uid = user.uid;
-        this._fs.needRegistration(user.uid).subscribe(
-          (r: any) => {
-            that.registro = r;
-          },
-          (e: any) => { }
-        );
-        return user.getIdToken().then((idToken) => {
-          return fetch("/sessionLogin", {
+        user.getIdToken().then((idToken) => {
+          fetch("/sessionLogin", {
             method: "POST",
             headers: {
               Accept: "application/json",
@@ -43,7 +39,23 @@ export class LoginComponent implements OnInit {
               'XSRF-TOKEN': this._fs._cs.get('XSRF-TOKEN')
             },
             body: JSON.stringify({ idToken }),
-          });
+          }).then(
+            (success) => {
+              that.uid = user.uid;
+              this._fs.needRegistration(user.uid).subscribe(
+                (r: any) => {
+                  that.registro = r;
+                  if(!that.registro) {
+                    this._router.navigate(['/']);
+                  }
+                },
+                (e: any) => { }
+              );
+            },
+            (error) => {
+              console.log("Contacta al adminsitrador");
+            }
+          );
         });
       });
     } else if (method == 'facebook') {
