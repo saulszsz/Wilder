@@ -8,9 +8,9 @@
     <div matripple="" class="mat-ripple mat-button-ripple"></div>
     <div class="mat-button-focus-overlay"></div>
   </a>
-  <!-- <button mat-button [routerLink]="['/']">Inicio</button>
-  <button mat-button [routerLink]="['/']">Usuarios</button> -->
-  <button mat-button [routerLink]="['/inventario']">Inventario</button>
+  <!-- <button mat-button [routerLink]="['/']">Inicio</button> -->
+  <button *ngIf="user | async" mat-button [routerLink]="['/']">Usuarios</button>
+  <button *ngIf="user | async" mat-button [routerLink]="['/inventario']">Inventario</button>
   <button mat-button [routerLink]="['/about']">Acerca De</button>
   <button mat-button [routerLink]="['/asked']">Preguntas Frecuentes</button>
   <button mat-button [routerLink]="['/contact']">Contacto</button>

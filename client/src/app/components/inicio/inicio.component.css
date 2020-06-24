@@ -1,7 +1,25 @@
 /*mat-grid-tile {
     background: lightblue;
-  }
-*/
+  }*/
+
 a:link, a:visited, a:active {
     text-decoration:none;
+}
+
+.metal {
+  background-color: #ffdd90;
+  /*background-image: url("../../../assets/background_metal.jpg");*/
+}
+
+.imgl {
+  height: 550px;
+}
+
+.imgs {
+  height: 150px;
+  padding-left: 30px;
+}
+
+button {
+  background-color: blue;
 }
