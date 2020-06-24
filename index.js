@@ -6,16 +6,17 @@ const admin = require("firebase-admin");
 var firebase = require("firebase");
 const path = require('path');
 
-const serviceAccount = require('./serviceAccountKey.json');
-const firebaseConfig = {
-    apiKey: "AIzaSyDPjgrScq2uCDySCQA-59J_K3a1-KM0LDc",
-    authDomain: "wilderinv.firebaseapp.com",
-    databaseURL: "https://wilderinv.firebaseio.com",
-    projectId: "wilderinv",
-    storageBucket: "wilderinv.appspot.com",
-    messagingSenderId: "984347129922",
-    appId: "1:984347129922:web:1e428b5f2a1fe8896755db",
-    measurementId: "G-8GSHPQB7EE"
+const serviceAccount = {
+    type:  process.env.FB_TYPE,
+    project_id: process.env.FB_PROJECT_ID,
+    private_key_id: process.env.PRIVATE_KEY_ID,
+    private_key: process.env.PRIVATE_KEY,
+    client_email: process.env.CLIENT_EMAIL,
+    client_id: process.env.CLIENT_ID,
+    auth_uri: process.env.AUTH_URI,
+    token_uri: process.env.TOKEN_URI,
+    auth_provider_x509_cert_url: process.env.AUTH_PROVIDER,
+    client_x509_cert_url: process.env.CLIENT_X
 }
 
 admin.initializeApp({
@@ -23,7 +24,6 @@ admin.initializeApp({
     databaseURL: "https://wilderinv.firebaseio.com",
 });
 
-firebase.initializeApp(firebaseConfig);
 
 const database = admin.database();
 
