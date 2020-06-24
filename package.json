@@ -4,7 +4,7 @@
   "description": "Salvajemente organizados, app web para generar invenarios",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "npm run-script build --prefix client && nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
