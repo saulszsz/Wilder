@@ -173,6 +173,6 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve('client/dist/Wilder/index.html'));
 });
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });
