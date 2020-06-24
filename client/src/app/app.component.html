@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">
-  <a _ngcontent-tei-c51="" mat-button="" routerlink="/" aria-label="Wilder" class="mat-focus-indicator docs-button mat-button mat-button-base" tabindex="0" aria-disabled="false" href="/">
+  <a _ngcontent-tei-c51="" mat-button="" [routerLink]="['/']" aria-label="Wilder"
+    class="mat-focus-indicator docs-button mat-button mat-button-base" tabindex="0" aria-disabled="false" href="/">
     <span class="mat-button-wrapper">
       <img _ngcontent-tei-c51="" src="favicon.ico" alt="Wilder" class="logo">
       <span _ngcontent-tei-c51="">Wilder</span>
@@ -7,14 +8,19 @@
     <div matripple="" class="mat-ripple mat-button-ripple"></div>
     <div class="mat-button-focus-overlay"></div>
   </a>
-  <button mat-button [routerLink]="['/']">Inicio</button>
-  <button mat-button [routerLink]="['/']">Usuarios</button>
+  <!-- <button mat-button [routerLink]="['/']">Inicio</button>
+  <button mat-button [routerLink]="['/']">Usuarios</button> -->
   <button mat-button [routerLink]="['/inventario']">Inventario</button>
   <button mat-button [routerLink]="['/about']">Acerca De</button>
   <button mat-button [routerLink]="['/asked']">Preguntas Frecuentes</button>
   <button mat-button [routerLink]="['/contact']">Contacto</button>
   <button mat-button [routerLink]="['/ayuda']">Ayuda</button>
-  <a class="log-in" [routerLink]="['/']" style="margin-right: 0px;"><i class="fas fa-sign-in-alt"></i></a>
- 
+  <a *ngIf="user | async else login" class="log-in" [routerLink]="['/users/logout']" style="margin-right: 0px;"><i
+      class="fas fa-sign-out-alt"></i></a>
+  <ng-template #login>
+    <a class="log-in" [routerLink]="['/users/login']" style="margin-right: 0px;"><i class="fas fa-sign-in-alt"></i></a>
+  </ng-template>
+
 </mat-toolbar>
+<h3 *ngIf="user | async as user">Hola {{ user.nombre }}</h3>
 <router-outlet></router-outlet>

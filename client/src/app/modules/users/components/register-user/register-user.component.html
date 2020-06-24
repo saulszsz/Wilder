@@ -1,0 +1,100 @@
+<mat-card>
+    <mat-card-content>
+        <form *ngIf="uid else nouid">
+            <h2>Es necesario que se registre.</h2>
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Correo Eletrónico</mat-label>
+                <input name="email" #email="ngModel" [(ngModel)]="mail" matInput type="email"
+                    placeholder="Ej. email@dominio.com" required disabled>
+                <mat-error *ngIf="email.touched && !email.valid">
+                    <!-- verificar -->
+                    Por favor introduce un correo válido.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Nombre de la empresa para la que trabaja.</mat-label>
+                <input name="empresa" #empresa="ngModel" [(ngModel)]="workplace" matInput type="text"
+                    placeholder="Introduce el nombre de la empresa para la que trabajas." required>
+            </mat-form-field>
+            <mat-form-field class="full-width-input" appearance="outline" required>
+                <mat-label>Nombre (s)</mat-label>
+                <input name="nombre" #nombre="ngModel" [(ngModel)]="name" matInput type="text"
+                    placeholder="Introduce tu (s) nombre (s)" required>
+            </mat-form-field>
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Apellido (s)</mat-label>
+                <input name="apellido" #apellido="ngModel" [(ngModel)]="lastname" matInput type="text"
+                    placeholder="Introduce tu (s) apellido (s)" required>
+            </mat-form-field>
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input name="nacimiento" #nacimiento="ngModel" [(ngModel)]="birthday" matInput type="date"
+                    placeholder="Introduce tu fecha de nacimiento" required>
+            </mat-form-field>
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input name="telefono" #telefono="ngModel" [(ngModel)]="phone" matInput type="tel"
+                    placeholder="Introduce tu teléfono" required>
+            </mat-form-field>
+            <button type="submit" (click)="envioPrevioRegistro($event)" mat-raised-button color="primary">Terminar Registro</button>
+        </form>
+        <ng-template #nouid>
+            <form (submit)="envio()">
+                <h2>Regístrese en Wilder</h2>
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Correo Eletrónico</mat-label>
+                    <input name="email" #email="ngModel" [(ngModel)]="mail" matInput type="email"
+                        placeholder="Ej. email@dominio.com" required>
+                    <mat-error *ngIf="email.touched && !email.valid">
+                        <!-- verificar -->
+                        Por favor introduce un correo válido.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input name="pass1" #pass1="ngModel" [(ngModel)]="pwd1" matInput type="password"
+                        placeholder="Introduzca una contraseña" required>
+                    <mat-error *ngIf="pass1.touched && !pass1.valid">
+                        <!-- verificar -->
+                        Por favor introduce una contraseña válida.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Confirme Contraseña</mat-label>
+                    <input name="pass2" #pass2="ngModel" [(ngModel)]="pwd2" matInput type="email"
+                        placeholder="Confirme su contraseña" required>
+                    <mat-error *ngIf="pass2.touched && !pass2.valid">
+                        <!-- verificar -->
+                        Las contraseñas no coinciden
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Nombre de la empresa para la que trabaja.</mat-label>
+                    <input name="empresa" #empresa="ngModel" [(ngModel)]="workplace" matInput type="text"
+                        placeholder="Introduce el nombre de la empresa para la que trabajas." required>
+                </mat-form-field>
+                <mat-form-field class="full-width-input" appearance="outline" required>
+                    <mat-label>Nombre (s)</mat-label>
+                    <input name="nombre" #nombre="ngModel" [(ngModel)]="name" matInput type="text"
+                        placeholder="Introduce tu (s) nombre (s)" required>
+                </mat-form-field>
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Apellido (s)</mat-label>
+                    <input name="apellido" #apellido="ngModel" [(ngModel)]="lastname" matInput type="text"
+                        placeholder="Introduce tu (s) apellido (s)" required>
+                </mat-form-field>
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Fecha de Nacimiento</mat-label>
+                    <input name="nacimiento" #nacimiento="ngModel" [(ngModel)]="birthday" matInput type="date"
+                        placeholder="Introduce tu fecha de nacimiento" required>
+                </mat-form-field>
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Teléfono</mat-label>
+                    <input name="telefono" #telefono="ngModel" [(ngModel)]="phone" matInput type="tel"
+                        placeholder="Introduce tu teléfono" required>
+                </mat-form-field>
+                <button type="submit" mat-raised-button color="primary">Terminar Registro</button>
+            </form>
+        </ng-template>
+    </mat-card-content>
+</mat-card>

@@ -1,3 +1,4 @@
+import { UsersModule } from './modules/users/users.module';
 import { ContactComponent } from './components/contact/contact.component';
 import { AskedComponent } from './components/asked/asked.component';
 import { AboutComponent } from './components/about/about.component';
@@ -12,16 +13,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  {path: '', component: InicioComponent},
-  {path: 'pendientes', component: CalendarComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'asked', component: AskedComponent},
-  {path: 'contact', component: ContactComponent},
-  {path: 'inventario', component: ActivoslistaComponent},
-  {path: 'activo', component: ActivoscrudComponent},
-  {path: 'ayuda',component: HelpComponent},
-  {path: 'archivos', component: MyfilesComponent},
-  {path: '**', component: InicioComponent}
+  { path: '', component: InicioComponent },
+  {
+    path: 'users',
+    loadChildren: () => UsersModule,
+  },
+  { path: 'pendientes', component: CalendarComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'asked', component: AskedComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'inventario', component: ActivoslistaComponent },
+  { path: 'activo', component: ActivoscrudComponent },
+  { path: 'ayuda', component: HelpComponent },
+  { path: 'archivos', component: MyfilesComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({
