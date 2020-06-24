@@ -20,6 +20,7 @@ a:link, a:visited, a:active {
   padding-left: 30px;
 }
 
-button {
-  background-color: blue;
+h1 {
+  font-size: 28px;
+  color: #008bee;
 }
