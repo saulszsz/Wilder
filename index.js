@@ -7,7 +7,7 @@ var firebase = require("firebase");
 const path = require('path');
 
 const serviceAccount = {
-    type:  process.env.FB_TYPE,
+    type: process.env.FB_TYPE,
     project_id: process.env.FB_PROJECT_ID,
     private_key_id: process.env.PRIVATE_KEY_ID,
     private_key: process.env.PRIVATE_KEY,
