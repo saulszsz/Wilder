@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'asked', component: AskedComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'inventario', component: ActivoslistaComponent },
-  { path: 'activo', component: ActivoscrudComponent },
+  { path: 'activo/:id', component: ActivoscrudComponent },
   { path: 'ayuda', component: HelpComponent },
   { path: 'archivos', component: MyfilesComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
