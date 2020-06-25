@@ -1,5 +1,5 @@
 <br>
-<mat-grid-list  [cols]="colSize" rowHeight="2:2">
+<mat-grid-list *ngIf="user | async else demo" [cols]="colSize" rowHeight="2:2">
     <mat-grid-tile colspan="2">
         <a href="#">
             <mat-card>
