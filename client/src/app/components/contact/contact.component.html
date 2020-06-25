@@ -1,6 +1,6 @@
 <div style="padding: 20px; text-align: center;">
     <h2>Contáctanos:</h2>
-    <form class="example-form">
+    <form class="example-form" action="mailto:cargadores_58@hotmail.com" method="post" enctype="text/plain">
         <mat-form-field class="example-full-width">
             <mat-label>Nombre</mat-label>
             <input matInput placeholder="Tu nombre completo con apellidos">
@@ -11,7 +11,10 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Correo electrónico</mat-label>
-            <input matInput placeholder="Introduce tu email">
+            <input matInput placeholder="Introduce tu email" name="email" #email="ngModel" [(ngModel)]="mail" matInput type="email" required>
+            <mat-error *ngIf="email.touched && !email.valid">
+                Por favor introduce un correo válido.
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Comentarios adicionales</mat-label>
@@ -20,3 +23,5 @@
         <button mat-raised-button color="primary">Enviar</button>
     </form>
 </div>
+
+<!--https://formspree.io/xoqklbra-->

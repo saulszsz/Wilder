@@ -1,13 +1,13 @@
-<mat-grid-list cols="6" rowHeight="2:2">
-    <mat-grid-tile></mat-grid-tile>
+<br>
+<mat-grid-list *ngIf="user | async else demo" [cols]="colSize" rowHeight="2:2">
     <mat-grid-tile colspan="2">
         <a href="#">
             <mat-card>
                 <mat-card-title align="center">Mi Usuario</mat-card-title>
                 <mat-card-content>
                     <br>
-                        <img mat-card-lg-image src="../../../assets/img_inicio/usuario.svg">
-                        <br>
+                    <img mat-card-lg-image src="../../../assets/img_inicio/usuario.svg">
+                    <br>
                 </mat-card-content>
             </mat-card>
         </a>
@@ -23,14 +23,13 @@
             </mat-card>
         </a>
     </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
     <mat-grid-tile colspan="2">
         <a href="#">
             <mat-card>
                 <mat-card-title align="center">Mis Archivos</mat-card-title>
                 <mat-card-content>
-                    <a [routerLink]="['/archivos']"><img mat-card-lg-image src="../../../assets/img_inicio/papel.svg"   layoutAlign="center"></a>
+                    <a [routerLink]="['/archivos']"><img mat-card-lg-image src="../../../assets/img_inicio/papel.svg"
+                            layoutAlign="center"></a>
                 </mat-card-content>
             </mat-card>
         </a>
@@ -40,14 +39,12 @@
             <mat-card>
                 <mat-card-title align="center">Escanear QR</mat-card-title>
                 <mat-card-content>
-                    <img mat-card-lg-image src="../../../assets/img_inicio/codigo-qr.svg"  layoutAlign="center">
+                    <img mat-card-lg-image src="../../../assets/img_inicio/codigo-qr.svg" layoutAlign="center">
                 </mat-card-content>
             </mat-card>
         </a>
     </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile colspan="4" rowspan="3">
+    <mat-grid-tile colspan="2" rowspan="3">
         <mat-card>
             <mat-card-title align="center">Agenda</mat-card-title>
             <mat-card-content>
@@ -55,5 +52,24 @@
             </mat-card-content>
         </mat-card>
     </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
 </mat-grid-list>
+<ng-template #demo>
+    <mat-grid-list class="metal" cols="1" rowHeight="200px">
+        <mat-grid-tile>
+            <img class="imgl" mat-card-image src="../../../assets/tablet_black.jpg" alt="Photo of tablet">
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <h1>Wilder es el futuro en dispositivos moviles.</h1>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <img class="imgl" mat-card-image src="../../../assets/laptop_workspace.jpg" alt="Photo of tablet">
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <h1>Usa nuestros super QR 7u7r</h1>
+            <img class="imgs" mat-card-image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACECAYAAABRRIOnAAAAAklEQVR4AewaftIAAAN8SURBVO3BQa5bRwADweZA979yx4ssuBrgQdK3nbAq/sLMvw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlxZuS8JNUbpJwo9KScKPSknCj0pLwk1TecZgph5lymCkvPkzlk5Jwk4Sm8oTKEyotCU+ofFISPukwUw4z5TBTXnxZEp5QeUcSmspNEprKT0rCEyrfdJgph5lymCkv/mNUWhLekYT/k8NMOcyUw0x58ZdT+UkqLQn/JYeZcpgph5ny4stUflISblRaEt6h8g6VP8lhphxmymGmvPiwJPykJDSVloRvSkJTuUnCn+wwUw4z5TBTXrxJ5U+ShCdUnkjCEyp/k8NMOcyUw0x58aYkNJVPSkJTuVF5Igk3Ki0JN0m4UblJwhMqn3SYKYeZcpgpLz4sCU3liSQ0lZaEmyT8JJUnkvAnO8yUw0w5zJQXX5aEJ1RaEm5UbpLQVFoS3pGEptKS0FRaEppKS8JNEprKOw4z5TBTDjMl/sIHJeFGpSXhRqUl4QmVJ5Jwo3KThHeo3CShqXzSYaYcZsphprz4zVRaEloSmkpLQlNpSWgqLQlNpSXhJgnvUGlJaCpNpSWhqbzjMFMOM+UwU168KQlN5SYJT6h8k8oTSbhRuUnCE0m4Ufmkw0w5zJTDTHnxZUloKi0JTaUloak8odKScKPyhEpLQlP5piQ0lXccZsphphxmyosvU7lRaUloKi0JTeUdKk+ovEPlk1Q+6TBTDjPlMFNe/GZJaCotCTdJaCqfpNKS8EQSnlBpSbhJQlN5x2GmHGbKYabEX/iLJeFG5SYJNyotCTcqTyShqdwkoal80mGmHGbKYabEX3hDEn6Syk0SnlB5RxKaSktCU2lJeEKlJaGpvOMwUw4z5TBTXnyYyicl4R0qN0m4UWlJeELlHSotCd90mCmHmXKYKS++LAlPqPxOKi0JTyThk5LQVFoSPukwUw4z5TBTXvzPqbxDpSXhRuWJJLQkfNNhphxmymGmvPiPUWlJeEKlqbQk3KjcJKGp3KjcJOGTDjPlMFMOM+XFl6n8pCQ8oXKThKbSktBUWhJuknCj8pMOM+UwUw4z5cWHJeEnJeEJlZskfJNKS8Kf5DBTDjPlMFPiL8z86zBTDjPlMFMOM+UwUw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlMFP+AcKydyW6yXIRAAAAAElFTkSuQmCC" alt="Photo of a Shiba Inu">
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button [routerLink]="['/users/login']" color="primary" style="margin-bottom: 10px;">Comienza!!!</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</ng-template>

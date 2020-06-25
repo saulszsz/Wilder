@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'fonts.css';
 
 html, body { height: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
@@ -100,6 +102,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
     padding: 10px;
     font-size: 35px;
     transition: .3s ease all;
+    color: #ebfffb;
 }
 
 .black-icon {

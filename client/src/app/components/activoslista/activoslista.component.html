@@ -7,8 +7,7 @@
 </head>
 <body>
   <mat-grid-list cols="3" rowHeight="60px">
-    <mat-grid-tile colspan="1">
-    </mat-grid-tile>
+    <mat-grid-tile colspan="1"></mat-grid-tile>
     <mat-grid-tile colspan="1">
       <form class="example-form">
           <mat-form-field class="example-full-width">
@@ -27,7 +26,9 @@
       </form>
     </mat-grid-tile>
     <mat-grid-tile colspan="1">
-      <button class="button" mat-button [routerLink]="['/activo']">Registrar activo</button>
+      <div *ngIf="user | async as user">
+        <button *ngIf="user.tipo === 'admin'" class="button" mat-raised-button [routerLink]="['/activo']" color="primary" >Registrar activo</button>
+      </div>
     </mat-grid-tile>
   </mat-grid-list>
     <!--Tarjeta-->

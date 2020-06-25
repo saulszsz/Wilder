@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FireService } from '../../services/fire.service';
 
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
-import {MatDialog} from '@angular/material/dialog';
-import { MatCardModule } from '@angular/material/card';
+import { FormControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-activoslista',
@@ -16,15 +14,26 @@ export class ActivoslistaComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
+  uid = this._fs._afAuth.authState.pipe(
+    map(authState => {
+      if (!authState) {
+        return '';
+      } else {
+        return authState.uid;
+      }
+    })
+  );
+  user = this.uid.pipe(
+    switchMap(uid => {
+      if (!uid) {
+        return of(false);
+      } else {
+        return this._fs.getUser(uid);
+      }
+    }),
+  );
 
-  //constructor() { }
-  /*constructor(private _bottomSheet: MatBottomSheet) {}
-
-  openBottomSheet(): void {
-    this._bottomSheet.open(Overview);
-  }*/
-
-  //ngOnInit(): void {  }
+  constructor(private _fs: FireService) { }
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -38,30 +47,4 @@ export class ActivoslistaComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
-/*
-  
-  constructor(public dialog: MatDialog) {}
-
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogContentExampleDialog);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }*/
 }
-/*
-@Component({
-  selector: 'app-activoscrud',
-  templateUrl: '../activoscrud/activoscrud.component.html',
-  styleUrls: ['../activoscrud/activoscrud.component.css']
-})
-export class DialogContentExampleDialog {}/*
-export class Overview {
-  constructor(private _bottomSheetRef: MatBottomSheetRef<Overview>) {}
-
-  openLink(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
-}*/
