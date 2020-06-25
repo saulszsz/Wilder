@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FireService } from '../../services/fire.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-inicio',
@@ -9,6 +10,10 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
+
+  public colSize = 4;
+  public isMobile: boolean = false;
+
   uid = this._fs._afAuth.authState.pipe(
     map(authState => {
       if (!authState) {
@@ -28,9 +33,25 @@ export class InicioComponent implements OnInit {
     }),
   );
 
-  constructor(private _fs: FireService) { }
+  constructor(private _fs: FireService, breakpointObserver: BreakpointObserver) {
+    breakpointObserver.observe([
+      Breakpoints.Handset
+    ]).subscribe(result => {
+      this.isMobile = result.matches;
+      if (this.isMobile) {
+        this.colSize = 2;
+      } else {
+        this.colSize = 4;
+      }
+    });
+  }
 
   ngOnInit(): void {
   }
+
+
+
+
+
 
 }
