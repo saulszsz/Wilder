@@ -27,7 +27,8 @@
     "express": "^4.17.1",
     "firebase": "^7.15.3",
     "firebase-admin": "^8.12.1",
-    "ngx-cookie-service": "^3.0.4"
+    "ngx-cookie-service": "^3.0.4",
+    "qrcode": "^1.4.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

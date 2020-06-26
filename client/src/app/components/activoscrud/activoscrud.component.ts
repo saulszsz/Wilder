@@ -59,6 +59,7 @@ export class ActivoscrudComponent implements OnInit {
   registrarActivo(evt) {
     evt.preventDefault();
     let payload = {
+      qr: "???",
       nombre: this.nombre,
       modelo: this.modelo,
       categoria: this.selectedValue,

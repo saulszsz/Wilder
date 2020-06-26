@@ -5,6 +5,7 @@ const express = require("express");
 const admin = require("firebase-admin");
 var firebase = require("firebase");
 const path = require('path');
+const qrcode = require('qrcode');
 
 var serviceAccountFile;
 
@@ -193,21 +194,30 @@ app.listen(PORT, '0.0.0.0', () => {
 });
 
 app.post('/create_activo', (req, res) => {
+    var QR = "";
     sessionStatus(req).then(
         (success) => {
-            var activoRegistrado = get_reference('inventario/').push(req.body).then(
-                (result) => {
-                    console.log("Activo creado.");
-                    console.log(JSON.stringify(result));
-                    res.json({ 'creado': true });
-                },
-                (error) => {
-                    console.log("Activo no creado.");
-                    console.log(JSON.stringify(error));
-                    res.json({ 'creado': false });
-                }
-            );
+            console.log("0000000000");
+            var activoRegistrado = get_reference('inventario/').push(req.body);
             var idActivo = activoRegistrado.key;
+            const crearQR = async() => {
+                QR = await qrcode.toDataURL("http://localhost:3000/activo/" + idActivo);
+                req.body.qr = String(QR);
+                console.log(req.body.qr);
+                get_reference('inventario/' + idActivo).set(req.body).then(
+                    (result) => {
+                        console.log("QR creado.");
+                        console.log(JSON.stringify(result));
+                        res.json({ 'creado': true });
+                    },
+                    (error) => {
+                        console.log("QR no creado.");
+                        console.log(JSON.stringify(error));
+                        res.json({ 'creado': false });
+                    }
+                );
+            }
+            crearQR();
         }
     ).catch((error) => {
         res.status(403).send("UNAUTHORIZED REQUEST! create_activo");
