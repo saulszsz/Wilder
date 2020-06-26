@@ -176,3 +176,26 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });
+
+app.post('/create_activo', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            var activoRegistrado = get_reference('inventario/').push(req.body).then(
+                (result) => {
+                    console.log("Activo creado.");
+                    console.log(JSON.stringify(result));
+                    res.json({ 'creado': true });
+                },
+                (error) => {
+                    console.log("Activo no creado.");
+                    console.log(JSON.stringify(error));
+                    res.json({ 'creado': false });
+                }
+            );
+            var idActivo = activoRegistrado.key;
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST! create_activo");
+    });
+
+});

@@ -4,11 +4,11 @@
     <mat-card-actions>
       <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
-        <input name="nombre" matInput placeholder="Monitor..." required>
+        <input name="nombre" [(ngModel)]="nombre" matInput placeholder="Monitor..." required>
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Modelo</mat-label>
-        <input name="modelo" matInput placeholder="XLR8">
+        <input name="modelo" [(ngModel)]="modelo" matInput placeholder="XLR8">
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Categoria</mat-label>
@@ -20,11 +20,11 @@
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Descripcion</mat-label>
-        <textarea name="descripcion" matInput placeholder="Ex. It makes me feel..."></textarea>
+        <textarea name="descripcion" [(ngModel)]="descripcion" matInput placeholder="Ex. It makes me feel..."></textarea>
       </mat-form-field>
     </mat-card-actions>
     <mat-card-actions *ngIf="idActivo === '0' else editar">
-      <button mat-button>REGISTRAR</button>
+      <button type="submit" (click)="registrarActivo($event)" mat-raised-button color="primary">REGISTRAR</button>
     </mat-card-actions>
     <ng-template #editar>
       <mat-card-actions>

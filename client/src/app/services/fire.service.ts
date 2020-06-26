@@ -65,4 +65,17 @@ export class FireService {
       `get_user/${uid}`
     );
   }
+
+  createActivo(payload: any) {
+    return this._http.post(
+      `create_activo`,
+      payload, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
+      }
+    );
+  }
 }
