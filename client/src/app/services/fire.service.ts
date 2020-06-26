@@ -1,5 +1,5 @@
 import { CookieService } from 'ngx-cookie-service';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
@@ -14,9 +14,9 @@ export class FireService {
 
   constructor(
     public _afAuth: AngularFireAuth,
-    private _fireDb: AngularFireDatabaseModule,
     private _http: HttpClient,
     public _cs: CookieService,
+    public _fireDb: AngularFireDatabase
   ) { }
 
   loginGoogle() {
@@ -54,6 +54,15 @@ export class FireService {
     );
   }
 
+  goTo(link: string) {
+    return this._http.post(
+      'redirect',
+      {
+        liga: link
+      }
+    )
+  }
+
   needRegistration(idToken: string): Observable<any> {
     return this._http.get(
       `needs_register/${idToken}`
@@ -64,5 +73,14 @@ export class FireService {
     return this._http.get(
       `get_user/${uid}`
     );
+  }
+
+  setCookieSession(idToken: string) {
+    return this._http.post(
+      'sessionLogin/',
+      {
+        idToken: idToken
+      }
+    )
   }
 }

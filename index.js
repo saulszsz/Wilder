@@ -6,24 +6,32 @@ const admin = require("firebase-admin");
 var firebase = require("firebase");
 const path = require('path');
 
-const serviceAccount = require('./serviceAccountKey.json');
-const firebaseConfig = {
-    apiKey: "AIzaSyDPjgrScq2uCDySCQA-59J_K3a1-KM0LDc",
-    authDomain: "wilderinv.firebaseapp.com",
-    databaseURL: "https://wilderinv.firebaseio.com",
-    projectId: "wilderinv",
-    storageBucket: "wilderinv.appspot.com",
-    messagingSenderId: "984347129922",
-    appId: "1:984347129922:web:1e428b5f2a1fe8896755db",
-    measurementId: "G-8GSHPQB7EE"
+var serviceAccountFile;
+
+try {
+    serviceAccountFile = require('./serviceAccountKey.json');   
+} catch(err) {
+    serviceAccountFile = null; 
+}
+
+const serviceAccount = {
+    type: process.env.FB_TYPE,
+    project_id: process.env.FB_PROJECT_ID,
+    private_key_id: process.env.PRIVATE_KEY_ID,
+    private_key: process.env.PRIVATE_KEY,
+    client_email: process.env.CLIENT_EMAIL,
+    client_id: process.env.CLIENT_ID,
+    auth_uri: process.env.AUTH_URI,
+    token_uri: process.env.TOKEN_URI,
+    auth_provider_x509_cert_url: process.env.AUTH_PROVIDER,
+    client_x509_cert_url: process.env.CLIENT_X
 }
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert(serviceAccountFile || serviceAccount),
     databaseURL: "https://wilderinv.firebaseio.com",
 });
 
-firebase.initializeApp(firebaseConfig);
 
 const database = admin.database();
 
@@ -32,12 +40,13 @@ const csrfMiddleware = csrf({ cookie: true });
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+app.use(cookieParser());
+
 app.engine("html", require("ejs").renderFile);
 app.use(express.static("static"));
 app.use(express.static("client/dist/Wilder"));
 
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(csrfMiddleware);
 
 app.all("*", (req, res, next) => {
@@ -156,15 +165,16 @@ app.post('/create_user_pr', (req, res) => {
 });
 
 app.get('/get_user/:uid', (req, res) => {
-    var params = req.params;
     sessionStatus(req).then(
         (success) => {
-            get_reference('users/' + params.uid).on("value", function (snapshot) {
+            var params = req.params;
+            var reference = get_reference('users/' + params.uid)
+            
+            reference.once("value", function (snapshot) {
                 return res.json(snapshot.val());
             });
         }
     ).catch((error) => {
-        console.log(error);
         res.status(403).send("UNAUTHORIZED REQUEST!");
     });
 });
@@ -173,6 +183,11 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve('client/dist/Wilder/index.html'));
 });
 
-app.listen(PORT, () => {
+app.post('redirect', (req, res) => {
+    res.redirect(req.get('host') + req.body.liga);
+    res.end();
+});
+
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });

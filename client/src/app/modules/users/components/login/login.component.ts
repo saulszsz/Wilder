@@ -1,6 +1,5 @@
 import { FireService } from './../../../../services/fire.service';
 import { Component, OnInit } from '@angular/core';
-import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,33 +29,24 @@ export class LoginComponent implements OnInit {
     if (method == 'google') {
       let that = this;
       this._fs.loginGoogle().then(({ user }) => {
-        user.getIdToken().then((idToken) => {
-          fetch("/sessionLogin", {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              'XSRF-TOKEN': this._fs._cs.get('XSRF-TOKEN')
-            },
-            body: JSON.stringify({ idToken }),
-          }).then(
-            (success) => {
-              that.uid = user.uid;
-              this._fs.needRegistration(user.uid).subscribe(
-                (r: any) => {
-                  that.registro = r;
-                  if(!that.registro) {
-                    this._router.navigate(['/']);
-                  }
-                },
-                (e: any) => { }
-              );
-            },
-            (error) => {
-              console.log("Contacta al adminsitrador");
-            }
-          );
-        });
+        user.getIdToken().then(
+          (idToken) => {
+            this._fs.setCookieSession(idToken).subscribe(
+              (response) => {
+                that.uid = user.uid;
+                this._fs.needRegistration(user.uid).subscribe(
+                  (r: any) => {
+                    that.registro = r;
+                    if (!that.registro) {
+                      this._router.navigate(['/']);
+                    }
+                  },
+                  (e: any) => { }
+                );
+              },
+              () => {}
+            );
+          });
       });
     } else if (method == 'facebook') {
 

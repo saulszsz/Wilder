@@ -23,12 +23,12 @@ export class ActivoslistaComponent implements OnInit {
       }
     })
   );
-  user = this.uid.pipe(
+  user: any = this.uid.pipe(
     switchMap(uid => {
       if (!uid) {
         return of(false);
       } else {
-        return this._fs.getUser(uid);
+        return this._fs._fireDb.object('users/' + uid).valueChanges();
       }
     }),
   );
