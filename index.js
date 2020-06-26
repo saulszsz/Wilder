@@ -6,6 +6,14 @@ const admin = require("firebase-admin");
 var firebase = require("firebase");
 const path = require('path');
 
+var serviceAccountFile;
+
+try {
+    serviceAccountFile = require('./serviceAccountKey.json');   
+} catch(err) {
+    serviceAccountFile = null; 
+}
+
 const serviceAccount = {
     type: process.env.FB_TYPE,
     project_id: process.env.FB_PROJECT_ID,
@@ -20,7 +28,7 @@ const serviceAccount = {
 }
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert(serviceAccountFile || serviceAccount),
     databaseURL: "https://wilderinv.firebaseio.com",
 });
 
