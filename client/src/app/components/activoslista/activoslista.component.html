@@ -27,7 +27,7 @@
     </mat-grid-tile>
     <mat-grid-tile colspan="1">
       <div *ngIf="user | async as user">
-        <button *ngIf="user.tipo === 'admin'" class="button" mat-raised-button [routerLink]="['/activo']" color="primary" >Registrar activo</button>
+        <button *ngIf="user.tipo === 'admin'" class="button" mat-raised-button [routerLink]="['/activo/0']" color="primary" >Registrar activo</button>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
