@@ -32,12 +32,13 @@ const csrfMiddleware = csrf({ cookie: true });
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+app.use(cookieParser());
+
 app.engine("html", require("ejs").renderFile);
 app.use(express.static("static"));
 app.use(express.static("client/dist/Wilder"));
 
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(csrfMiddleware);
 
 app.all("*", (req, res, next) => {
@@ -156,21 +157,27 @@ app.post('/create_user_pr', (req, res) => {
 });
 
 app.get('/get_user/:uid', (req, res) => {
-    var params = req.params;
     sessionStatus(req).then(
         (success) => {
-            get_reference('users/' + params.uid).on("value", function (snapshot) {
+            var params = req.params;
+            var reference = get_reference('users/' + params.uid)
+            
+            reference.once("value", function (snapshot) {
                 return res.json(snapshot.val());
             });
         }
     ).catch((error) => {
-        console.log(error);
         res.status(403).send("UNAUTHORIZED REQUEST!");
     });
 });
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve('client/dist/Wilder/index.html'));
+});
+
+app.post('redirect', (req, res) => {
+    res.redirect(req.get('host') + req.body.liga);
+    res.end();
 });
 
 app.listen(PORT, '0.0.0.0', () => {
