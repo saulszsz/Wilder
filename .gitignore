@@ -10,10 +10,12 @@
 
 # dependencies
 /client/node_modules
+/client/package-lock.json
 /node_modules
 
 # profiling files
 chrome-profiler-events*.json
+serviceAccountKey.json
 speed-measure-plugin*.json
 
 # IDEs and editors
