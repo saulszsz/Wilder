@@ -41,10 +41,14 @@ export class LoginComponent implements OnInit {
                       this._router.navigate(['/']);
                     }
                   },
-                  (e: any) => { }
+                  (e: any) => {
+                    alert("Error en componente de login.");
+                  }
                 );
               },
-              () => {}
+              (error) => {
+                alert("Has tenido un errror.");
+              }
             );
           });
       });

@@ -23,6 +23,10 @@ export class FireService {
     return this._afAuth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
+  signIn(email: string, password: string) {
+    return this._afAuth.createUserWithEmailAndPassword(email, password);
+  }
+
   cerrarSesion() {
     var that = this;
     return this._afAuth.signOut().then(function () {
@@ -83,6 +87,7 @@ export class FireService {
       }
     )
   }
+
   createActivo(payload: any) {
     return this._http.post(
       `create_activo`,

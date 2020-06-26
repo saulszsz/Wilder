@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MaterialModule } from './modules/material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -37,7 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     ContactComponent,
     ActivosprewComponent,
     HelpComponent,
-    MyfilesComponent
+    MyfilesComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +48,9 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     CookieService
