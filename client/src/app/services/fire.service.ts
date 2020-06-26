@@ -23,6 +23,10 @@ export class FireService {
     return this._afAuth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
+  signIn(email: string, password: string) {
+    return this._afAuth.createUserWithEmailAndPassword(email, password);
+  }
+
   cerrarSesion() {
     var that = this;
     return this._afAuth.signOut().then(function () {
@@ -65,4 +69,29 @@ export class FireService {
       `get_user/${uid}`
     );
   }
+<<<<<<< Updated upstream
+=======
+
+  setCookieSession(idToken: string) {
+    return this._http.post(
+      'sessionLogin/',
+      {
+        idToken: idToken
+      }
+    )
+  }
+
+  createActivo(payload: any) {
+    return this._http.post(
+      `create_activo`,
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
+    );
+  }
+>>>>>>> Stashed changes
 }

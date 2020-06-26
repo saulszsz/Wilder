@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     if (method == 'google') {
       let that = this;
       this._fs.loginGoogle().then(({ user }) => {
+<<<<<<< Updated upstream
         user.getIdToken().then((idToken) => {
           fetch("/sessionLogin", {
             method: "POST",
@@ -57,6 +58,30 @@ export class LoginComponent implements OnInit {
             }
           );
         });
+=======
+        user.getIdToken().then(
+          (idToken) => {
+            this._fs.setCookieSession(idToken).subscribe(
+              (response) => {
+                that.uid = user.uid;
+                this._fs.needRegistration(user.uid).subscribe(
+                  (r: any) => {
+                    that.registro = r;
+                    if (!that.registro) {
+                      this._router.navigate(['/']);
+                    }
+                  },
+                  (e: any) => {
+                    alert("Error en componente de login.");
+                  }
+                );
+              },
+              (error) => {
+                alert("Has tenido un errror.");
+              }
+            );
+          });
+>>>>>>> Stashed changes
       });
     } else if (method == 'facebook') {
 
