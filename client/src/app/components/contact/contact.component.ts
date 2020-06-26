@@ -1,3 +1,4 @@
+import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactComponent implements OnInit {
   mail:String;
-  constructor() { }
+  constructor(
+    private _api: ApiService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  subirForma() {
+    this._api.sendMail({
+      
+    }).subscribe(
+      (success) => {},
+      (error) => {}
+    );
+  }
 }
