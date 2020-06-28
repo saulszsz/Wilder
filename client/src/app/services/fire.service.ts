@@ -87,17 +87,21 @@ export class FireService {
       }
     )
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 0c05411a2e1effa0961c640a6e08078776b027b9
   createActivo(payload: any) {
     return this._http.post(
       `create_activo`,
       payload, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
       }
-    }
     );
   }
 }
