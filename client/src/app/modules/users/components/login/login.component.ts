@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   mail: String;
   password: string;
   uid: string;
+  method: string;
   registro = false;
 
   constructor(
@@ -56,6 +57,10 @@ export class LoginComponent implements OnInit {
 
     } else if (method == 'password') {
 
+    } else if (method == 'phone') {
+      this.registro = true;
+      this.uid = null;
+      this.method = 'phone';
     }
   }
 

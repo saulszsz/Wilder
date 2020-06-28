@@ -33,6 +33,7 @@
         </mat-card-header>
         <mat-card-content>
             <i class="red-social black-icon fab fa-google" (click)="login('google')"></i>
+            <i class="red-social black-icon fab fa-discourse" (click)="login('phone')"></i>
             <!-- <a class="red-social black-icon" href="https://www.facebook.com"><i class="fab fa-facebook-square"></i></a>
         <a class="red-social black-icon" href="https://linkedin.com"><i class="fab fa-linkedin-in"></i></a>
         <a class="red-social black-icon" href="https://web.whatsapp.com/"><i class="fab fa-whatsapp"></i></a>
@@ -40,4 +41,5 @@
         </mat-card-content>
     </mat-card>
 </div>
-<app-register-user *ngIf="registro" uid="{{ uid }}">Cargando Registro.</app-register-user>
+<app-register-user *ngIf="registro" props="{{ { uid: this.uid, method: this.method } }}">Cargando Registro.
+</app-register-user>

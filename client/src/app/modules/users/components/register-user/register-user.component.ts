@@ -1,3 +1,4 @@
+import { WindowService } from './../../../../services/window.service';
 import { MyErrorStateMatcher } from './../../../../models/error-state-matcher/error-state-matcher.module';
 import { FireService } from './../../../../services/fire.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -14,6 +15,9 @@ export class RegisterUserComponent implements OnInit {
   formulario = new FormGroup({});
   matcher = new MyErrorStateMatcher();
 
+  windowRef: any;
+  vcode: string;
+
   workplace: string;
   name: string;
   lastname: string;
@@ -23,16 +27,17 @@ export class RegisterUserComponent implements OnInit {
   pwd1: string;
   pwd2: string;
 
-  @Input() uid: string;
-  @Input() method: string;
+  @Input() props: { uid: string, method: string };
 
   constructor(
     private _fs: FireService,
     private _router: Router,
     private _fb: FormBuilder,
-    private _snack: MatSnackBar
+    private _snack: MatSnackBar,
+    private _win: WindowService
   ) {
-    if (this.uid) {
+    debugger;
+    if (this.props.uid) {
       this.formulario = this._fb.group({
         'correo': [
           '',
@@ -66,7 +71,31 @@ export class RegisterUserComponent implements OnInit {
           ]
         ],
       });
-    } else if (this.uid && this.method == 'phone') {
+    } else if (this.props.method == 'phone') {
+      this.formulario = this._fb.group({
+        'area': ['',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(3)
+          ]
+        ],
+        'prefix': ['',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(3)
+          ]
+        ],
+        'line': ['',
+          [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(4)
+          ]
+        ]
+      });
+    } else if (this.props.uid && this.props.method == 'phone') {
       this.formulario = this._fb.group({
         'correo': ['',
           [
@@ -150,8 +179,8 @@ export class RegisterUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.uid && this.method != 'phone') {
-      this._fs.getEmailLogged(this.uid).subscribe(
+    if (this.props.uid && this.props.method != 'phone') {
+      this._fs.getEmailLogged(this.props.uid).subscribe(
         (email: string) => {
           this.formulario.setValue({
             correo: email
@@ -164,10 +193,16 @@ export class RegisterUserComponent implements OnInit {
     }
   }
 
+  get e164() {
+    const num = this.formulario.get('area').value + this.formulario.get('prefix').value + this.formulario.get('line').value;
+
+    return `${num}`;
+  }
+
   envioPrevioRegistro(evt) {
     evt.preventDefault();
     let payload = {
-      uid: this.uid,
+      uid: this.props.uid,
       tipo: 'admin',
       correo: this.mail,
       trabajo: this.workplace,
@@ -245,4 +280,7 @@ export class RegisterUserComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
+  telefono(evt: any) {
+
+  }
 }
