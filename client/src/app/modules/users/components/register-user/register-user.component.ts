@@ -1,7 +1,7 @@
 import { WindowService } from './../../../../services/window.service';
 import { MyErrorStateMatcher } from './../../../../models/error-state-matcher/error-state-matcher.module';
 import { FireService } from './../../../../services/fire.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,12 +11,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './register-user.component.html',
   styleUrls: ['./register-user.component.css']
 })
-export class RegisterUserComponent implements OnInit {
+export class RegisterUserComponent implements OnInit, AfterViewInit {
   formulario = new FormGroup({});
   matcher = new MyErrorStateMatcher();
 
+  // Autenticación con SMS.
   windowRef: any;
   vcode: string;
+  verifier: any;
 
   workplace: string;
   name: string;
@@ -27,7 +29,7 @@ export class RegisterUserComponent implements OnInit {
   pwd1: string;
   pwd2: string;
 
-  @Input() props: { uid: string, method: string };
+  @Input() props: any;
 
   constructor(
     private _fs: FireService,
@@ -36,62 +38,47 @@ export class RegisterUserComponent implements OnInit {
     private _snack: MatSnackBar,
     private _win: WindowService
   ) {
-    debugger;
+
+  }
+
+  ngAfterViewInit() {
+
+  }
+
+  ngOnInit(): void {
     if (this.props.uid) {
       this.formulario = this._fb.group({
-        'correo': [
-          '',
+        'correo': ['',
           [
-            Validators.required
+            Validators.required,
+            Validators.email
           ]
         ],
         'trabajo': ['',
           [
-
+            Validators.required
           ]
         ],
         'nombre': ['',
           [
-
+            Validators.required
           ]
         ],
         'apellido': ['',
           [
-
+            Validators.required
           ]
         ],
         'nacimiento': ['',
           [
-
+            Validators.required
           ]
         ],
         'telefono': ['',
           [
-
-          ]
-        ],
-      });
-    } else if (this.props.method == 'phone') {
-      this.formulario = this._fb.group({
-        'area': ['',
-          [
             Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(3)
-          ]
-        ],
-        'prefix': ['',
-          [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(3)
-          ]
-        ],
-        'line': ['',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(4)
+            Validators.minLength(10),
+            Validators.maxLength(10)
           ]
         ]
       });
@@ -99,34 +86,37 @@ export class RegisterUserComponent implements OnInit {
       this.formulario = this._fb.group({
         'correo': ['',
           [
-
+            Validators.required,
+            Validators.email
           ]
         ],
         'trabajo': ['',
           [
-
+            Validators.required
           ]
         ],
         'nombre': ['',
           [
-
+            Validators.required
           ]
         ],
         'apellido': ['',
           [
-
+            Validators.required
           ]
         ],
         'nacimiento': ['',
           [
-
+            Validators.required
           ]
         ],
         'telefono': ['',
           [
-
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10)
           ]
-        ],
+        ]
       });
     } else {
       this.formulario = this._fb.group({
@@ -176,15 +166,14 @@ export class RegisterUserComponent implements OnInit {
         ],
       }, { validator: this.checkPwd });
     }
-  }
 
-  ngOnInit(): void {
     if (this.props.uid && this.props.method != 'phone') {
       this._fs.getEmailLogged(this.props.uid).subscribe(
         (email: string) => {
-          this.formulario.setValue({
+          this.formulario.patchValue({
             correo: email
           });
+          this.formulario.get('correo').disable();
         },
         (err) => {
           console.log(err);
@@ -193,30 +182,30 @@ export class RegisterUserComponent implements OnInit {
     }
   }
 
-  get e164() {
-    const num = this.formulario.get('area').value + this.formulario.get('prefix').value + this.formulario.get('line').value;
-
-    return `${num}`;
-  }
-
   envioPrevioRegistro(evt) {
     evt.preventDefault();
     let payload = {
       uid: this.props.uid,
       tipo: 'admin',
-      correo: this.mail,
-      trabajo: this.workplace,
-      nombre: this.name,
-      apellido: this.lastname,
-      nacimiento: this.birthday,
-      telefono: this.phone
+      correo: this.formulario.get('correo').value,
+      trabajo: this.formulario.get('trabajo').value,
+      nombre: this.formulario.get('nombre').value,
+      apellido: this.formulario.get('apellido').value,
+      nacimiento: this.formulario.get('nacimiento').value,
+      telefono: this.formulario.get('telefono').value
     }
     this._fs.createUserPreviousRegistering(payload).subscribe(
       (result: any) => {
         if (result.creado)
-          alert("creado!");
+          this._snack.open('¡Usuario creado!', 'OK', {
+            duration: 5000,
+            verticalPosition: 'top'
+          });
         else
-          alert("no creado!");
+          this._snack.open('Usuario no creado. Consulta a tu administrador.', 'OK', {
+            duration: 5000,
+            verticalPosition: 'top'
+          });
         this._router.navigate(['/']);
       },
       (error: any) => {
@@ -255,18 +244,30 @@ export class RegisterUserComponent implements OnInit {
               }).subscribe(
                 (result: any) => {
                   if (result.creado)
-                    alert("creado!");
+                    this._snack.open('¡Usuario creado!', 'OK', {
+                      duration: 5000,
+                      verticalPosition: 'top'
+                    });
                   else
-                    alert("no creado!");
+                    this._snack.open('Usuario no creado. Consulta a tu administrador.', 'OK', {
+                      duration: 5000,
+                      verticalPosition: 'top'
+                    });
                   this._router.navigate(['/']);
                 },
                 (error: any) => {
-                  alert("Error!!! " + JSON.stringify(error));
+                  this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
+                    duration: 5000,
+                    verticalPosition: 'top'
+                  });
                 }
               );
             },
             (error) => {
-              alert("Has tenido un errror.");
+              this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
+                duration: 5000,
+                verticalPosition: 'top'
+              });
             }
           );
         });
@@ -278,9 +279,5 @@ export class RegisterUserComponent implements OnInit {
     let confirmPass = group.get('pwd2').value;
 
     return pass === confirmPass ? null : { notSame: true }
-  }
-
-  telefono(evt: any) {
-
   }
 }

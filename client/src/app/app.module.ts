@@ -1,3 +1,4 @@
+import { WindowService } from './services/window.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MaterialModule } from './modules/material/material.module';
@@ -53,7 +54,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule
   ],
   providers: [
-    CookieService
+    CookieService,
+    WindowService
   ],
   bootstrap: [AppComponent]
 })

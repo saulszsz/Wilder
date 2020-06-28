@@ -1,41 +1,59 @@
 <mat-card>
     <mat-card-content>
-        <form (ngSubmit)="envioPrevioRegistro($event)" [formGroup]="formulario" *ngIf="props.uid && props.method != 'phone'"
-            novalidate>
+        <form (ngSubmit)="envioPrevioRegistro($event)" [formGroup]="formulario"
+            *ngIf="props.uid && props.method != 'phone'" novalidate>
             <h2>Es necesario que se registre.</h2>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Correo Eletrónico</mat-label>
-                <input matInput type="email" placeholder="Ej. email@dominio.com" formControlName="correo" disabled>
+                <input matInput formControlName="correo" type="email" placeholder="Ej. email@dominio.com">
                 <mat-error *ngIf="errorHandling('correo', 'required')">
-                    <!-- verificar -->
+                    Por favor introduce un correo.
+                </mat-error>
+                <mat-error *ngIf="errorHandling('correo', 'email')">
                     Por favor introduce un correo válido.
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Nombre de la empresa para la que trabaja.</mat-label>
-                <input formControlName="trabajo" matInput type="text"
+                <input matInput formControlName="trabajo" type="text"
                     placeholder="Introduce el nombre de la empresa para la que trabajas.">
+                <mat-error *ngIf="errorHandling('trabajo', 'required')">
+                    Por favor, introduce el nombre de tu empresa.
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Nombre (s)</mat-label>
-                <input formControlName="nombre" matInput type="text" placeholder="Introduce tu (s) nombre (s)">
+                <input matInput formControlName="nombre" type="text" placeholder="Introduce tu (s) nombre (s)">
+                <mat-error *ngIf="errorHandling('nombre', 'required')">
+                    Por favor introduce tu nombre.
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Apellido (s)</mat-label>
-                <input formControlName="apellido" matInput type="text" placeholder="Introduce tu (s) apellido (s)">
+                <input matInput formControlName="apellido" type="text" placeholder="Introduce tu (s) apellido (s)">
+                <mat-error *ngIf="errorHandling('apellido', 'required')">
+                    Por favor introduce tu apellido.
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Fecha de Nacimiento</mat-label>
-                <input formControlName="nacimiento" matInput type="date" placeholder="Introduce tu fecha de nacimiento">
+                <input matInput formControlName="nacimiento" type="date" placeholder="Introduce tu fecha de nacimiento">
+                <mat-error *ngIf="errorHandling('nacimiento', 'required')">
+                    Por favor introduce tu fecha de nacimiento.
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Teléfono</mat-label>
-                <input formControlName="telefono" matInput type="tel" placeholder="Introduce tu teléfono">
+                <input matInput formControlName="telefono" type="tel" placeholder="Introduce tu teléfono">
+                <mat-hint>10 dígitos.</mat-hint>
+                <mat-error *ngIf="errorHandling('telefono', 'required')">
+                    Por favor introduce tu número de teléfono.
+                </mat-error>
             </mat-form-field>
             <button type="submit" mat-raised-button color="primary">Terminar
                 Registro</button>
         </form>
-        <ng-template *ngIf="props.method != 'phone' else phone">
+        <ng-template *ngIf="props.method != 'phone'">
             <form [formGroup]="formulario" (ngSubmit)="envio($event)" novalidate>
                 <h2>Regístrese en Wilder</h2>
                 <mat-form-field class="full-width-input" appearance="outline">
@@ -109,39 +127,6 @@
                         Por favor introduce tu número de teléfono.
                     </mat-error>
                 </mat-form-field>
-                <button type="submit" mat-raised-button color="primary">Terminar Registro</button>
-            </form>
-        </ng-template>
-        <ng-template #phone>
-            <form [formGroup]="formulario" (ngSubmit)="telefono($event)" novalidate>
-                <h2>Regístrese en Wilder con su número telefónico</h2>
-                <mat-form-field class="full-width-input phone" appearance="outline">
-                    <mat-label>Área</mat-label>
-                    <input matInput formControlName="area" type="tel" placeholder="Introduce tu teléfono">
-                    <mat-hint>3 dígitos.</mat-hint>
-                    <mat-error *ngIf="errorHandling('area', 'required')">
-                        Por favor introduce tu número de teléfono.
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="full-width-input phone" appearance="outline">
-                    <mat-label>Prefijo</mat-label>
-                    <input matInput formControlName="prefix" type="tel" placeholder="Introduce tu teléfono">
-                    <mat-hint>3 dígitos.</mat-hint>
-                    <mat-error *ngIf="errorHandling('prefix', 'required')">
-                        Por favor introduce tu número de teléfono.
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="full-width-input phone" appearance="outline">
-                    <mat-label>Línea</mat-label>
-                    <input matInput formControlName="line" type="tel" placeholder="Introduce tu teléfono">
-                    <mat-hint>4 dígitos.</mat-hint>
-                    <mat-error *ngIf="errorHandling('line', 'required')">
-                        Por favor introduce tu número de teléfono.
-                    </mat-error>
-                </mat-form-field>
-                <div>
-                    <p>Su número: {{ e164 }}</p>
-                </div>
                 <button type="submit" mat-raised-button color="primary">Terminar Registro</button>
             </form>
         </ng-template>

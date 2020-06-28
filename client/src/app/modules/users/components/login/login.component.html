@@ -1,9 +1,12 @@
 <div *ngIf="!registro">
     <mat-card>
-        <mat-card-header>
+        <mat-card-header *ngIf="method!='phone'">
             <h3>Iniciar Sesión</h3>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-header *ngIf="method=='phone'">
+            <h2>Inicie Sesión en Wilder con su número telefónico</h2>
+        </mat-card-header>
+        <mat-card-content *ngIf="method!='phone'">
             <form (submit)="login('password', $event)">
                 <mat-form-field class="full-width-input" appearance="outline">
                     <mat-label>Correo Electrónico</mat-label>
@@ -20,14 +23,54 @@
                 </mat-form-field>
             </form>
         </mat-card-content>
-        <mat-card-footer>
-            <button mat-raised-button color="primary" style="margin-bottom: 10px;">Iniciar Sesión</button>
+        <mat-card-content [hidden]="method!='phone'">
+            <form [formGroup]="formulario" (ngSubmit)="telefono($event)" novalidate>
+                <mat-form-field class="full-width-input phone" appearance="outline">
+                    <mat-label>Área</mat-label>
+                    <input matInput formControlName="area" type="tel" placeholder="Introduce el área.">
+                    <mat-hint>3 dígitos.</mat-hint>
+                    <mat-error *ngIf="_forms.errorHandling('area', 'required', formulario)">
+                        Por favor introduce los 3 primeros dígitos de tu teléfono.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input phone" appearance="outline">
+                    <mat-label>Prefijo</mat-label>
+                    <input matInput formControlName="prefix" type="tel" placeholder="Introduce el prefijo.">
+                    <mat-hint>3 dígitos.</mat-hint>
+                    <mat-error *ngIf="_forms.errorHandling('prefix', 'required', formulario)">
+                        Por favor introduce los 3 siguientes dígitos de tu teléfono.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input phone" appearance="outline">
+                    <mat-label>Línea</mat-label>
+                    <input matInput formControlName="line" type="tel" placeholder="Introduce la línea.">
+                    <mat-hint>4 dígitos.</mat-hint>
+                    <mat-error *ngIf="_forms.errorHandling('line', 'required', formulario)">
+                        Por favor introduce los 4 últimos dígitos de tu teléfono.
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <p>Su número: {{ e164 }}</p>
+                </div>
+                <div id="recaptcha-container"></div> <br>
+                <button type="submit" mat-raised-button color="primary" [disabled]="!allow">Enviar SMS</button>
+            </form>
+            <div *ngIf="windowRef.confirmationResult">
+                <mat-form-field class="full-width-input phone" appearance="outline">
+                    <mat-label>Introduce Aquí tu código de verificación.</mat-label>
+                    <input matInput [(ngModel)]="codigo" type="text" placeholder="Introduce el código que enviamos a tu teléfono.">
+                </mat-form-field>
+                <button (click)="verifyLoginCode()" mat-raised-button color="primary">Verificar Código</button>
+            </div>
+        </mat-card-content>
+        <mat-card-footer style="padding: 20px;">
+            <button mat-raised-button color="primary" style="margin-bottom: 10px;" [hidden]="method=='phone'">Iniciar Sesión</button>
             <button mat-raised-button color="secondary" [routerLink]="['/users/register']"
-                style="margin: 0 0 10px 10px;">Regístrate Aquí</button>
+                style="margin: 0 0 10px 10px;" [hidden]="method=='phone'">Regístrate Aquí</button>
         </mat-card-footer>
     </mat-card>
     <br><br>
-    <mat-card>
+    <mat-card *ngIf="method!='phone'">
         <mat-card-header>
             <h3>O inicia sesión con los siguientes servicios:</h3>
         </mat-card-header>
@@ -41,5 +84,6 @@
         </mat-card-content>
     </mat-card>
 </div>
-<app-register-user *ngIf="registro" props="{{ { uid: this.uid, method: this.method } }}">Cargando Registro.
+<app-register-user *ngIf="registro" [props]="props">Cargando Registro.
 </app-register-user>
+<br>
