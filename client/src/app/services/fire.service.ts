@@ -6,6 +6,7 @@ import { auth } from 'firebase';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { repeat } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +96,13 @@ export class FireService {
         }
       }
     );
+  }
+
+  getActivo(payload: any) {
+    var rep = this._http.post(
+      `get_activo`,
+      payload
+    );
+    return rep;
   }
 }
