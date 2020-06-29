@@ -1,7 +1,8 @@
 const cookieParser = require("cookie-parser");
 const csrf = require("csurf");
 const bodyParser = require("body-parser");
-const express = require('express');
+const express = require("express");
+const router = express.Router();
 const admin = require("firebase-admin");
 var firebase = require("firebase");
 const path = require('path');
@@ -99,6 +100,7 @@ app.post('/enviar_contacto', (req,res) => {
 
 //Fin de Cosas necesarias para enviar el formulario de contact
 
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(csrfMiddleware);
 
@@ -263,13 +265,11 @@ app.post('/create_activo', (req, res) => {
     var QR = "";
     sessionStatus(req).then(
         (success) => {
-            console.log("0000000000");
             var activoRegistrado = get_reference('inventario/').push(req.body);
             var idActivo = activoRegistrado.key;
             const crearQR = async() => {
                 QR = await qrcode.toDataURL("http://localhost:3000/activo/" + idActivo);
                 req.body.qr = String(QR);
-                console.log(req.body.qr);
                 get_reference('inventario/' + idActivo).set(req.body).then(
                     (result) => {
                         console.log("QR creado.");
@@ -293,4 +293,29 @@ app.post('/create_activo', (req, res) => {
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve('client/dist/Wilder/index.html'));
+});
+
+app.post('/get_activo', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            var uid = req.body.uid;
+            get_reference('inventario/' + uid).once("value", function (snapshot) {
+                var datosActivo = (snapshot.val()/* && snapshot.val().nombre*/) || 'Anonymous';
+                //return datosActivo;
+            }).then(
+                (result) => {
+                    console.log("Activo obtenido.");
+                    console.log(JSON.stringify(result));
+                    res.json(JSON.stringify(result));
+                },
+                (error) => {
+                    console.log("Activo no obtenido.");
+                    console.log(JSON.stringify(error));
+                    res.json(false);
+                }
+            );
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
 });
