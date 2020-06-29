@@ -1,3 +1,6 @@
+import { FormsService } from './services/forms.service';
+import { WindowService } from './services/window.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MaterialModule } from './modules/material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -38,7 +41,7 @@ import { Globals } from './services/globals';
     ContactComponent,
     ActivosprewComponent,
     HelpComponent,
-    MyfilesComponent
+    MyfilesComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,12 +51,15 @@ import { Globals } from './services/globals';
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     Globals,
-    CookieService
-    
+    CookieService,
+    WindowService,
+    FormsService
   ],
   bootstrap: [AppComponent]
 })

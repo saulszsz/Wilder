@@ -1,18 +1,21 @@
 <div *ngIf="user | async as user">
   <mat-card *ngIf="user.tipo === 'admin' else normal" class="example-card">
-    <img mat-card-image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACECAYAAABRRIOnAAAAAklEQVR4AewaftIAAAN8SURBVO3BQa5bRwADweZA979yx4ssuBrgQdK3nbAq/sLMvw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlxZuS8JNUbpJwo9KScKPSknCj0pLwk1TecZgph5lymCkvPkzlk5Jwk4Sm8oTKEyotCU+ofFISPukwUw4z5TBTXnxZEp5QeUcSmspNEprKT0rCEyrfdJgph5lymCkv/mNUWhLekYT/k8NMOcyUw0x58ZdT+UkqLQn/JYeZcpgph5ny4stUflISblRaEt6h8g6VP8lhphxmymGmvPiwJPykJDSVloRvSkJTuUnCn+wwUw4z5TBTXrxJ5U+ShCdUnkjCEyp/k8NMOcyUw0x58aYkNJVPSkJTuVF5Igk3Ki0JN0m4UblJwhMqn3SYKYeZcpgpLz4sCU3liSQ0lZaEmyT8JJUnkvAnO8yUw0w5zJQXX5aEJ1RaEm5UbpLQVFoS3pGEptKS0FRaEppKS8JNEprKOw4z5TBTDjMl/sIHJeFGpSXhRqUl4QmVJ5Jwo3KThHeo3CShqXzSYaYcZsphprz4zVRaEloSmkpLQlNpSWgqLQlNpSXhJgnvUGlJaCpNpSWhqbzjMFMOM+UwU168KQlN5SYJT6h8k8oTSbhRuUnCE0m4Ufmkw0w5zJTDTHnxZUloKi0JTaUloak8odKScKPyhEpLQlP5piQ0lXccZsphphxmyosvU7lRaUloKi0JTeUdKk+ovEPlk1Q+6TBTDjPlMFNe/GZJaCotCTdJaCqfpNKS8EQSnlBpSbhJQlN5x2GmHGbKYabEX/iLJeFG5SYJNyotCTcqTyShqdwkoal80mGmHGbKYabEX3hDEn6Syk0SnlB5RxKaSktCU2lJeEKlJaGpvOMwUw4z5TBTXnyYyicl4R0qN0m4UWlJeELlHSotCd90mCmHmXKYKS++LAlPqPxOKi0JTyThk5LQVFoSPukwUw4z5TBTXvzPqbxDpSXhRuWJJLQkfNNhphxmymGmvPiPUWlJeEKlqbQk3KjcJKGp3KjcJOGTDjPlMFMOM+XFl6n8pCQ8oXKThKbSktBUWhJuknCj8pMOM+UwUw4z5cWHJeEnJeEJlZskfJNKS8Kf5DBTDjPlMFPiL8z86zBTDjPlMFMOM+UwUw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlMFP+AcKydyW6yXIRAAAAAElFTkSuQmCC" alt="QR">
+    <img *ngIf="idActivo === '0' else editarQR" mat-card-image src={{qrDefault}} alt="QR">
+    <ng-template #editarQR>
+      <img mat-card-image src={{datosActivo.qr}} alt="QR">
+    </ng-template>
     <mat-card-actions>
       <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
-        <input name="nombre" matInput placeholder="Monitor..." required>
+        <input name="nombre" [(ngModel)]="datosActivo.nombre" matInput placeholder="Monitor..." required>
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Modelo</mat-label>
-        <input name="modelo" matInput placeholder="XLR8">
+        <input name="modelo" [(ngModel)]="datosActivo.modelo" matInput placeholder="XLR8">
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Categoria</mat-label>
-        <mat-select [(ngModel)]="selectedValue" name="food" required>
+        <mat-select [(ngModel)]="datosActivo.categoria" name="food" required>
           <mat-option *ngFor="let food of foods" [value]="food.value">
             {{food.viewValue}}
           </mat-option>
@@ -20,13 +23,13 @@
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Descripcion</mat-label>
-        <textarea name="descripcion" matInput placeholder="Ex. It makes me feel..."></textarea>
+        <textarea name="descripcion" [(ngModel)]="datosActivo.descripcion" matInput placeholder="Ex. It makes me feel..."></textarea>
       </mat-form-field>
     </mat-card-actions>
-    <mat-card-actions *ngIf="idActivo === '0' else editar">
-      <button mat-button>REGISTRAR</button>
+    <mat-card-actions *ngIf="idActivo === '0' else editarBoton">
+      <button type="submit" (click)="registrarActivo($event)" mat-raised-button color="primary">REGISTRAR</button>
     </mat-card-actions>
-    <ng-template #editar>
+    <ng-template #editarBoton>
       <mat-card-actions>
         <button mat-button>EDITAR</button>
         <button mat-button>ELIMINAR</button>
@@ -35,9 +38,7 @@
   </mat-card>
   <ng-template #normal>
     <mat-card class="example-card">
-      <img mat-card-image
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACECAYAAABRRIOnAAAAAklEQVR4AewaftIAAAN8SURBVO3BQa5bRwADweZA979yx4ssuBrgQdK3nbAq/sLMvw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlxZuS8JNUbpJwo9KScKPSknCj0pLwk1TecZgph5lymCkvPkzlk5Jwk4Sm8oTKEyotCU+ofFISPukwUw4z5TBTXnxZEp5QeUcSmspNEprKT0rCEyrfdJgph5lymCkv/mNUWhLekYT/k8NMOcyUw0x58ZdT+UkqLQn/JYeZcpgph5ny4stUflISblRaEt6h8g6VP8lhphxmymGmvPiwJPykJDSVloRvSkJTuUnCn+wwUw4z5TBTXrxJ5U+ShCdUnkjCEyp/k8NMOcyUw0x58aYkNJVPSkJTuVF5Igk3Ki0JN0m4UblJwhMqn3SYKYeZcpgpLz4sCU3liSQ0lZaEmyT8JJUnkvAnO8yUw0w5zJQXX5aEJ1RaEm5UbpLQVFoS3pGEptKS0FRaEppKS8JNEprKOw4z5TBTDjMl/sIHJeFGpSXhRqUl4QmVJ5Jwo3KThHeo3CShqXzSYaYcZsphprz4zVRaEloSmkpLQlNpSWgqLQlNpSXhJgnvUGlJaCpNpSWhqbzjMFMOM+UwU168KQlN5SYJT6h8k8oTSbhRuUnCE0m4Ufmkw0w5zJTDTHnxZUloKi0JTaUloak8odKScKPyhEpLQlP5piQ0lXccZsphphxmyosvU7lRaUloKi0JTeUdKk+ovEPlk1Q+6TBTDjPlMFNe/GZJaCotCTdJaCqfpNKS8EQSnlBpSbhJQlN5x2GmHGbKYabEX/iLJeFG5SYJNyotCTcqTyShqdwkoal80mGmHGbKYabEX3hDEn6Syk0SnlB5RxKaSktCU2lJeEKlJaGpvOMwUw4z5TBTXnyYyicl4R0qN0m4UWlJeELlHSotCd90mCmHmXKYKS++LAlPqPxOKi0JTyThk5LQVFoSPukwUw4z5TBTXvzPqbxDpSXhRuWJJLQkfNNhphxmymGmvPiPUWlJeEKlqbQk3KjcJKGp3KjcJOGTDjPlMFMOM+XFl6n8pCQ8oXKThKbSktBUWhJuknCj8pMOM+UwUw4z5cWHJeEnJeEJlZskfJNKS8Kf5DBTDjPlMFPiL8z86zBTDjPlMFMOM+UwUw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlMFP+AcKydyW6yXIRAAAAAElFTkSuQmCC"
-        alt="Photo of a Shiba Inu">
+      <img mat-card-image src={{qrDefault}} alt="Photo of a Shiba Inu">
       <mat-card-header>
         <mat-card-title>LOGITECH</mat-card-title>
         <mat-card-subtitle>G203</mat-card-subtitle>

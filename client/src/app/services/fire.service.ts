@@ -6,6 +6,7 @@ import { auth } from 'firebase';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { repeat } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class FireService {
     return this._afAuth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
+  signIn(email: string, password: string) {
+    return this._afAuth.createUserWithEmailAndPassword(email, password);
+  }
+
   cerrarSesion() {
     var that = this;
     return this._afAuth.signOut().then(function () {
@@ -38,6 +43,12 @@ export class FireService {
   getEmailLogged(uid: string) {
     return this._http.get(
       `email_logged/${uid}`
+    );
+  }
+
+  getPhoneLogged(uid: string) {
+    return this._http.get(
+      `phone_logged/${uid}`
     );
   }
 
@@ -59,6 +70,12 @@ export class FireService {
       'redirect',
       {
         liga: link
+      }, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
       }
     )
   }
@@ -80,7 +97,34 @@ export class FireService {
       'sessionLogin/',
       {
         idToken: idToken
+      }, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
       }
     )
+  }
+
+  createActivo(payload: any) {
+    return this._http.post(
+      `create_activo`,
+      payload, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
+      }
+    );
+  }
+
+  getActivo(payload: any) {
+    var rep = this._http.post(
+      `get_activo`,
+      payload
+    );
+    return rep;
   }
 }
