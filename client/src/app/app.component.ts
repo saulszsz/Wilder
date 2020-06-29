@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FireService } from './services/fire.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { Globals } from './services/globals';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  speakValidation: Globals;
   uid = this._fs._afAuth.authState.pipe(
     map(authState => {
       if (!authState) {
@@ -30,8 +32,10 @@ export class AppComponent implements OnInit {
   );
 
   constructor(
-    private _fs: FireService
+    private _fs: FireService,
+    private globals: Globals
   ) {
+    this.speakValidation = globals;
 
   }
 
@@ -39,4 +43,8 @@ export class AppComponent implements OnInit {
   }
 
   title = 'Wilder';
+
+  habilitableSpeak(){
+    this.globals.role = !this.globals.role;
+  }
 }
