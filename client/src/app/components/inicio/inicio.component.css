@@ -12,11 +12,15 @@ a:link, a:visited, a:active {
 }
 
 .imgl {
-  height: 550px;
+  /*height: 550px;*/
+  height: 265px;
+  width: 530px;
+  padding: 10px;
 }
 
 .imgs {
   height: 150px;
+  width: 178px;
   padding-left: 30px;
 }
 

@@ -1,5 +1,7 @@
 #slider {
   margin-top: 30px;
+  padding-bottom: 20px;
+  margin-bottom: 140px;
   width: 100%;
   height: 250px;
   /*line-height: 320px;*/
@@ -36,4 +38,7 @@
   width: 100%;
   background-color: white;
   color: black;
+}
+
+textarea{
 }

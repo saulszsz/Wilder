@@ -1,4 +1,3 @@
-<br>
 <mat-grid-list *ngIf="user | async else demo" [cols]="colSize" rowHeight="2:2">
     <mat-grid-tile colspan="2">
         <a href="#">
@@ -53,20 +52,26 @@
         </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
-<ng-template #demo>
+<ng-template #demo style="margin-top: 0px;">
     <mat-grid-list class="metal" cols="1" rowHeight="200px">
-        <mat-grid-tile>
-            <img class="imgl" mat-card-image src="../../../assets/tablet_black.jpg" alt="Photo of tablet">
+        <mat-grid-tile style="margin-top: 30px;">
+            <img class="imgl" mat-card-image src="../../../assets/mal-control-inventarios.jpg" alt="Photo of tablet">
         </mat-grid-tile>
         <mat-grid-tile>
-            <h1>Wilder es el futuro en dispositivos moviles.</h1>
+            <h1>Confundirse es de humanos, y Wilder no es humana</h1>
         </mat-grid-tile>
         <mat-grid-tile>
-            <img class="imgl" mat-card-image src="../../../assets/laptop_workspace.jpg" alt="Photo of tablet">
+            <img class="imgl" mat-card-image src="../../../assets/tipos-inventarios.jpg" alt="Photo of tablet">
         </mat-grid-tile>
         <mat-grid-tile>
-            <h1>Usa nuestros super QR 7u7r</h1>
-            <img class="imgs" mat-card-image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACECAYAAABRRIOnAAAAAklEQVR4AewaftIAAAN8SURBVO3BQa5bRwADweZA979yx4ssuBrgQdK3nbAq/sLMvw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlxZuS8JNUbpJwo9KScKPSknCj0pLwk1TecZgph5lymCkvPkzlk5Jwk4Sm8oTKEyotCU+ofFISPukwUw4z5TBTXnxZEp5QeUcSmspNEprKT0rCEyrfdJgph5lymCkv/mNUWhLekYT/k8NMOcyUw0x58ZdT+UkqLQn/JYeZcpgph5ny4stUflISblRaEt6h8g6VP8lhphxmymGmvPiwJPykJDSVloRvSkJTuUnCn+wwUw4z5TBTXrxJ5U+ShCdUnkjCEyp/k8NMOcyUw0x58aYkNJVPSkJTuVF5Igk3Ki0JN0m4UblJwhMqn3SYKYeZcpgpLz4sCU3liSQ0lZaEmyT8JJUnkvAnO8yUw0w5zJQXX5aEJ1RaEm5UbpLQVFoS3pGEptKS0FRaEppKS8JNEprKOw4z5TBTDjMl/sIHJeFGpSXhRqUl4QmVJ5Jwo3KThHeo3CShqXzSYaYcZsphprz4zVRaEloSmkpLQlNpSWgqLQlNpSXhJgnvUGlJaCpNpSWhqbzjMFMOM+UwU168KQlN5SYJT6h8k8oTSbhRuUnCE0m4Ufmkw0w5zJTDTHnxZUloKi0JTaUloak8odKScKPyhEpLQlP5piQ0lXccZsphphxmyosvU7lRaUloKi0JTeUdKk+ovEPlk1Q+6TBTDjPlMFNe/GZJaCotCTdJaCqfpNKS8EQSnlBpSbhJQlN5x2GmHGbKYabEX/iLJeFG5SYJNyotCTcqTyShqdwkoal80mGmHGbKYabEX3hDEn6Syk0SnlB5RxKaSktCU2lJeEKlJaGpvOMwUw4z5TBTXnyYyicl4R0qN0m4UWlJeELlHSotCd90mCmHmXKYKS++LAlPqPxOKi0JTyThk5LQVFoSPukwUw4z5TBTXvzPqbxDpSXhRuWJJLQkfNNhphxmymGmvPiPUWlJeEKlqbQk3KjcJKGp3KjcJOGTDjPlMFMOM+XFl6n8pCQ8oXKThKbSktBUWhJuknCj8pMOM+UwUw4z5cWHJeEnJeEJlZskfJNKS8Kf5DBTDjPlMFPiL8z86zBTDjPlMFMOM+UwUw4z5TBTDjPlMFMOM+UwUw4z5TBTDjPlMFP+AcKydyW6yXIRAAAAAElFTkSuQmCC" alt="Photo of a Shiba Inu">
+            <h1>Dejanos el inventario a nosotros, la aplicación esta 100% preparada</h1>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <img class="imgl" mat-card-image src="../../../assets/organizar-sistema-inventarios.jpg" alt="Photo of tablet" style="margin-right: 4px;">
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <h1>Prueba nuestro super QR ahora!</h1>
+            <img class="imgs" mat-card-image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAYAAAB1PADUAAAAAklEQVR4AewaftIAAATVSURBVO3BQW4kSRIEQdNA/f/Lujz6KYBEehGcXhPBH6laclK16KRq0UnVopOqRSdVi06qFp1ULTqpWnRSteikatFJ1aKTqkUnVYtOqhadVC365CUgv0nNE0Bu1ExAnlAzAXlDzQTkN6l546Rq0UnVopOqRZ8sU7MJyBNAJjU3QN4A8oSaCcgTajYB2XRSteikatFJ1aJPvgzIE2qeADKpmYBMap5QMwGZ1DwBZBOQJ9R800nVopOqRSdViz75PwPkRs0E5Akgk5obNf+Sk6pFJ1WLTqoWffKPAXKj5gk1E5AJyKTmCSCTmv+yk6pFJ1WLTqoWffJlan6Tmm9S84aaTWr+kpOqRSdVi06qFn2yDMhfAmRSMwGZ1ExAJjUTkEnNBGRSMwGZ1NwA+ctOqhadVC06qVr0yUtq/hIgk5oJyKTmm9RMQCY1N2r+S06qFp1ULTqpWoQ/8gKQSc0EZJOaGyCTmm8CcqPmBsikZgKySc03nVQtOqladFK1CH/kBSA3aiYgT6iZgPwlam6A/CY1TwCZ1LxxUrXopGrRSdWiT15SMwG5UfMEkEnNG0AmNROQJ4BMam7UTEAmNU8AeUPNppOqRSdVi06qFn3yEpBJzQ2QSc0EZFIzAblRMwF5Q80EZFJzo2YTkBsgk5oJyKRm00nVopOqRSdVi/BHFgG5UXMD5Ak1N0Bu1NwAuVEzAZnU/CYgN2q+6aRq0UnVopOqRfgjLwCZ1ExAbtRMQCY1E5AbNROQSc0EZFJzA+RGzQ2QGzUTkCfUPAFkUvPGSdWik6pFJ1WL8EdeAHKjZgJyo2YCsknNBGRSswnIpOYGyKTmBsgTar7ppGrRSdWik6pFnyxT84SaGzU3QCY1E5AJyBNAJjUTkEnNJiA3ap4AMqnZdFK16KRq0UnVIvyRRUAmNTdAJjUTkBs1E5A31LwBZFIzAZnUbAJyo+abTqoWnVQtOqla9MlLQDYBmdRMQCYgk5obIJOaCcgTaiY1TwDZpGYCcgNkUvPGSdWik6pFJ1WLPlmm5gk1N0CeADKpuQHyBpBJzQRkUnMD5Dep2XRSteikatFJ1aJPvgzIpGYCMqmZ1ExAbtTcqJmA3Ki5AfIEkBs1m9RMQCY1m06qFp1ULTqpWvTJHwdkUjMBeQLIpOYGyKRmUjMBeQPIG2omIDdAJjVvnFQtOqladFK1CH/kPwzIE2omIJOaN4DcqJmATGqeALJJzRsnVYtOqhadVC365CUgv0nNpGYCcgNkUvMEkCfUTECeADKpeUPNN51ULTqpWnRSteiTZWo2AbkBcqNmAjIBmdRMQJ5QMwGZ1ExAbtQ8oeYGyKRm00nVopOqRSdViz75MiBPqHlDzSY1TwCZ1DwBZBOQ33RSteikatFJ1aJP/nFAngByo2YCMqmZgExqbtS8AeQJIJOaN06qFp1ULTqpWvTJPwbIjZo3gNwAuQEyqZmA/CY1m06qFp1ULTqpWvTJl6n5JjU3QDapmYBMam6ATEAmNROQGzUTkEnNBOSbTqoWnVQtOqlahD/yApDfpGYCMqm5ATKp2QRkUjMBmdRMQL5JzTedVC06qVp0UrUIf6RqyUnVopOqRSdVi06qFp1ULTqpWnRSteikatFJ1aKTqkUnVYtOqhadVC06qVp0UrXof8lAPDyW7HP5AAAAAElFTkSuQmCC" alt="Photo of a Shiba Inu">
         </mat-grid-tile>
         <mat-grid-tile>
             <button mat-raised-button [routerLink]="['/users/login']" color="primary" style="margin-bottom: 10px;">Comienza!!!</button>
