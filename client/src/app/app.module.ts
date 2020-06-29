@@ -23,6 +23,7 @@ import { ActivosprewComponent } from './components/activosprew/activosprew.compo
 import { HelpComponent } from './components/help/help.component';
 import { MyfilesComponent } from './components/myfiles/myfiles.component';
 import { HttpClientModule } from '@angular/common/http';
+import { Globals } from './services/globals';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,9 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireDatabaseModule
   ],
   providers: [
+    Globals,
     CookieService
+    
   ],
   bootstrap: [AppComponent]
 })

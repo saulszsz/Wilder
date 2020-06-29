@@ -1,43 +1,44 @@
 <div class="navegacion">
-    <nav class="nav-principal navbar navbar-expand-lg navbar-light bg-faded">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav_principal"
-        area-label="Mostrar Navegacion">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <nav class="nav-principal navbar navbar-expand-lg navbar-light bg-faded">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav_principal"
+      area-label="Mostrar Navegacion">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <a _ngcontent-tei-c51="" mat-button="" [routerLink]="['/']" aria-label="Wilder"
-        class="mat-focus-indicator docs-button mat-button mat-button-base  navbar-brand " tabindex="0"
-        aria-disabled="false" href="/">
-        <span class="mat-button-wrapper">
-          <img _ngcontent-tei-c51="" src="favicon.ico" alt="Wilder" class="logo">
-          <span _ngcontent-tei-c51="">Wilder</span>
-        </span>
-        <div matripple="" class="mat-ripple mat-button-ripple"></div>
-        <div class="mat-button-focus-overlay"></div>
-      </a>
+    <a _ngcontent-tei-c51="" mat-button="" [routerLink]="['/']" aria-label="Wilder"
+      class="mat-focus-indicator docs-button mat-button mat-button-base  navbar-brand " tabindex="0"
+      aria-disabled="false" href="/">
+      <span class="mat-button-wrapper">
+        <img _ngcontent-tei-c51="" src="favicon.ico" alt="Wilder" class="logo">
+        <span _ngcontent-tei-c51="">Wilder</span>
+      </span>
+      <div matripple="" class="mat-ripple mat-button-ripple"></div>
+      <div class="mat-button-focus-overlay"></div>
+    </a>
 
-      <!-- <button mat-button [routerLink]="['/']">Inicio</button> -->
-      <div class="container">
-        <div class="collapse navbar-collapse" id="nav_principal">
-          <ul class="nav nav-justified flex-column flex-lg-row">
-            <li class="nav-item"><button *ngIf="user | async" mat-button [routerLink]="['/']">Usuarios</button></li>
-            <li class="nav-item"><button *ngIf="user | async" mat-button
-                [routerLink]="['/inventario']">Inventario</button></li>
-            <li class="nav-item"><button mat-button [routerLink]="['/about']">Acerca De</button></li>
-            <li class="nav-item"><button mat-button [routerLink]="['/asked']">Preguntas Frecuentes</button></li>
-            <li class="nav-item"><button mat-button [routerLink]="['/contact']">Contacto</button></li>
-            <li class="nav-item"><button mat-button [routerLink]="['/ayuda']">Ayuda</button></li>
-          </ul>
-        </div>
+    <!-- <button mat-button [routerLink]="['/']">Inicio</button> -->
+    <div class="container">
+      <div class="collapse navbar-collapse" id="nav_principal">
+        <ul class="nav nav-justified flex-column flex-lg-row">
+          <li class="nav-item"><button *ngIf="user | async" mat-button [routerLink]="['/']">Usuarios</button></li>
+          <li class="nav-item"><button *ngIf="user | async" mat-button
+              [routerLink]="['/inventario']">Inventario</button></li>
+          <li class="nav-item"><button mat-button [routerLink]="['/about']">Acerca De</button></li>
+          <li class="nav-item"><button mat-button [routerLink]="['/asked']">Preguntas Frecuentes</button></li>
+          <li class="nav-item"><button mat-button [routerLink]="['/contact']">Contacto</button></li>
+          <li class="nav-item"><button mat-button [routerLink]="['/ayuda']">Ayuda</button></li>
+          <li class="nav-item"><button mat-mini-fab color="primary" (click)="habilitableSpeak()"><i class="fas fa-headphones-alt"></i></button></li>
+        </ul>
       </div>
+    </div>
 
-      <a *ngIf="user | async else login" class="log-in" [routerLink]="['/users/logout']" style="margin-right: 0px;"><i
-          class="fas fa-sign-out-alt"></i></a>
-      <ng-template #login>
-        <a class="log-in" [routerLink]="['/users/login']" style="margin-right: 0px;"><i
-            class="fas fa-sign-in-alt"></i></a>
-      </ng-template>
-    </nav>
+    <a *ngIf="user | async else login" class="log-in" [routerLink]="['/users/logout']" style="margin-right: 0px;"><i
+        class="fas fa-sign-out-alt"></i></a>
+    <ng-template #login>
+      <a class="log-in" [routerLink]="['/users/login']" style="margin-right: 0px;"><i
+          class="fas fa-sign-in-alt"></i></a>
+    </ng-template>
+  </nav>
 
 </div>
 
