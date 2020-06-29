@@ -1,26 +1,32 @@
 <div style="padding: 20px; text-align: center;">
     <h2>Contáctanos:</h2>
-    <form class="example-form" action="mailto:cargadores_58@hotmail.com" method="post" enctype="text/plain">
+    <form [formGroup]="todoForm" (ngSubmit)="subirForma($event)" class="example-form" action="/send-email" method="POST" enctype="text/plain">
         <mat-form-field class="example-full-width">
             <mat-label>Nombre</mat-label>
-            <input matInput placeholder="Tu nombre completo con apellidos">
+            <input matInput placeholder="Tu nombre completo con apellidos" name="name" [(ngModel)]="name" formControlName="nombre" required>
+            <mat-error *ngIf="todoForm.controls['nombre'].touched && todoForm.controls['nombre'].errors?.required">
+                Es necesario proporcionar un Nombre
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Teléfono</mat-label>
-            <input matInput placeholder="Formato: (449) 999 9999">
+            <input matInput placeholder="Formato: (449) 999 9999" name="phone" [(ngModel)]="phone" formControlName="telefono" required>
+            <mat-error *ngIf="todoForm.controls['telefono'].touched && todoForm.controls['telefono'].errors?.required">
+                Es necesario proporcionar un numero
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Correo electrónico</mat-label>
-            <input matInput placeholder="Introduce tu email" name="email" #email="ngModel" [(ngModel)]="mail" matInput type="email" required>
-            <mat-error *ngIf="email.touched && !email.valid">
-                Por favor introduce un correo válido.
+            <input matInput placeholder="Introduce tu email" name="email"  [(ngModel)]="mail" matInput type="email" formControlName="correo" required>
+            <mat-error *ngIf="todoForm.controls['correo'].touched && todoForm.controls['correo'].errors?.required">
+                Por favor proporcione un correo valido
             </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Comentarios adicionales</mat-label>
-            <textarea matInput placeholder="Los contacto para..."></textarea>
+            <textarea matInput placeholder="Los contacto para..." name="message" [(ngModel)]="message"></textarea>
         </mat-form-field>
-        <button mat-raised-button color="primary">Enviar</button>
+        <button type="submit" (click)="subirForma($event)" mat-raised-button color="primary" [disabled]="todoForm.invalid" >Enviar</button>
     </form>
 </div>
 

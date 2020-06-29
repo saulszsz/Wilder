@@ -11,6 +11,6 @@ export class ApiService {
   ) { }
 
   sendMail(data: any) {
-    return this._http.post('enviar_contacto/', data);
+    return this._http.post(`enviar_contacto`, data);
   }
 }
