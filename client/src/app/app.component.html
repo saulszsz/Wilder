@@ -41,6 +41,11 @@
   </nav>
 
 </div>
-
-<h3 *ngIf="user | async as user">Hola {{ user.nombre }}</h3>
+<div  *ngIf="user | async as user">
+  <h3 *ngIf="user.tipo === 'admin' else normal">Hola admin {{ user.nombre }}</h3>
+  <ng-template #normal>
+    <h3>Hola {{ user.nombre }}</h3>
+  </ng-template>
+</div>
+  
 <router-outlet></router-outlet>
