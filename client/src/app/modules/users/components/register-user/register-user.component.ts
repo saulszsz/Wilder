@@ -82,42 +82,6 @@ export class RegisterUserComponent implements OnInit, AfterViewInit {
           ]
         ]
       });
-    } else if (this.props.uid && this.props.method == 'phone') {
-      this.formulario = this._fb.group({
-        'correo': ['',
-          [
-            Validators.required,
-            Validators.email
-          ]
-        ],
-        'trabajo': ['',
-          [
-            Validators.required
-          ]
-        ],
-        'nombre': ['',
-          [
-            Validators.required
-          ]
-        ],
-        'apellido': ['',
-          [
-            Validators.required
-          ]
-        ],
-        'nacimiento': ['',
-          [
-            Validators.required
-          ]
-        ],
-        'telefono': ['',
-          [
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10)
-          ]
-        ]
-      });
     } else {
       this.formulario = this._fb.group({
         'pwd1': ['',
@@ -176,7 +140,27 @@ export class RegisterUserComponent implements OnInit, AfterViewInit {
           this.formulario.get('correo').disable();
         },
         (err) => {
-          console.log(err);
+          this._snack.open('¡Error al obtener correo! ' + err.message, 'OK', {
+            duration: 7000,
+            verticalPosition: 'top'
+          });
+        }
+      );
+    }
+
+    if (this.props.uid && this.props.method == 'phone') {
+      this._fs.getPhoneLogged(this.props.uid).subscribe(
+        (phone: string) => {
+          this.formulario.patchValue({
+            telefono: phone
+          });
+          this.formulario.get('telefono').disable();
+        },
+        (err) => {
+          this._snack.open('¡Error al obtener teléfono! ' + err.message, 'OK', {
+            duration: 7000,
+            verticalPosition: 'top'
+          });
         }
       );
     }

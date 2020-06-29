@@ -132,8 +132,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.allow = false;
       }
     ).catch(
-      error => this._snack.open('Contacta al administrador.' + JSON.stringify(error), 'OK', {
-        duration: 5000,
+      error => this._snack.open('Contacta al administrador. ' + error.message, 'OK', {
+        duration: 10000,
         verticalPosition: 'top'
       })
     )
@@ -171,8 +171,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
         }
       )
       .catch(
-        error => this._snack.open('Contacta al administrador.' + JSON.stringify(error), 'OK', {
-          duration: 5000,
+        error => this._snack.open('Contacta al administrador.' + error.message, 'OK', {
+          duration: 10000,
           verticalPosition: 'top'
         })
       )

@@ -45,6 +45,12 @@ export class FireService {
     );
   }
 
+  getPhoneLogged(uid: string) {
+    return this._http.get(
+      `phone_logged/${uid}`
+    );
+  }
+
   createUserPreviousRegistering(payload: any) {
     return this._http.post(
       `create_user_pr`,
@@ -63,6 +69,12 @@ export class FireService {
       'redirect',
       {
         liga: link
+      }, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
       }
     )
   }
@@ -84,9 +96,16 @@ export class FireService {
       'sessionLogin/',
       {
         idToken: idToken
+      }, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
       }
     )
   }
+
   createActivo(payload: any) {
     return this._http.post(
       `create_activo`,

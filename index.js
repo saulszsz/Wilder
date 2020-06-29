@@ -129,6 +129,24 @@ app.get('/email_logged/:uid', (req, res) => {
 
 });
 
+app.get('/phone_logged/:uid', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            admin.auth().getUser(req.params.uid).then(
+                (usr) => {
+                    res.json(usr.phoneNumber);
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+
+});
+
 app.post('/create_user_pr', (req, res) => {
     sessionStatus(req).then(
         (success) => {
@@ -180,10 +198,6 @@ app.get('/get_user/:uid', (req, res) => {
     });
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve('client/dist/Wilder/index.html'));
-});
-
 app.post('redirect', (req, res) => {
     res.redirect(req.get('host') + req.body.liga);
     res.end();
@@ -223,4 +237,8 @@ app.post('/create_activo', (req, res) => {
         res.status(403).send("UNAUTHORIZED REQUEST! create_activo");
     });
 
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve('client/dist/Wilder/index.html'));
 });

@@ -1,7 +1,7 @@
 <mat-card>
     <mat-card-content>
         <form (ngSubmit)="envioPrevioRegistro($event)" [formGroup]="formulario"
-            *ngIf="props.uid && props.method != 'phone'" novalidate>
+            *ngIf="props.uid" novalidate>
             <h2>Es necesario que se registre.</h2>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Correo Eletrónico</mat-label>
@@ -53,7 +53,7 @@
             <button type="submit" mat-raised-button color="primary">Terminar
                 Registro</button>
         </form>
-        <ng-template *ngIf="props.method != 'phone'">
+        <ng-template *ngIf="props.method != 'phone' && props.method != 'google'">
             <form [formGroup]="formulario" (ngSubmit)="envio($event)" novalidate>
                 <h2>Regístrese en Wilder</h2>
                 <mat-form-field class="full-width-input" appearance="outline">
