@@ -55,7 +55,7 @@ export class ActivoscrudComponent implements OnInit {
     private _fs: FireService,
     private _route: ActivatedRoute,
     private _router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.idActivo = this._route.snapshot.paramMap.get('id');

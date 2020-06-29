@@ -3,71 +3,181 @@
     <mat-accordion multi>
         <mat-expansion-panel style="width: 100%;">
             <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <b>1. ¿Cómo funciona el calendario de pendientes?</b>
-                </mat-panel-title>
+                <b id="lec1">1. ¿Cómo funciona el calendario de pendientes?</b>
+                <div *ngIf="!speakValidation.role else speakVal">
+                    <button mat-mini-fab color="primary" (click)="startSpeak('lec1')"><i
+                            class="fas fa-play"></i></button>
+                    <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                </div>
+                <ng-template #speakVal>
+                </ng-template>
             </mat-expansion-panel-header>
-            <p>En el día seleccionado mostrará la lista de activos y herramientas que deberán ser regresados ese día.
+            <p id="lec2">En el día seleccionado mostrará la lista de activos y herramientas que deberán ser regresados
+                ese día.
             </p>
+            <div *ngIf="!speakValidation.role else speakVal">
+                <button mat-mini-fab color="primary" (click)="startSpeak('lec2')"><i class="fas fa-play"></i></button>
+                <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+            </div>
+            <ng-template #speakVal>
+            </ng-template>
         </mat-expansion-panel>
         <mat-expansion-panel style="width: 100%;">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <b>2. ¿Cómo leo un código QR?</b>
+                    <b id="lec3">2. ¿Cómo leo un código QR?</b>
+                    <div *ngIf="!speakValidation.role else speakVal">
+                        <button mat-mini-fab color="primary" (click)="startSpeak('lec3')"><i
+                                class="fas fa-play"></i></button>
+                        <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                    </div>
+                    <ng-template #speakVal>
+                    </ng-template>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>Existen varias aplicaciones para abrir códigos QR para préstamo de activos. <a
+            <p id="lec4">Existen varias aplicaciones para abrir códigos QR para préstamo de activos. <a
                     href="https://play.google.com/store/apps/details?id=tw.mobileapp.qrcode.banner&hl=es_MX"
                     target="_blank">Aquí</a></p>
+                    <div *ngIf="!speakValidation.role else speakVal">
+                        <button mat-mini-fab color="primary" (click)="startSpeak('lec4')"><i
+                                class="fas fa-play"></i></button>
+                        <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                    </div>
+                    <ng-template #speakVal>
+                    </ng-template>
         </mat-expansion-panel>
         <mat-expansion-panel style="width: 100%;">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <b>3. ¿A qué se le conoce como activo?</b>
+                    <b id="lec5">3. ¿A qué se le conoce como activo?</b>
+                    <div *ngIf="!speakValidation.role else speakVal">
+                        <button mat-mini-fab color="primary" (click)="startSpeak('lec5')"><i
+                                class="fas fa-play"></i></button>
+                        <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                    </div>
+                    <ng-template #speakVal>
+                    </ng-template>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>Es el inventario que tiene registrado la empresa, dividido por categorías.</p>
+            <p id="lec6">Es el inventario que tiene registrado la empresa, dividido por categorías.</p>
+            <div *ngIf="!speakValidation.role else speakVal">
+                <button mat-mini-fab color="primary" (click)="startSpeak('lec6')"><i
+                        class="fas fa-play"></i></button>
+                <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+            </div>
+            <ng-template #speakVal>
+            </ng-template>
         </mat-expansion-panel>
         <mat-expansion-panel style="width: 100%;">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <b>4. ¿A qué se le conoce como herramienta?</b>
+                    <b id="lec7">4. ¿A qué se le conoce como herramienta?</b>
+                    <div *ngIf="!speakValidation.role else speakVal">
+                        <button mat-mini-fab color="primary" (click)="startSpeak('lec7')"><i
+                                class="fas fa-play"></i></button>
+                        <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                    </div>
+                    <ng-template #speakVal>
+                    </ng-template>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>Herramienta es aquél accesorio que acompaña al activo. Puede existir o no.</p>
+            <p id="lec8">Herramienta es aquél accesorio que acompaña al activo. Puede existir o no.</p>
+            <div *ngIf="!speakValidation.role else speakVal">
+                <button mat-mini-fab color="primary" (click)="startSpeak('lec8')"><i
+                        class="fas fa-play"></i></button>
+                <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+            </div>
+            <ng-template #speakVal>
+            </ng-template>
         </mat-expansion-panel>
         <mat-expansion-panel style="width: 100%;">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                   <b>5. ¿Cómo generar un QR para entrada/salida de activo?</b>
+                    <b id="lec9">5. ¿Cómo generar un QR para entrada/salida de activo?</b>
+                    <div *ngIf="!speakValidation.role else speakVal">
+                        <button mat-mini-fab color="primary" (click)="startSpeak('lec9')"><i
+                                class="fas fa-play"></i></button>
+                        <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                    </div>
+                    <ng-template #speakVal>
+                    </ng-template>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>Se generan automáticamente al registrar activos en el sistema de inventario.</p>
+            <p id="lec10">Se generan automáticamente al registrar activos en el sistema de inventario.</p>
+            <div *ngIf="!speakValidation.role else speakVal">
+                <button mat-mini-fab color="primary" (click)="startSpeak('lec10')"><i
+                        class="fas fa-play"></i></button>
+                <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+            </div>
+            <ng-template #speakVal>
+            </ng-template>
         </mat-expansion-panel>
         <mat-expansion-panel style="width: 100%;">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <b> 6. ¿Cómo registrar un activo?</b>
+                    <b id="lec11"> 6. ¿Cómo registrar un activo?</b>
+                    <div *ngIf="!speakValidation.role else speakVal">
+                        <button mat-mini-fab color="primary" (click)="startSpeak('lec11')"><i
+                                class="fas fa-play"></i></button>
+                        <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                    </div>
+                    <ng-template #speakVal>
+                    </ng-template>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>En la siguiente <a href="#">liga</a>.</p>
+            <p id="lec12">En la siguiente <a href="#">liga</a>.</p>
+            <div *ngIf="!speakValidation.role else speakVal">
+                <button mat-mini-fab color="primary" (click)="startSpeak('lec12')"><i
+                        class="fas fa-play"></i></button>
+                <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+            </div>
+            <ng-template #speakVal>
+            </ng-template>
         </mat-expansion-panel>
         <mat-expansion-panel style="width: 100%;">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <b>7. ¿Qué es Wilder?</b>
+                    <b id="lec13">7. ¿Qué es Wilder?</b>
+                    <div *ngIf="!speakValidation.role else speakVal">
+                        <button mat-mini-fab color="primary" (click)="startSpeak('lec13')"><i
+                                class="fas fa-play"></i></button>
+                        <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                    </div>
+                    <ng-template #speakVal>
+                    </ng-template>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>Es un sistema orientado a la gestión de activos para la empresa que tienes, orientado a generar reportes
+            <p id="lec14">Es un sistema orientado a la gestión de activos para la empresa que tienes, orientado a generar reportes
                 que sean útiles al momento de llenar licitaciones</p>
+                <div *ngIf="!speakValidation.role else speakVal">
+                    <button mat-mini-fab color="primary" (click)="startSpeak('lec14')"><i
+                            class="fas fa-play"></i></button>
+                    <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                </div>
+                <ng-template #speakVal>
+                </ng-template>
         </mat-expansion-panel>
         <mat-expansion-panel style="width: 100%;">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                   <b>8. ¿Cómo registrar a un usuario?</b>
+                    <b id="lec15">8. ¿Cómo registrar a un usuario?</b>
+                    <div *ngIf="!speakValidation.role else speakVal">
+                        <button mat-mini-fab color="primary" (click)="startSpeak('lec15')"><i
+                                class="fas fa-play"></i></button>
+                        <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+                    </div>
+                    <ng-template #speakVal>
+                    </ng-template>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>En la siguiente <a href="#">liga</a>.</p>
+            <p id="lec16">En la siguiente <a href="#">liga</a>.</p>
+            <div *ngIf="!speakValidation.role else speakVal">
+                <button mat-mini-fab color="primary" (click)="startSpeak('lec16')"><i
+                        class="fas fa-play"></i></button>
+                <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+            </div>
+            <ng-template #speakVal>
+            </ng-template>
         </mat-expansion-panel>
     </mat-accordion>
 </div>
