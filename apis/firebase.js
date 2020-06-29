@@ -14,7 +14,7 @@ router.use(bodyParser.json());
 var serviceAccountFile;
 
 try {
-    serviceAccountFile = require('../../serviceAccountKey.json');
+    serviceAccountFile = require('../serviceAccountKey.json');
 } catch (err) {
     serviceAccountFile = null;
 }
