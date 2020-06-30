@@ -1,10 +1,10 @@
 <div *ngIf="user | async as user">
-  <mat-card *ngIf="user.tipo === 'admin' else normal" class="example-card">
+  <mat-card class="example-card">
     <img *ngIf="idActivo === '0' else editarQR" mat-card-image src={{qrDefault}} alt="QR">
     <ng-template #editarQR>
       <img mat-card-image src={{datosActivo.qr}} alt="QR">
     </ng-template>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="idActivo === '0' else preview">
       <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
         <input name="nombre" [(ngModel)]="datosActivo.nombre" matInput placeholder="Monitor..." required>
@@ -26,13 +26,21 @@
         <textarea name="descripcion" [(ngModel)]="datosActivo.descripcion" matInput placeholder="Ex. It makes me feel..."></textarea>
       </mat-form-field>
     </mat-card-actions>
+    <ng-template #preview>
+      <mat-card-content>
+        <h4>Detalles del activo.</h4>
+        <p><b>Nombre: </b>{{ datosActivo.nombre }}</p>
+        <p><b>Modelo: </b>{{ datosActivo.modelo }}</p>
+        <p><b>Categoría: </b>{{ datosActivo.categoria }}</p>
+        <p><b>Descripción: </b>{{ datosActivo.descripcion }}</p>
+      </mat-card-content>
+    </ng-template>
     <mat-card-actions *ngIf="idActivo === '0' else editarBoton">
       <button type="submit" (click)="registrarActivo($event)" mat-raised-button color="primary">REGISTRAR</button>
     </mat-card-actions>
     <ng-template #editarBoton>
       <mat-card-actions>
-        <button mat-button>EDITAR</button>
-        <button mat-button>ELIMINAR</button>
+        <button mat-raised-button color="primary" [routerLink]="['/inventario']">REGRESAR</button>
       </mat-card-actions>
     </ng-template>
   </mat-card>

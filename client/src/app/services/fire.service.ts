@@ -118,6 +118,12 @@ export class FireService {
     );
   }
 
+  getActivos(){
+    return this._http.get(
+      'activos_list'
+    );
+  }
+
   getActivo(payload: any) {
     var rep = this._http.post(
       `get_activo`,

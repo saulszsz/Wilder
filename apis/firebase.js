@@ -97,6 +97,20 @@ function get_reference(reference) {
     return database.ref(reference);
 }
 
+router.get('/activos_list', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            var reference = get_reference('inventario');
+
+            reference.once("value", function (snapshot) {
+                res.json(snapshot.val());
+            });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
 router.get('/email_logged/:uid', (req, res) => {
     sessionStatus(req).then(
         (success) => {
