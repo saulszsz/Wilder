@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FireService } from '../../services/fire.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { PercentPipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Food {
   value: string;
@@ -26,9 +27,9 @@ export class ActivoscrudComponent implements OnInit {
   };
   idActivo: string;
   foods: Food[] = [
-    {value: 'activo', viewValue: 'Activo'},
-    {value: 'herramienta', viewValue: 'Herramienta'},
-    {value: 'otro', viewValue: 'Otro'}
+    { value: 'activo', viewValue: 'Activo' },
+    { value: 'herramienta', viewValue: 'Herramienta' },
+    { value: 'otro', viewValue: 'Otro' }
   ];
   descripcion: string;
 
@@ -54,12 +55,13 @@ export class ActivoscrudComponent implements OnInit {
   constructor(
     private _fs: FireService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _snack: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.idActivo = this._route.snapshot.paramMap.get('id');
-    if(this.idActivo != "0"){
+    if (this.idActivo != "0") {
       this.obtenerActivo();
     }
   }
@@ -69,13 +71,22 @@ export class ActivoscrudComponent implements OnInit {
     this._fs.createActivo(this.datosActivo).subscribe(
       (result: any) => {
         if (result.creado)
-          alert("Se registro con exito.");
+          this._snack.open("Se registró con éxito", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
         else
-          alert("no creado!");
+          this._snack.open("No se registró con éxito", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
         this._router.navigate(['/inventario']);
       },
       (error: any) => {
-        alert("Error!!! "+JSON.stringify(error));
+        this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
       }
     );
   }
@@ -86,20 +97,26 @@ export class ActivoscrudComponent implements OnInit {
     }
     this._fs.getActivo(payload).subscribe(
       (result: any) => {
-        if (result){
-          if(result == "null"){
-            alert("Activo no encontrado.");
+        if (result) {
+          if (result == "null") {
+            this._snack.open("Activo no encontrado.", 'OK', {
+              duration: 8000,
+              verticalPosition: 'bottom'
+            });
             this._router.navigate(['/inventario']);
-          }else{
+          } else {
             this.datosActivo = JSON.parse(result);
           }
-        }else{
-          alert("Activo no encontrado.");
+        } else {
+          this._snack.open("Activo no encontrado.", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
           this._router.navigate(['/inventario']);
         }
       },
       (error: any) => {
-        alert("Error! "+JSON.stringify(error));
+        alert("Error! " + JSON.stringify(error));
       }
     );
   }
