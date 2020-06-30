@@ -20,18 +20,9 @@
     <div class="container">
       <div class="collapse navbar-collapse" id="nav_principal">
         <ul class="nav nav-justified flex-column flex-lg-row">
-<<<<<<< HEAD
           <li class="nav-item"><button *ngIf="user | async" mat-button [routerLink]="['/']">Usuarios<img src="../assets/escudo.png" alt="Insignia" height="17px" style="margin-left: 5px;"></button></li>
           <li class="nav-item"><button *ngIf="user | async" mat-button
               [routerLink]="['/inventario']">Inventario</button></li>
-=======
-          <div *ngIf="user | async as user">
-            <li class="nav-item"><button *ngIf="user.tipo === 'admin'" mat-button [routerLink]="['/']">Usuarios</button></li>
-          </div>
-          <div *ngIf="user | async as user">
-            <li class="nav-item"><button mat-button [routerLink]="['/inventario']">Inventario</button></li>
-          </div>
->>>>>>> 90b5f60181a6be824c3ebcf49eb8949b6d3903b5
           <li class="nav-item"><button mat-button [routerLink]="['/about']">Acerca De</button></li>
           <li class="nav-item"><button mat-button [routerLink]="['/asked']">Preguntas Frecuentes</button></li>
           <li class="nav-item"><button mat-button [routerLink]="['/contact']">Contacto</button></li>
