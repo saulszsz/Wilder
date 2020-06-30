@@ -27,6 +27,9 @@ import { HelpComponent } from './components/help/help.component';
 import { MyfilesComponent } from './components/myfiles/myfiles.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Globals } from './services/globals';
+import { GraphicsComponent } from './components/graphics/graphics.component';
+
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import { Globals } from './services/globals';
     ActivosprewComponent,
     HelpComponent,
     MyfilesComponent,
+    GraphicsComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,8 @@ import { Globals } from './services/globals';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     AngularFireDatabaseModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   providers: [
     Globals,

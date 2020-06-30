@@ -8,6 +8,7 @@ import { ActivoslistaComponent } from './components/activoslista/activoslista.co
 import { ActivoscrudComponent } from './components/activoscrud/activoscrud.component';
 import { HelpComponent } from './components/help/help.component';
 import { MyfilesComponent } from './components/myfiles/myfiles.component';
+import { GraphicsComponent } from './components/graphics/graphics.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'activo/:id', component: ActivoscrudComponent },
   { path: 'ayuda', component: HelpComponent },
   { path: 'archivos', component: MyfilesComponent },
+  { path: 'graficas',component: GraphicsComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
