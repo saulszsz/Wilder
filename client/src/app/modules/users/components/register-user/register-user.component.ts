@@ -46,6 +46,9 @@ export class RegisterUserComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    if (!this.props) {
+      this.props = { uid: null, method: null }
+    }
     if (this.props.uid) {
       this.formulario = this._fb.group({
         'correo': ['',
