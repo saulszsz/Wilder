@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule, Router } from '@angular/router';
+import { DetailUserComponent } from './components/detail-user/detail-user.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,9 @@ const routes: Routes = [
   }, {
     path: "register",
     component: RegisterUserComponent
+  }, {
+    path: "detail",
+    component: DetailUserComponent
   }
 ];
 
@@ -30,7 +34,8 @@ const routes: Routes = [
     RegisterUserComponent,
     CreateUserComponent,
     DeleteUserComponent,
-    ModifyUserComponent
+    ModifyUserComponent,
+    DetailUserComponent
   ],
   imports: [
     RouterModule,
