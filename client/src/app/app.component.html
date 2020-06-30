@@ -20,7 +20,7 @@
     <div class="container">
       <div class="collapse navbar-collapse" id="nav_principal">
         <ul class="nav nav-justified flex-column flex-lg-row">
-          <li class="nav-item"><button *ngIf="user | async" mat-button [routerLink]="['/']">Usuarios</button></li>
+          <li class="nav-item"><button *ngIf="user | async" mat-button [routerLink]="['/']">Usuarios<img src="../assets/escudo.png" alt="Insignia" height="17px" style="margin-left: 5px;"></button></li>
           <li class="nav-item"><button *ngIf="user | async" mat-button
               [routerLink]="['/inventario']">Inventario</button></li>
           <li class="nav-item"><button mat-button [routerLink]="['/about']">Acerca De</button></li>
@@ -41,6 +41,12 @@
   </nav>
 
 </div>
-
-<h3 *ngIf="user | async as user">Hola {{ user.nombre }}</h3>
+<div  *ngIf="user | async as user">
+  <h3 *ngIf="user.tipo === 'admin' else normal" style="margin-left: 10px;">Hola admin {{ user.nombre }} <img src="../assets/escudo.png" alt="Insignia" height="33px" style="margin-left: 5px;"></h3> 
+  
+  <ng-template #normal>
+    <h3>Hola {{ user.nombre }}</h3>
+  </ng-template>
+</div>
+  
 <router-outlet></router-outlet>

@@ -17,7 +17,8 @@ export class FireService {
     public _afAuth: AngularFireAuth,
     private _http: HttpClient,
     public _cs: CookieService,
-    public _fireDb: AngularFireDatabase
+    public _fireDb: AngularFireDatabase,
+    public _router: Router
   ) { }
 
   loginGoogle() {
@@ -28,13 +29,16 @@ export class FireService {
     return this._afAuth.createUserWithEmailAndPassword(email, password);
   }
 
+  iniciarSesionTradicional(email: string, password: string) {
+    return this._afAuth.signInWithEmailAndPassword(email, password);
+  }
+
   cerrarSesion() {
     var that = this;
     return this._afAuth.signOut().then(function () {
       that._http.post("logout", {}).subscribe(
         (r) => {
-          var landingUrl = window.location.host + "/users/login";
-          window.open(landingUrl, "_self");
+          that._router.navigate(['/']);
         }
       );
     });
@@ -97,12 +101,6 @@ export class FireService {
       'sessionLogin/',
       {
         idToken: idToken
-      }, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
-        }
       }
     )
   }

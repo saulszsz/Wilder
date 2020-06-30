@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit, AfterViewInit {
   mail: String;
   password: string;
+
   uid: string;
   method: string;
   props = { uid: null, method: null };
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   verifier: any;
   codigo: any;
   formulario: FormGroup
+  formulario_login: FormGroup
 
   constructor(
     private _fs: FireService,
@@ -76,6 +78,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
         ]
       ]
     });
+
+    this.formulario_login = this._fb.group({
+      'mail': ['',
+        [
+          Validators.required,
+          Validators.email
+        ]
+      ],
+      'password': ['',
+        [
+          Validators.required
+        ]
+      ],
+    });
   }
 
   login(method: string, evt = null) {
@@ -113,7 +129,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
     } else if (method == 'facebook') {
 
     } else if (method == 'password') {
-
+      this._fs.iniciarSesionTradicional(this.formulario_login.get('mail').value, this.formulario_login.get('password').value).then(({ user }) => {
+        user.getIdToken().then(
+          (idToken) => {
+            this._fs.setCookieSession(idToken).subscribe(
+              (response) => {
+                this._router.navigate(['/']);
+              },
+              (error: any) => {
+                this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
+                  duration: 5000,
+                  verticalPosition: 'top'
+                });
+              }
+            );
+          });
+      });
     } else if (method == 'phone') {
       // this.props = { uid: null, method: 'phone' }
       // this.registro = true;

@@ -23,7 +23,8 @@ export class ContactComponent implements OnInit {
     this.todoForm=this.formBuilder.group({
       nombre: ['',Validators.required],
       telefono: ['',Validators.required],
-      correo: ['',Validators.required]
+      correo: ['',Validators.required],
+      mensaje: ['',Validators.required]
     });
   }
 

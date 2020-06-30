@@ -7,20 +7,31 @@
             <h2>Inicie Sesión en Wilder con su número telefónico</h2>
         </mat-card-header>
         <mat-card-content *ngIf="method!='phone'">
-            <form (submit)="login('password', $event)">
+            <form [formGroup]="formulario_login" (submit)="login('password', $event)">
                 <mat-form-field class="full-width-input" appearance="outline">
                     <mat-label>Correo Electrónico</mat-label>
-                    <input name="email" #email="ngModel" [(ngModel)]="mail" matInput type="email"
-                        placeholder="Ej. email@dominio.com" required>
-                    <mat-error *ngIf="email.touched && !email.valid">
+                    <input name="email" formControlName="mail" matInput type="email" placeholder="Ej. email@dominio.com"
+                        required>
+                    <mat-error *ngIf="_forms.errorHandling('mail', 'required', formulario_login)">
+                        Por favor introduce un correo.
+                    </mat-error>
+                    <mat-error *ngIf="_forms.errorHandling('mail', 'email', formulario_login)">
                         Por favor introduce un correo válido.
                     </mat-error>
                 </mat-form-field><br>
                 <mat-form-field class="full-width-input" appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input name="pwd" #pwd="ngModel" [(ngModel)]="password" matInput type="password"
+                    <input name="pwd" formControlName="password" matInput type="password"
                         placeholder="Introduce tu contraseña">
+                    <mat-error *ngIf="_forms.errorHandling('password', 'required', formulario_login)">
+                        Por favor introduce una contraseña.
+                    </mat-error>
                 </mat-form-field>
+                <button mat-raised-button color="primary" style="margin-bottom: 10px;"
+                    [hidden]="method=='phone'">Iniciar
+                    Sesión</button>
+                <button mat-raised-button color="secondary" [routerLink]="['/users/register']"
+                    style="margin: 0 0 10px 10px;" [hidden]="method=='phone'">Regístrate Aquí</button>
             </form>
         </mat-card-content>
         <mat-card-content [hidden]="method!='phone'">
@@ -58,16 +69,12 @@
             <div *ngIf="windowRef.confirmationResult">
                 <mat-form-field class="full-width-input phone" appearance="outline">
                     <mat-label>Introduce Aquí tu código de verificación.</mat-label>
-                    <input matInput [(ngModel)]="codigo" type="text" placeholder="Introduce el código que enviamos a tu teléfono.">
+                    <input matInput [(ngModel)]="codigo" type="text"
+                        placeholder="Introduce el código que enviamos a tu teléfono.">
                 </mat-form-field>
                 <button (click)="verifyLoginCode()" mat-raised-button color="primary">Verificar Código</button>
             </div>
         </mat-card-content>
-        <mat-card-footer style="padding: 20px;">
-            <button mat-raised-button color="primary" style="margin-bottom: 10px;" [hidden]="method=='phone'">Iniciar Sesión</button>
-            <button mat-raised-button color="secondary" [routerLink]="['/users/register']"
-                style="margin: 0 0 10px 10px;" [hidden]="method=='phone'">Regístrate Aquí</button>
-        </mat-card-footer>
     </mat-card>
     <br><br>
     <mat-card *ngIf="method!='phone'">
