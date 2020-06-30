@@ -25,7 +25,6 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'inventario', component: ActivoslistaComponent },
   { path: 'activo/:id', component: ActivoscrudComponent },
-  { path: 'ayuda', component: HelpComponent },
   { path: 'archivos', component: MyfilesComponent },
   { path: 'graficas',component: GraphicsComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }

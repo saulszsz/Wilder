@@ -4,11 +4,21 @@
     <p>Salvajemente Organizados!</p>
     <p>Wilder®, 2020©</p>
     <b>Todos los derechos reservados.</b>
-    <p style="text-align: left;">Creadores:</p>
-    <mat-list role="list">
-        <mat-list-item role="listitem">Jesús Angel Mosqueda Esparza</mat-list-item>
-        <mat-list-item role="listitem">Moisés Alejandro Flores Martínez</mat-list-item>
-        <mat-list-item role="listitem">Saúl Alejandro Sustaita Jasso</mat-list-item>
-        <mat-list-item role="listitem">Carlos Daniel Cañedo García</mat-list-item>
-    </mat-list>
+
+    <mat-card>
+        <div *ngIf="!speakValidation.role else speakVal" style="padding-left: 40px; padding-bottom: 20px;" class="text-center">
+            <button mat-mini-fab color="primary" (click)="startSpeak2('lec','lec1','lec2','lec3','lec4')"><i
+                    class="fas fa-play"></i></button>
+            <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+        </div>
+        <ng-template #speakVal>
+        </ng-template>
+        <p style="text-align: left;" id="lec">Creadores:</p>
+        <mat-list role="list">
+            <mat-list-item id="lec1" role="listitem">Jesús Angel Mosqueda Esparza</mat-list-item>
+            <mat-list-item id="lec2" role="listitem">Moisés Alejandro Flores Martínez</mat-list-item>
+            <mat-list-item id="lec3" role="listitem">Saúl Alejandro Sustaita Jasso</mat-list-item>
+            <mat-list-item id="lec4" role="listitem">Carlos Daniel Cañedo García</mat-list-item>
+        </mat-list>
+    </mat-card>
 </div>
