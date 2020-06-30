@@ -20,7 +20,6 @@
     <div class="container">
       <div class="collapse navbar-collapse" id="nav_principal">
         <ul class="nav nav-justified flex-column flex-lg-row">
-          <li class="nav-item"><button *ngIf="user | async" mat-button [routerLink]="['/']">Usuarios<img src="../assets/escudo.png" alt="Insignia" height="17px" style="margin-left: 5px;"></button></li>
           <li class="nav-item"><button *ngIf="user | async" mat-button
               [routerLink]="['/inventario']">Inventario</button></li>
           <li class="nav-item"><button mat-button [routerLink]="['/about']">Acerca De</button></li>
@@ -32,7 +31,13 @@
         </ul>
       </div>
     </div>
-
+    <div *ngIf="user | async as user" style="margin-right: 0px;">
+      <p *ngIf="user.tipo === 'admin' else normal" style="margin-left: 10px;">Hola admin {{ user.nombre }} <img
+          src="../assets/escudo.png" alt="Insignia" height="33px" style="margin-left: 5px;"></p>
+      <ng-template #normal>
+        <p>Hola {{ user.nombre }}</p>
+      </ng-template>
+    </div>
     <a *ngIf="user | async else login" class="log-in" [routerLink]="['/users/logout']" style="margin-right: 0px;"><i
         class="fas fa-sign-out-alt"></i></a>
     <ng-template #login>
@@ -42,12 +47,5 @@
   </nav>
 
 </div>
-<div  *ngIf="user | async as user">
-  <h3 *ngIf="user.tipo === 'admin' else normal" style="margin-left: 10px;">Hola admin {{ user.nombre }} <img src="../assets/escudo.png" alt="Insignia" height="33px" style="margin-left: 5px;"></h3> 
-  
-  <ng-template #normal>
-    <h3>Hola {{ user.nombre }}</h3>
-  </ng-template>
-</div>
-  
+
 <router-outlet></router-outlet>

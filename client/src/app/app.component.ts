@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
 
   title = 'Wilder';
 
-  habilitableSpeak(){
+  habilitableSpeak() {
     this.globals.role = !this.globals.role;
   }
 }
