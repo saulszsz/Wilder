@@ -22,7 +22,6 @@ export class DetailUserComponent implements OnInit {
   user: any = this.uid.pipe(
     switchMap(uid => {
       if (!uid) {
-        return of(false);
         this._router.navigate(['/']);
       } else {
         return this._fs._fireDb.object('users/' + uid).valueChanges();

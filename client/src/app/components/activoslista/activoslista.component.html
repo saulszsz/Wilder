@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario</title>
-</head>
-<body>
-  <mat-grid-list cols="3" rowHeight="60px">
-    <mat-grid-tile colspan="1"></mat-grid-tile>
-    <mat-grid-tile colspan="1">
+<h3 style="text-align: center;">Listado de Activos registrados.</h3>
+<mat-grid-list cols="3" rowHeight="60px">
+  <mat-grid-tile colspan="1">
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1">
+  </mat-grid-tile>
+  <!-- <mat-grid-tile colspan="1">
       <form class="example-form">
           <mat-form-field class="example-full-width">
             <input type="text"
@@ -24,73 +20,20 @@
             </mat-autocomplete>
           </mat-form-field>
       </form>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="1">
-      <div *ngIf="user | async as user">
-        <button *ngIf="user.tipo === 'admin'" class="button" mat-raised-button [routerLink]="['/activo/0']" color="primary" >Registrar activo</button>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-    <!--Tarjeta-->
-    <mat-card class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>LOGITECH</mat-card-title>
-          <mat-card-subtitle>G203</mat-card-subtitle>
-          <!--<button class="button" mat-raised-button (click)="openBottomSheet()">Open</button>-->
-          <!--<button mat-button (click)="openDialog()">Open dialog</button>-->
-          <button class="button" mat-button [routerLink]="['/activo']">Abrir</button>
-        </mat-card-header>
-    </mat-card>
-    
-    <!--Tarjeta-->
-    <mat-card class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>LOGITECH</mat-card-title>
-          <mat-card-subtitle>G203</mat-card-subtitle>
-          <button class="button" mat-button [routerLink]="['/activo']">Abrir</button>
-        </mat-card-header>
-    </mat-card>
-    
-    <!--Tarjeta-->
-    <mat-card class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>LOGITECH</mat-card-title>
-          <mat-card-subtitle>G203</mat-card-subtitle>
-          <button class="button" mat-button [routerLink]="['/activo']">Abrir</button>
-        </mat-card-header>
-    </mat-card>
-    
-    <!--Tarjeta-->
-    <mat-card class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>LOGITECH</mat-card-title>
-          <mat-card-subtitle>G203</mat-card-subtitle>
-          <button class="button" mat-button [routerLink]="['/activo']">Abrir</button>
-        </mat-card-header>
-    </mat-card>
-    
-    <!--Tarjeta-->
-    <mat-card class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>LOGITECH</mat-card-title>
-          <mat-card-subtitle>G203</mat-card-subtitle>
-          <button class="button" mat-button [routerLink]="['/activo']">Abrir</button>
-        </mat-card-header>
-    </mat-card>
-    
-    <!--Tarjeta-->
-    <mat-card class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>LOGITECH</mat-card-title>
-          <mat-card-subtitle>G203</mat-card-subtitle>
-          <button class="button" mat-button [routerLink]="['/activo']">Abrir</button>
-        </mat-card-header>
-    </mat-card>
-</body>
-</html>
+    </mat-grid-tile> -->
+  <mat-grid-tile colspan="1">
+    <div *ngIf="user | async as user">
+      <button *ngIf="user.tipo === 'admin'" class="button" mat-raised-button [routerLink]="['/activo/0']"
+        color="primary">Registrar activo</button>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+<!--Tarjeta-->
+<mat-card *ngFor="let activo of activos">
+  <mat-card-header>
+    <div mat-card-avatar></div>
+    <mat-card-title>{{ activo.nombre }}</mat-card-title>
+    <mat-card-subtitle>{{ activo.modelo }}</mat-card-subtitle>
+    <button class="button" mat-raised-button color="primary" [routerLink]="['/activo/'+activo.id]">Abrir</button>
+  </mat-card-header>
+</mat-card>
