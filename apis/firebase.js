@@ -205,7 +205,7 @@ router.post('/create_activo', (req, res) => {
             var activoRegistrado = get_reference('inventario/').push(req.body);
             var idActivo = activoRegistrado.key;
             const crearQR = async () => {
-                QR = await qrcode.toDataURL("http://localhost:3000/activo/" + idActivo);
+                QR = await qrcode.toDataURL("https://wilderinv.herokuapp.com/activo/" + idActivo);
                 req.body.qr = String(QR);
                 get_reference('inventario/' + idActivo).set(req.body).then(
                     (result) => {
