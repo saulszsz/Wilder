@@ -1,10 +1,11 @@
 <div *ngIf="user | async as user">
-  <mat-card class="example-card">
+  <mat-card *ngIf="user.tipo === 'admin' else usuarioNormal" class="example-card">
+    <p><b>TrabajoID: </b>{{ user.trabajo }}</p>
     <img *ngIf="idActivo === '0' else editarQR" mat-card-image src={{qrDefault}} alt="QR">
     <ng-template #editarQR>
       <img mat-card-image src={{datosActivo.qr}} alt="QR">
     </ng-template>
-    <mat-card-actions *ngIf="idActivo === '0' else preview">
+    <mat-card-content>
       <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
         <input name="nombre" [(ngModel)]="datosActivo.nombre" matInput placeholder="Monitor..." required>
@@ -25,49 +26,42 @@
         <mat-label>Descripcion</mat-label>
         <textarea name="descripcion" [(ngModel)]="datosActivo.descripcion" matInput placeholder="Ex. It makes me feel..."></textarea>
       </mat-form-field>
-    </mat-card-actions>
-    <ng-template #preview>
-      <mat-card-content>
-        <h4>Detalles del activo.</h4>
-        <p><b>Nombre: </b>{{ datosActivo.nombre }}</p>
-        <p><b>Modelo: </b>{{ datosActivo.modelo }}</p>
-        <p><b>Categoría: </b>{{ datosActivo.categoria }}</p>
-        <p><b>Descripción: </b>{{ datosActivo.descripcion }}</p>
-      </mat-card-content>
-    </ng-template>
+      <p><b>TrabajoID: </b>{{ user.trabajo }}</p>
+      <p><b>Dominio: </b>{{ datosActivo.dominio }}</p>
+      <p><b>Fecha: </b>{{ datosActivo.fecha | date:'dd/MM/yyyy' }}</p>
+      <p><b>usuariO: </b>{{ user.tipo }}</p>
+    </mat-card-content>
     <mat-card-actions *ngIf="idActivo === '0' else editarBoton">
-      <button type="submit" (click)="registrarActivo($event)" mat-raised-button color="primary">REGISTRAR</button>
+      <button type="submit" (click)="registrarActivo($event, user.trabajo)" mat-raised-button color="primary">REGISTRAR</button>
     </mat-card-actions>
     <ng-template #editarBoton>
       <mat-card-actions>
+        <button mat-raised-button color="warn">ELIMINAR</button>
+        <button mat-raised-button color="accent">EDITAR</button>
+      </mat-card-actions>
+      <mat-card-actions>
         <button mat-raised-button color="primary" [routerLink]="['/inventario']">REGRESAR</button>
+        <button mat-raised-button color="primary">OBTENER</button>
       </mat-card-actions>
     </ng-template>
   </mat-card>
-  <ng-template #normal>
+  <ng-template #usuarioNormal>
     <mat-card class="example-card">
-      <img mat-card-image src={{qrDefault}} alt="Photo of a Shiba Inu">
-      <mat-card-header>
-        <mat-card-title>LOGITECH</mat-card-title>
-        <mat-card-subtitle>G203</mat-card-subtitle>
-      </mat-card-header>
+      <img mat-card-image src={{datosActivo.qr}} alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <mat-card-title>{{ datosActivo.nombre }}</mat-card-title>
+        <mat-card-subtitle>{{ datosActivo.modelo }}</mat-card-subtitle>
+        <p><b>Categoría: </b>{{ datosActivo.categoria }}</p>
+        <p><b>Descripción: </b>{{ datosActivo.descripcion }}</p>
+        <p><b>Dominio: </b>{{ datosActivo.dominio }}</p>
+        <p><b>Fecha: </b>{{ datosActivo.fecha | date:'dd/MM/yyyy' }}</p>
+      </mat-card-content>
       <mat-card-actions>
-        <mat-form-field class="example-full-width">
-          <mat-label>id</mat-label>
-          <input matInput placeholder="00000" value="68765946">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>Nombre</mat-label>
-          <input matInput placeholder="Monitor" value="LOGITECH G203">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>Descripcion</mat-label>
-          <textarea matInput placeholder="Ex. It makes me feel...">MOUSE ALAMBRICO LOGITECH G203 (NEGRO, USB)</textarea>
-        </mat-form-field>
+        <button mat-raised-button color="primary">SOLICITAR</button>
+        <button mat-raised-button color="primary">OBTENER</button>
       </mat-card-actions>
       <mat-card-actions>
-        <button mat-button>GUARDAR</button>
-        <button mat-button>COMPARTIR</button>
+        <button mat-raised-button color="primary" [routerLink]="['/inventario']">REGRESAR</button>
       </mat-card-actions>
     </mat-card>
   </ng-template>
