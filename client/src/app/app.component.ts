@@ -3,6 +3,7 @@ import { FireService } from './services/fire.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Globals } from './services/globals';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -33,13 +34,22 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _fs: FireService,
-    private globals: Globals
+    private globals: Globals,
+    private spinnerService: NgxSpinnerService
   ) {
     this.speakValidation = globals;
 
   }
 
   ngOnInit() {
+    this.spinner();
+  }
+
+  spinner(): void{
+    this.spinnerService.show();
+    setTimeout(() => {
+      this.spinnerService.hide();
+    }, 1500);
   }
 
   title = 'Wilder';
