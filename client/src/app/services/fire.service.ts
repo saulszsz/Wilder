@@ -144,4 +144,16 @@ export class FireService {
       }
     );
   }
+
+  deletActivo(idActivo: string) {
+    return this._http.post(
+      `delet_activo/${idActivo}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
+      }
+    );
+  }
 }

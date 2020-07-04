@@ -149,4 +149,30 @@ export class ActivoscrudComponent implements OnInit {
       }
     );
   }
+
+  
+  eliminarActivo(evt: any) {
+    evt.preventDefault();
+    this._fs.deletActivo(this.idActivo).subscribe(
+      (result: any) => {
+        if (result.creado)
+          this._snack.open("Se elimino con éxito", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
+        else
+          this._snack.open("No se elimino con éxito", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
+        this._router.navigate(['/inventario']);
+      },
+      (error: any) => {
+        this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
+      }
+    );
+  }
 }
