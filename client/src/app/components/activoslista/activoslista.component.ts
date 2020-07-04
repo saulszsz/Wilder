@@ -6,12 +6,15 @@ import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-activoslista',
   templateUrl: './activoslista.component.html',
   styleUrls: ['./activoslista.component.css']
 })
 export class ActivoslistaComponent implements OnInit {
+  bandera:boolean;
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
@@ -36,12 +39,15 @@ export class ActivoslistaComponent implements OnInit {
 
   constructor(
     private _fs: FireService,
-    private _router: Router
+    private _router: Router,
+    private spinnerService: NgxSpinnerService
   ) { }
 
   activos = [];
 
   ngOnInit() {
+    this.bandera=true;
+    this.spinner();
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -59,6 +65,8 @@ export class ActivoslistaComponent implements OnInit {
         array.forEach((dato) => {
           this.activos.push(dato);
         });
+        this.bandera=false;
+        this.spinner();
       },
       (error) => {
         return [];
@@ -72,4 +80,13 @@ export class ActivoslistaComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
+
+  spinner(): void{
+    if(this.bandera){
+      this.spinnerService.show();
+    }else if(!this.bandera){
+      this.spinnerService.hide();
+    }
+  }
+
 }
