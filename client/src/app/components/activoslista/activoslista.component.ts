@@ -88,5 +88,5 @@ export class ActivoslistaComponent implements OnInit {
       this.spinnerService.hide();
     }
   }
-  
+
 }

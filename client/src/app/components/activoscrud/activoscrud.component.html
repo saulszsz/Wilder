@@ -23,7 +23,7 @@
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Descripcion</mat-label>
-        <textarea name="descripcion" [(ngModel)]="datosActivo.descripcion" matInput placeholder="Ex. It makes me feel..."></textarea>
+        <textarea name="descripcion" [(ngModel)]="datosActivo.descripcion" matInput placeholder="Cuenta con..."></textarea>
       </mat-form-field>
       <p><b>Dominio: </b>{{ datosActivo.dominio }}</p>
       <p><b>Fecha: </b>{{ datosActivo.fecha | date:'dd/MM/yyyy' }}</p>
@@ -34,7 +34,7 @@
     </mat-card-actions>
     <ng-template #editarBoton>
       <mat-card-actions>
-        <button mat-raised-button color="warn">ELIMINAR</button>
+        <button (click)="eliminarActivo($event)" mat-raised-button color="warn">ELIMINAR</button>
         <button (click)="editarActivo($event, user.trabajo)" mat-raised-button color="accent">EDITAR</button>
       </mat-card-actions>
       <mat-card-actions>
