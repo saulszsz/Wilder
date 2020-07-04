@@ -153,7 +153,7 @@ export class ActivoscrudComponent implements OnInit {
   
   eliminarActivo(evt: any) {
     evt.preventDefault();
-   /* this._fs.deletActivo(this.idActivo).subscribe(
+    this._fs.deletActivo(this.idActivo).subscribe(
       (result: any) => {
         if (result.creado)
           this._snack.open("Se elimino con éxito", 'OK', {
@@ -173,6 +173,6 @@ export class ActivoscrudComponent implements OnInit {
           verticalPosition: 'bottom'
         });
       }
-    );*/
+    );
   }
 }

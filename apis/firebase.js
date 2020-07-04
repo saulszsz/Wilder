@@ -273,4 +273,26 @@ router.post('/edit_activo/:id', (req, res) => {
     });
 });
 
+router.post('/delet_activo/:id', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            console.log("K PEX " + req.params.id);
+            get_reference('inventario/' + req.params.id).removeValue().then(
+                (result) => {
+                    console.log("Activo eliminado.");
+                    console.log(JSON.stringify(result));
+                    res.json({ 'creado': true });
+                },
+                (error) => {
+                    console.log("Activo no eliminado.");
+                    console.log(JSON.stringify(error));
+                    res.json({ 'creado': false });
+                }
+            );
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST! create_activo");
+    });
+});
+
 module.exports = router;
