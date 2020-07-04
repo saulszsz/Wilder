@@ -6,12 +6,15 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-graphics',
   templateUrl: './graphics.component.html',
   styleUrls: ['./graphics.component.css']
 })
 export class GraphicsComponent implements OnInit {
+  bandera:boolean;
 
   public doughnutChartLabels = ['Activo', 'Herramienta', 'Otro'];
   public doughnutChartData = [120, 150, 180];
@@ -39,14 +42,15 @@ export class GraphicsComponent implements OnInit {
     }),
   );
 
-  constructor(private _fs: FireService, private _router: Router) { }
+  constructor(private _fs: FireService, private _router: Router, private spinnerService: NgxSpinnerService) { }
     
   activos = [];
   activos_etq = [];
   activos_numero = [];
 
   ngOnInit(): void {
-
+    this.bandera=true;
+    this.spinner();
     this._fs.getActivos().subscribe(
       (result) => {
         if (result) {
@@ -70,6 +74,8 @@ export class GraphicsComponent implements OnInit {
         console.log(this.activos_etq);
         this.doughnutChartLabels = this.activos_etq;
         this.doughnutChartData = this.activos_numero;
+        this.bandera=false;
+        this.spinner();
       },
       (error) => {
         return [];
@@ -78,5 +84,12 @@ export class GraphicsComponent implements OnInit {
 
   }
 
+  spinner(): void{
+    if(this.bandera){
+      this.spinnerService.show();
+    }else if(!this.bandera){
+      this.spinnerService.hide();
+    }
+  }
 
 }

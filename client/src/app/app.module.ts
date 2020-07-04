@@ -30,6 +30,7 @@ import { Globals } from './services/globals';
 import { GraphicsComponent } from './components/graphics/graphics.component';
 
 import { ChartsModule } from 'ng2-charts';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { ChartsModule } from 'ng2-charts';
     ActivosprewComponent,
     HelpComponent,
     MyfilesComponent,
-    GraphicsComponent,
+    GraphicsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +59,8 @@ import { ChartsModule } from 'ng2-charts';
     AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
+    NgxSpinnerModule
   ],
   providers: [
     Globals,

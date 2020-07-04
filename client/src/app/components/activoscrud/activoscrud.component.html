@@ -4,40 +4,54 @@
     <ng-template #editarQR>
       <img mat-card-image src={{datosActivo.qr}} alt="QR">
     </ng-template>
-    <mat-card-actions *ngIf="idActivo === '0' else preview">
-      <mat-form-field class="example-full-width">
-        <mat-label>Nombre</mat-label>
-        <input name="nombre" [(ngModel)]="datosActivo.nombre" matInput placeholder="Monitor..." required>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Modelo</mat-label>
-        <input name="modelo" [(ngModel)]="datosActivo.modelo" matInput placeholder="XLR8">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Categoria</mat-label>
-        <mat-select [(ngModel)]="datosActivo.categoria" name="food" required>
-          <mat-option *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Descripcion</mat-label>
-        <textarea name="descripcion" [(ngModel)]="datosActivo.descripcion" matInput placeholder="Ex. It makes me feel..."></textarea>
-      </mat-form-field>
-    </mat-card-actions>
-    <ng-template #preview>
-      <mat-card-content>
-        <h4>Detalles del activo.</h4>
-        <p><b>Nombre: </b>{{ datosActivo.nombre }}</p>
-        <p><b>Modelo: </b>{{ datosActivo.modelo }}</p>
-        <p><b>Categoría: </b>{{ datosActivo.categoria }}</p>
-        <p><b>Descripción: </b>{{ datosActivo.descripcion }}</p>
-      </mat-card-content>
-    </ng-template>
-    <mat-card-actions *ngIf="idActivo === '0' else editarBoton">
-      <button type="submit" (click)="registrarActivo($event)" mat-raised-button color="primary">REGISTRAR</button>
-    </mat-card-actions>
+    <form [formGroup]="todoForm"  (ngSubmit)="registrarActivo($event)" class="example-form">
+      <mat-card-actions *ngIf="idActivo === '0' else preview">
+        <mat-form-field class="example-full-width">
+          <mat-label>Nombre</mat-label>
+          <input name="nombre" [(ngModel)]="datosActivo.nombre" matInput placeholder="Monitor..." formControlName="v_nombre" required>
+          <mat-error *ngIf="todoForm.controls['v_nombre'].touched && todoForm.controls['v_nombre'].errors?.required">
+            Es necesario proporcionar el Nombre del producto
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Modelo</mat-label>
+          <input name="modelo" [(ngModel)]="datosActivo.modelo" matInput placeholder="XLR8" formControlName="v_modelo" required>
+          <mat-error *ngIf="todoForm.controls['v_modelo'].touched && todoForm.controls['v_modelo'].errors?.required">
+            Es necesario proporcionar el Modelo del producto
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Categoria</mat-label>
+          <mat-select [(ngModel)]="datosActivo.categoria" name="food" formControlName="v_categoria" required>
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+              {{food.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="todoForm.controls['v_categoria'].touched && todoForm.controls['v_categoria'].errors?.required">
+            Es necesario proporcionar el Categoria del producto
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Descripcion</mat-label>
+          <textarea name="descripcion" [(ngModel)]="datosActivo.descripcion" matInput placeholder="Ex. It makes me feel..." formControlName="v_descripcion" required></textarea>
+          <mat-error *ngIf="todoForm.controls['v_descripcion'].touched && todoForm.controls['v_descripcion'].errors?.required">
+            Es necesario proporcionar una Descripcion del producto
+          </mat-error>
+        </mat-form-field>
+      </mat-card-actions>
+      <ng-template #preview>
+        <mat-card-content>
+          <h4>Detalles del activo.</h4>
+          <p><b>Nombre: </b>{{ datosActivo.nombre }}</p>
+          <p><b>Modelo: </b>{{ datosActivo.modelo }}</p>
+          <p><b>Categoría: </b>{{ datosActivo.categoria }}</p>
+          <p><b>Descripción: </b>{{ datosActivo.descripcion }}</p>
+        </mat-card-content>
+      </ng-template>
+      <mat-card-actions *ngIf="idActivo === '0' else editarBoton">
+        <button type="submit" (click)="registrarActivo($event)" mat-raised-button color="primary" [disabled]="todoForm.invalid">REGISTRAR</button>
+      </mat-card-actions>
+    </form>
     <ng-template #editarBoton>
       <mat-card-actions>
         <button mat-raised-button color="primary" [routerLink]="['/inventario']">REGRESAR</button>
