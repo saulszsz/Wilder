@@ -131,4 +131,17 @@ export class FireService {
     );
     return rep;
   }
+
+  editActivo(payload: any, idActivo: string) {
+    return this._http.post(
+      `edit_activo/${idActivo}`,
+      payload, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
+      }
+    );
+  }
 }

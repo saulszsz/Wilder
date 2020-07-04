@@ -123,4 +123,30 @@ export class ActivoscrudComponent implements OnInit {
       }
     );
   }
+
+  editarActivo(evt: any, trabajo: string) {
+    evt.preventDefault();
+    this.datosActivo.trabajo = trabajo;
+    this._fs.editActivo(this.datosActivo, this.idActivo).subscribe(
+      (result: any) => {
+        if (result.creado)
+          this._snack.open("Se edito con éxito", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
+        else
+          this._snack.open("No se edito con éxito", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
+        this._router.navigate(['/inventario']);
+      },
+      (error: any) => {
+        this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
+      }
+    );
+  }
 }
