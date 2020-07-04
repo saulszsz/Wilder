@@ -205,7 +205,7 @@ router.post('/create_activo', (req, res) => {
             var activoRegistrado = get_reference('inventario/').push(req.body);
             var idActivo = activoRegistrado.key;
             const crearQR = async () => {
-                QR = await qrcode.toDataURL("http://localhost:3000/activo/" + idActivo);
+                QR = await qrcode.toDataURL("https://wilderinv.herokuapp.com/activo/" + idActivo);
                 req.body.qr = String(QR);
                 get_reference('inventario/' + idActivo).set(req.body).then(
                     (result) => {
@@ -225,7 +225,6 @@ router.post('/create_activo', (req, res) => {
     ).catch((error) => {
         res.status(403).send("UNAUTHORIZED REQUEST! create_activo");
     });
-
 });
 
 router.post('/get_activo', (req, res) => {
@@ -250,6 +249,27 @@ router.post('/get_activo', (req, res) => {
         }
     ).catch((error) => {
         res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+router.post('/edit_activo/:id', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            get_reference('inventario/' + req.params.id).set(req.body).then(
+                (result) => {
+                    console.log("Activo editado.");
+                    console.log(JSON.stringify(result));
+                    res.json({ 'creado': true });
+                },
+                (error) => {
+                    console.log("Activo no editado.");
+                    console.log(JSON.stringify(error));
+                    res.json({ 'creado': false });
+                }
+            );
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST! create_activo");
     });
 });
 
