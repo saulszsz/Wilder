@@ -161,7 +161,6 @@ export class ActivoscrudComponent implements OnInit {
     );
   }
 
-  
   eliminarActivo(evt: any) {
     evt.preventDefault();
     this._fs.deletActivo(this.idActivo).subscribe(

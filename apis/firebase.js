@@ -277,7 +277,7 @@ router.post('/delet_activo/:id', (req, res) => {
     sessionStatus(req).then(
         (success) => {
             console.log("K PEX " + req.params.id);
-            get_reference('inventario/' + req.params.id).removeValue().then(
+            get_reference('inventario/').child(req.params.id).remove().then(
                 (result) => {
                     console.log("Activo eliminado.");
                     console.log(JSON.stringify(result));
