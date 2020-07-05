@@ -6,3 +6,22 @@
     </div>
     <p style="font-size: 24px; text-align: center;">En esta grafica se muestran la cantidad de inventario que hay separada por categorias segun su tipo de articulo</p>
 </div>
+
+<div style="padding: 30px;">
+    <h1 style="text-align: center;">Grafica de Inventarios registrados segun su fecha</h1>
+    <div style="display: block">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          [legend]="barChartLegend" [chartType]="barChartType">
+        </canvas>
+    </div>
+    <p style="font-size: 24px; text-align: center;">En esta grafica se muestran la cantidad de inventarios registrados cada mes</p>
+</div>
+<!--
+<div style="padding: 30px;">
+    <h1 style="text-align: center;">Grafica de Inventarios registrados segun su fecha</h1>
+    <div style="display: block">
+        <canvas baseChart [data]="steppedChartData" [labels]="steppedChartLabels"
+            [chartType]="steppedChartType"></canvas>
+    </div>
+    <p style="font-size: 24px; text-align: center;">En esta grafica se muestran la cantidad de inventarios registrados cada mes</p>
+</div>-->
