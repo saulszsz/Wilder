@@ -42,6 +42,9 @@ export class GraphicsComponent implements OnInit {
   public barChartLegend = true;
   public barChartData = [];
 
+  public pieChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
+  public pieChartData = [120, 150, 180, 90];
+  public pieChartType = 'pie';
 
   /*public steppedChartLabels = ['Enero-2020','Febrero-2020','Marzo-2020','Abril-2020','Mayo-2020','Junio-2020','Julio-2020','Agosto-2020','Septiembre-2020','Octubre-2020','Noviembre-2020','Diciembre-2020'];
   public steppedChartType = 'line';
@@ -77,6 +80,8 @@ export class GraphicsComponent implements OnInit {
   activos_numero = [];
   activos_fechas = [];
   activos_mes_aux:string;
+  activos_dominio = [];
+  actibos_dom_numero = [];
 
   ngOnInit(): void {
     this.bandera=true;
@@ -100,13 +105,18 @@ export class GraphicsComponent implements OnInit {
           }
           this.activos_numero[this.activos_etq.indexOf(this.activos[i].categoria)] ++;
           
-          //this.activos_fechas[i]=this.activos[i].fecha[5];
-          //this.activos_fechas[i]+=this.activos[i].fecha[6];
+          if(!this.activos_dominio.includes(this.activos[i].dominio)){
+            this.activos_dominio.push(this.activos[i].dominio);
+            this.actibos_dom_numero.push(0);
+          }
+          this.actibos_dom_numero[this.activos_dominio.indexOf(this.activos[i].dominio)] ++;
+
           this.activos_mes_aux=this.activos[i].fecha[5];
           this.activos_mes_aux+=this.activos[i].fecha[6];
 
           if(i==0){
-            for(let j = 0; j < this.activos.length; j++){
+            console.log("Entro");
+            for(let j = 0; j < 12; j++){
               this.activos_fechas[j]=0;
             }
           }
@@ -141,6 +151,7 @@ export class GraphicsComponent implements OnInit {
         }
         console.log(this.activos[0].fecha[5]);
         console.log(this.activos[0].fecha[6]);
+        console.log(this.activos_mes_aux);
         console.log(this.activos_fechas);
         console.log(this.activos_numero);
         console.log(this.activos_etq);
@@ -153,6 +164,10 @@ export class GraphicsComponent implements OnInit {
           { data: this.activos_fechas, label: 'Por Mes' },
         ];
         //this.steppedChartData=[this.activos_fechas];
+
+        this.pieChartLabels=this.activos_dominio;
+        this.pieChartData= this.actibos_dom_numero;
+
         this.bandera=false;
         this.spinner();
       },

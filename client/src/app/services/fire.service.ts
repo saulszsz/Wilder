@@ -36,7 +36,13 @@ export class FireService {
   cerrarSesion() {
     var that = this;
     return this._afAuth.signOut().then(function () {
-      that._http.post("logout", {}).subscribe(
+      that._http.post("logout", {}, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+        }
+      }).subscribe(
         (r) => {
           that._router.navigate(['/']);
         }
@@ -75,12 +81,12 @@ export class FireService {
       {
         liga: link
       }, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
-        }
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
       }
+    }
     )
   }
 
@@ -101,7 +107,13 @@ export class FireService {
       'sessionLogin/',
       {
         idToken: idToken
+      }, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
       }
+    }
     )
   }
 
@@ -109,16 +121,29 @@ export class FireService {
     return this._http.post(
       `create_activo`,
       payload, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
-        }
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
       }
+    }
     );
   }
 
-  getActivos(){
+  createPrestamo(payload: any) {
+    return this._http.post(
+      `create_prestamo`,
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
+    );
+  }
+
+  getActivos() {
     return this._http.get(
       'activos_list'
     );
@@ -127,7 +152,13 @@ export class FireService {
   getActivo(payload: any) {
     var rep = this._http.post(
       `get_activo`,
-      payload
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
     );
     return rep;
   }
@@ -136,24 +167,45 @@ export class FireService {
     return this._http.post(
       `edit_activo/${idActivo}`,
       payload, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
-        }
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
       }
+    }
+    );
+  }
+
+  solicitarActivo(idActivo: string, idUser: string, idCompany: string) {
+    return this._http.post(
+      `solicitar_activo/${idActivo}`, {
+      id: idActivo,
+      fecha: new Date(),
+      id_usuario: idUser,
+      company: idCompany
+    }, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    });
+  }
+
+  getSolicitudes(idCompany: string) {
+    return this._http.get(
+      `get_solicitudes/${idCompany}`
     );
   }
 
   deletActivo(idActivo: string) {
     return this._http.post(
       `delet_activo/${idActivo}`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
-        }
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
       }
-    );
+    });
   }
 }

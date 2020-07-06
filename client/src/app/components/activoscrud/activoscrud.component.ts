@@ -48,7 +48,7 @@ export class ActivoscrudComponent implements OnInit {
     descripcion: "",
     dominio: "Bodega",
     trabajo: "",
-    fecha:  new Date()
+    fecha: new Date()
   };
   idActivo: string;
   foods: Food[] = [
@@ -62,7 +62,7 @@ export class ActivoscrudComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _snack: MatSnackBar,
-    private formBuilder:FormBuilder
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -172,6 +172,30 @@ export class ActivoscrudComponent implements OnInit {
           });
         else
           this._snack.open("No se elimino con éxito", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
+        this._router.navigate(['/inventario']);
+      },
+      (error: any) => {
+        this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
+      }
+    );
+  }
+
+  listaEspera(uid: string, trabajo: string) {
+    this._fs.solicitarActivo(this.idActivo, uid, trabajo).subscribe(
+      (result: any) => {
+        if (result.exito)
+          this._snack.open("Cuando la solicitud sea aprobada te indicaremos aquí.", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
+        else
+          this._snack.open("Error interno, contacta al administrador.", 'OK', {
             duration: 8000,
             verticalPosition: 'bottom'
           });

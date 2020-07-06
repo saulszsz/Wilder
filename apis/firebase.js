@@ -147,6 +147,22 @@ router.get('/phone_logged/:uid', (req, res) => {
 
 });
 
+router.get('/get_solicitudes/:uid', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            let reference = get_reference('solicitudes/')
+                .orderByChild("company")
+                .equalTo(req.params.uid);
+
+            reference.once("value", function (snapshot) {
+                res.json(snapshot.val());
+            });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+})
+
 router.post('/create_user_pr', (req, res) => {
     sessionStatus(req).then(
         (success) => {
@@ -236,13 +252,9 @@ router.post('/get_activo', (req, res) => {
                 //return datosActivo;
             }).then(
                 (result) => {
-                    console.log("Activo obtenido.");
-                    console.log(JSON.stringify(result));
                     res.json(JSON.stringify(result));
                 },
                 (error) => {
-                    console.log("Activo no obtenido.");
-                    console.log(JSON.stringify(error));
                     res.json(false);
                 }
             );
@@ -273,19 +285,66 @@ router.post('/edit_activo/:id', (req, res) => {
     });
 });
 
+router.post('/solicitar_activo/:id', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            get_reference('solicitudes/' + req.params.id).set(req.body).then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            get_reference('inventario/' + req.params.id + '/dominio').set('solicitado').then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            res.json({ 'exito': true });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+router.post('/create_prestamo', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            get_reference('prestamos/').push(req.body).then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            get_reference('solicitudes/').child(req.body.activo).remove().then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            get_reference('inventario/' + req.body.activo + '/dominio').set('prestado').then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            res.json({ 'exito': true });
+        }
+    ).catch((error) => {
+        console.log(error);
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
 router.post('/delet_activo/:id', (req, res) => {
     sessionStatus(req).then(
         (success) => {
             console.log("K PEX " + req.params.id);
             get_reference('inventario/').child(req.params.id).remove().then(
                 (result) => {
-                    console.log("Activo eliminado.");
-                    console.log(JSON.stringify(result));
                     res.json({ 'creado': true });
                 },
                 (error) => {
-                    console.log("Activo no eliminado.");
-                    console.log(JSON.stringify(error));
                     res.json({ 'creado': false });
                 }
             );
