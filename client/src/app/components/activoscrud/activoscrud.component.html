@@ -52,7 +52,6 @@
         </mat-card-actions>
         <mat-card-actions>
           <button mat-raised-button color="primary" [routerLink]="['/inventario']">REGRESAR</button>
-          <button mat-raised-button color="primary">OBTENER</button>
         </mat-card-actions>
       </ng-template>
     </mat-card>
@@ -69,8 +68,7 @@
         <p><b>Fecha: </b>{{ datosActivo.fecha | date:'dd/MM/yyyy' }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button *ngIf="uid | async as uid" (click)="listaEspera(uid, user.trabajo)" mat-raised-button color="primary">SOLICITAR</button>
-        <button mat-raised-button color="primary">OBTENER</button>
+        <button *ngIf="uid | async as uid" (click)="listaEspera(uid, user.trabajo)" [hidden]="datosActivo.dominio != 'Bodega'" mat-raised-button color="primary">SOLICITAR</button>
       </mat-card-actions>
       <mat-card-actions>
         <button mat-raised-button color="primary" [routerLink]="['/inventario']">REGRESAR</button>

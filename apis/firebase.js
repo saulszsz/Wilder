@@ -289,15 +289,49 @@ router.post('/solicitar_activo/:id', (req, res) => {
     sessionStatus(req).then(
         (success) => {
             get_reference('solicitudes/' + req.params.id).set(req.body).then(
-                (result) => {
-                    res.json({ 'exito': true });
-                },
+                (result) => { },
                 (error) => {
-                    res.json({ 'exito': false });
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
                 }
             );
+            get_reference('inventario/' + req.params.id + '/dominio').set('solicitado').then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            res.json({ 'exito': true });
         }
     ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+router.post('/create_prestamo', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            get_reference('prestamos/').push(req.body).then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            get_reference('solicitudes/').child(req.body.activo).remove().then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            get_reference('inventario/' + req.body.activo + '/dominio').set('prestado').then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            res.json({ 'exito': true });
+        }
+    ).catch((error) => {
+        console.log(error);
         res.status(403).send("UNAUTHORIZED REQUEST!");
     });
 });
@@ -308,13 +342,9 @@ router.post('/delet_activo/:id', (req, res) => {
             console.log("K PEX " + req.params.id);
             get_reference('inventario/').child(req.params.id).remove().then(
                 (result) => {
-                    console.log("Activo eliminado.");
-                    console.log(JSON.stringify(result));
                     res.json({ 'creado': true });
                 },
                 (error) => {
-                    console.log("Activo no eliminado.");
-                    console.log(JSON.stringify(error));
                     res.json({ 'creado': false });
                 }
             );

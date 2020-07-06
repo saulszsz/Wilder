@@ -45,15 +45,15 @@ export class SolicitudesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSolicitudes();
-    for (let i = 0; i < this.solicitudes.length; i++) {
-      this.solicitudes[i]
-    }
   }
 
   getSolicitudes() {
     var that = this;
     this.user.subscribe(
       (user: any) => {
+        if(user.tipo != 'admin') {
+          this._router.navigate(['/inventario']);
+        }
         this._fs.getSolicitudes(user.trabajo).subscribe(
           (result) => {
             var list = [];
@@ -94,12 +94,24 @@ export class SolicitudesComponent implements OnInit {
 
   enviarPrestamo(event, index: number, id_activo: string, id_usuario: string) {
     var payload = {
-      fecha: this.formulario[index].get("fecha").value(),
-      observaciones: this.formulario[index].get("observaciones").value(),
+      fecha: this.formulario[index].get("fecha").value,
+      observaciones: this.formulario[index].get("observaciones").value,
       usuario: id_usuario,
       activo: id_activo,
       fecha_entregado: null
     }
+
+    this._fs.createPrestamo(payload).subscribe(
+      (response: any) => {
+        if (response.exito) {
+          alert("Éxito, reemplazar por snack");
+          this._router.navigate(['/inventario']);
+        }
+      },
+      (error) => {
+        alert("reemplazar por snack");
+      }
+    )
   }
 
 }
