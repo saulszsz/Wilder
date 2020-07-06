@@ -25,7 +25,7 @@ export class AboutComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  startSpeak2(id:string,id1: string,id2: string,id3: string,id4: string) {
+  startSpeak2(id:string, id1: string, id2: string, id3: string, id4: string) {
   
 
     this.frase = document.getElementById(id).innerHTML +". " + document.getElementById(id1).innerHTML +". " + document.getElementById(id2).innerHTML +". " + document.getElementById(id3).innerHTML +". " + document.getElementById(id4).innerHTML;
