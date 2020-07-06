@@ -1,0 +1,40 @@
+<div style="padding: 20px;">
+    <div *ngIf="solicitudes else nosolicitud">
+        <h3>Activos que han sido solicitados:</h3>
+        <mat-accordion multi>
+            <mat-expansion-panel *ngFor="let obj of solicitudes; let idx = index" style="width: 100%;">
+                <mat-expansion-panel-header *ngIf="obj['activo'] | async as objeto">
+                    <b>{{ objeto['nombre'] }}</b>
+                </mat-expansion-panel-header>
+                <p *ngIf="obj['usuario'] | async as user">Solicitado por: {{ user['nombre'] }}</p>
+
+                <form (ngSubmit)="enviarPrestamo($event, formulario[idx], obj['id'], obj['id_usuario'])" [formGroup]="formulario[idx]" novalidate>
+                    <h2>Formulario de Préstamo</h2>
+                    <mat-form-field class="full-width-input" appearance="outline">
+                        <mat-label>Fecha de Regreso: </mat-label>
+                        <input matInput formControlName="fecha" type="date" placeholder="06/07/2020">
+                        <mat-error *ngIf="_form.errorHandling('fecha', 'required', formulario[idx])">
+                            Por favor introduce una fecha de entrega.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width-input" appearance="outline">
+                        <mat-label>Introduce Observaciones</mat-label>
+                        <input matInput formControlName="observaciones" type="text"
+                            placeholder="Introduce el nombre de la empresa para la que trabajas.">
+                        <mat-error *ngIf="_form.errorHandling('observaciones', 'required', formulario[idx])">
+                            Por favor, introduce una observación válida.
+                        </mat-error>
+                        <mat-error *ngIf="_form.errorHandling('observaciones', 'minlength', formulario[idx])">
+                            Por favor, introduce 10 dígitos mínimo.
+                        </mat-error>
+                    </mat-form-field>
+                    <button type="submit" mat-raised-button color="primary">Prestar</button>
+                </form>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <ng-template #nosolicitud>
+        <h3>No hay solicitudes de préstamo de activo por el momento.</h3>
+    </ng-template>
+</div>

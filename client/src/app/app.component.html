@@ -1,8 +1,4 @@
-<ngx-spinner
-bdColor="rgba(51,51,51,0.8)"
-size="medium"
-color="#fff"
-type="ball-scale-multiple">
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
   <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 
@@ -33,8 +29,10 @@ type="ball-scale-multiple">
           <li class="nav-item"><button mat-button [routerLink]="['/about']">Acerca De</button></li>
           <li class="nav-item"><button mat-button [routerLink]="['/asked']">Preguntas Frecuentes</button></li>
           <li class="nav-item"><button mat-button [routerLink]="['/contact']">Contacto</button></li>
-          <li class="nav-item"><button *ngIf="user | async" mat-button [routerLink]="['/graficas']">Graficas</button></li>
-          <li class="nav-item"><button mat-mini-fab color="primary" (click)="habilitableSpeak()"><i class="fas fa-headphones-alt"></i></button></li>
+          <li class="nav-item"><button *ngIf="user | async" mat-button [routerLink]="['/graficas']">Graficas</button>
+          </li>
+          <li class="nav-item"><button mat-mini-fab color="primary" (click)="habilitableSpeak()"><i
+                class="fas fa-headphones-alt"></i></button></li>
         </ul>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
 import { UsersModule } from './modules/users/users.module';
 import { ContactComponent } from './components/contact/contact.component';
 import { AskedComponent } from './components/asked/asked.component';
@@ -24,9 +25,10 @@ const routes: Routes = [
   { path: 'asked', component: AskedComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'inventario', component: ActivoslistaComponent },
+  { path: 'requests', component: SolicitudesComponent },
   { path: 'activo/:id', component: ActivoscrudComponent },
   { path: 'archivos', component: MyfilesComponent },
-  { path: 'graficas',component: GraphicsComponent },
+  { path: 'graficas', component: GraphicsComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

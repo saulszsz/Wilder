@@ -130,6 +130,19 @@ export class FireService {
     );
   }
 
+  createPrestamo(payload: any) {
+    return this._http.post(
+      `create_prestamo`,
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
+    );
+  }
+
   getActivos() {
     return this._http.get(
       'activos_list'
@@ -163,6 +176,28 @@ export class FireService {
     );
   }
 
+  solicitarActivo(idActivo: string, idUser: string, idCompany: string) {
+    return this._http.post(
+      `solicitar_activo/${idActivo}`, {
+      id: idActivo,
+      fecha: new Date(),
+      id_usuario: idUser,
+      company: idCompany
+    }, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    });
+  }
+
+  getSolicitudes(idCompany: string) {
+    return this._http.get(
+      `get_solicitudes/${idCompany}`
+    );
+  }
+
   deletActivo(idActivo: string) {
     return this._http.post(
       `delet_activo/${idActivo}`, {
@@ -171,7 +206,6 @@ export class FireService {
         "Content-Type": "application/json",
         'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
       }
-    }
-    );
+    });
   }
 }

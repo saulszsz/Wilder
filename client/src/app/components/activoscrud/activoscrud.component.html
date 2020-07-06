@@ -1,9 +1,9 @@
 <div *ngIf="user | async as user">
   <form [formGroup]="todoForm"  class="example-form">
     <mat-card *ngIf="user.tipo === 'admin' else usuarioNormal" class="example-card">
-      <img *ngIf="idActivo === '0' else editarQR" mat-card-image src={{qrDefault}} alt="QR">
+      <img style="max-width: 250px;" *ngIf="idActivo === '0' else editarQR" mat-card-image src={{qrDefault}} alt="QR">
       <ng-template #editarQR>
-        <img mat-card-image src={{datosActivo.qr}} alt="QR">
+        <img style="max-width: 250px;" mat-card-image src={{datosActivo.qr}} alt="QR"><br>
       </ng-template>
       <mat-card-content>
         <mat-form-field class="example-full-width">
@@ -59,7 +59,7 @@
   </form>
   <ng-template #usuarioNormal>
     <mat-card class="example-card">
-      <img mat-card-image src={{datosActivo.qr}} alt="Photo of a Shiba Inu">
+      <img style="max-width: 250px;" mat-card-image src={{datosActivo.qr}} alt="Photo of a Shiba Inu"><br>
       <mat-card-content>
         <mat-card-title>{{ datosActivo.nombre }}</mat-card-title>
         <mat-card-subtitle>{{ datosActivo.modelo }}</mat-card-subtitle>
@@ -69,7 +69,7 @@
         <p><b>Fecha: </b>{{ datosActivo.fecha | date:'dd/MM/yyyy' }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary">SOLICITAR</button>
+        <button *ngIf="uid | async as uid" (click)="listaEspera(uid, user.trabajo)" mat-raised-button color="primary">SOLICITAR</button>
         <button mat-raised-button color="primary">OBTENER</button>
       </mat-card-actions>
       <mat-card-actions>

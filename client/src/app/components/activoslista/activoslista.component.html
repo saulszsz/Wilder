@@ -4,6 +4,10 @@
 
 <mat-grid-list cols="3" rowHeight="60px">
   <mat-grid-tile colspan="1">
+    <div *ngIf="user | async as user">
+      <button *ngIf="user.tipo === 'admin'" class="button" mat-raised-button [routerLink]="['/requests']"
+        color="primary">Ver Solicitudes de Préstamo</button>
+    </div>
   </mat-grid-tile>
   <mat-grid-tile colspan="1">
   </mat-grid-tile>
