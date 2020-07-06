@@ -1,26 +1,13 @@
 .example-form {
-    min-width: 100px;
-    max-width: 300px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .example-full-width {
-    width: 100%;
-}
-
-/*Tarjeta*/
-.example-card {
-  max-width: 250px;
-  max-height: 45px;
+  min-width: 100px;
+  max-width: 300px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
   
-.example-header-image {
-  background-image: url('https://www.radioshack.com.mx/medias/79232.gif-1200ftw?context=cmFkaW9zaGFja3xyb290fDIzMDI0MXxpbWFnZS9naWZ8aDI5L2gyYi84ODMwMTI3Mzc0MzY2LmdpZnxkZTNlZDYwNmNhZWFiMmFlYWZkOWIxOTE0NDg5ZmRiNTlhN2QxNjZkNjZjMzhkNjFmYTU2OTg1NjNhZWMwNjkw');
-  background-size: cover;
+.example-full-width {
+  width: 100%;
 }
 
 .button {
@@ -28,3 +15,28 @@
   max-height: 45px;
 }
 
+/*Tarjeta*/
+.tarjetas {
+  width: 400px;
+  max-height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.div-chico {
+  width: 120px;
+  height: 80px;
+}
+
+.div-medio {
+  width: 250px;
+  height: 80px;
+}
+
+.disponible {
+  color: #00c000EE;
+}
+
+.ocupado {
+  color: brown;
+}

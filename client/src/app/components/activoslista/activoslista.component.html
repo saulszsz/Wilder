@@ -1,7 +1,5 @@
+
 <h3 style="text-align: center;">Listado de Activos registrados.</h3>
-
-
-
 <mat-grid-list cols="3" rowHeight="60px">
   <mat-grid-tile colspan="1">
   </mat-grid-tile>
@@ -31,12 +29,22 @@
     </div>
   </mat-grid-tile>
 </mat-grid-list>
-<!--Tarjeta-->
-<mat-card *ngFor="let activo of activos">
+<!--Tarjetas de activos-->
+<mat-card class="tarjetas" *ngFor="let activo of activos">
   <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>{{ activo.nombre }}</mat-card-title>
-    <mat-card-subtitle>{{ activo.modelo }}</mat-card-subtitle>
-    <button class="button" mat-raised-button color="primary" [routerLink]="['/activo/'+activo.id]">Abrir</button>
+    <div mat-card-avatar>
+      <img mat-card-sm-image src={{activo.qr}} alt="QR">
+    </div>
+    <div class="div-medio">
+      <mat-card-title>{{ activo.nombre }}</mat-card-title>
+      <mat-card-subtitle>{{ activo.modelo }}</mat-card-subtitle>
+    </div>
+    <div class="div-chico">
+      <h4 *ngIf="activo.dominio === 'Bodega' else ocupado" class="disponible">Disponible</h4>
+      <ng-template #ocupado>
+        <h4 class="ocupado">Ocupado</h4>
+      </ng-template>
+      <button class="button" mat-raised-button color="primary" [routerLink]="['/activo/'+activo.id]">Abrir</button>
+    </div>
   </mat-card-header>
 </mat-card>
