@@ -84,8 +84,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
     flex-wrap: wrap;
 }
 
-.footer-main .footer-columna{
-    width: calc(100% / 3);
+@media (min-width: 576px) {
+	.footer-columna{
+        width: calc(100% / 3);
+	}
+}
+
+.footer-main .footer-columna{  
     text-align: center;
 }
 

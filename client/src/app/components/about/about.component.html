@@ -1,12 +1,20 @@
 <div style="padding: 20px; text-align: center;">
-    <h3>Acerca de</h3>
+    <div *ngIf="!speakValidation.role else speakVal" style="padding-bottom: 20px;" class="text-center">
+        <button mat-mini-fab color="primary" (click)="startSpeak2('ad1','ad2','ad3','ad4','ad5')"><i
+                class="fas fa-play"></i></button>
+        <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
+    </div>
+    <ng-template #speakVal>
+    </ng-template>
+    <h3 id="ad1">Acerca de</h3>
     <img src="assets/logo.png" alt="">
-    <p>Salvajemente Organizados!</p>
-    <p>Wilder®, 2020©</p>
-    <b>Todos los derechos reservados.</b>
+    <p id="ad2">Salvajemente Organizados!</p>
+    <p id="ad3">Wilder®, 2020©</p>
+    <b id="ad4">Todos los derechos reservados.</b>
+    <p id="ad5"></p>
 
     <mat-card>
-        <div *ngIf="!speakValidation.role else speakVal" style="padding-left: 40px; padding-bottom: 20px;" class="text-center">
+        <div *ngIf="!speakValidation.role else speakVal" style="padding-bottom: 20px;" class="text-center">
             <button mat-mini-fab color="primary" (click)="startSpeak2('lec','lec1','lec2','lec3','lec4')"><i
                     class="fas fa-play"></i></button>
             <button mat-mini-fab color="primary" (click)="pauseSpeak()"><i class="fas fa-pause"></i></button>
