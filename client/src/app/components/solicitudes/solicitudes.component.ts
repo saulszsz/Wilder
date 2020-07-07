@@ -94,10 +94,12 @@ export class SolicitudesComponent implements OnInit {
 
   enviarPrestamo(event, index: number, id_activo: string, id_usuario: string) {
     var payload = {
-      fecha: this.formulario[index].get("fecha").value,
+      fecha_estimada_regreso: this.formulario[index].get("fecha").value,
+      fecha: new Date(Date.now()),
       observaciones: this.formulario[index].get("observaciones").value,
       usuario: id_usuario,
       activo: id_activo,
+      entregado: false,
       fecha_entregado: null
     }
 

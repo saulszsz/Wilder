@@ -24,21 +24,15 @@ export class DetailUserComponent implements OnInit {
       if (!uid) {
         this._router.navigate(['/']);
       } else {
+        this.user_uid = uid;
         return this._fs._fireDb.object('users/' + uid).valueChanges();
       }
     }),
   );
+  user_uid: any;
 
-  company: Observable<any> = this.user.subscribe(
-    (data) => {
-      return this._fs._fireDb.object('companies/' + data.trabajo).valueChanges();
-    },
-    (error) => {
-      of(false);
-    }
-  );
-
-  
+  prestamos: any;
+  prestamos_terminados: any;
 
   constructor(
     private _fs: FireService,
@@ -46,6 +40,52 @@ export class DetailUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getPrestamos();
   }
 
+  getPrestamos() {
+    var that = this;
+    this.user.subscribe(
+      (user: any) => {
+        this._fs.getPrestamos(that.user_uid).subscribe(
+          (result) => {
+            var list = [];
+            var list_terminado = [];
+            for (let pres in result) {
+              result[pres]['activo_desc'] = that._fs._fireDb.object('inventario/' + result[pres]['activo']).valueChanges();
+              result[pres]['id'] = pres;
+              if(!result[pres]['entregado']){
+                list.push(result[pres]);
+              } else {
+                list_terminado.push(result[pres]);
+              }
+            }
+            that.prestamos = list;
+            that.prestamos_terminados = list_terminado;
+          },
+          (error) => {
+            console.log(error);
+            alert("Cambiar por snack, error!");
+            that.prestamos = false;
+          }
+        );
+      },
+      (error) => {
+        console.log("error interno" + error);
+        that.prestamos = false;
+      }
+    );
+  }
+
+  regresarActivo(id: string, id_activo: string) {
+    this._fs.regresarActivo(id, id_activo).subscribe(
+      (success) => {
+        alert("TODO OK,");
+        this._router.navigate(['/']);
+      },
+      (error) => {
+        alert("snack: Error, todo es error");
+      }
+    )
+  }
 }
