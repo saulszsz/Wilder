@@ -14,7 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./activoslista.component.css']
 })
 export class ActivoslistaComponent implements OnInit {
-  bandera:boolean;
+  bandera: boolean;
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
@@ -46,33 +46,41 @@ export class ActivoslistaComponent implements OnInit {
   activos = [];
 
   ngOnInit() {
-    this.bandera=true;
+    this.bandera = true;
     this.spinner();
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
 
-    this._fs.getActivos().subscribe(
-      (result) => {
-        if (result) {
-          var array = [];
-          for (let i in result) {
-            array.push(result[i]);
-            array[array.length - 1]['id'] = i;
+    var that = this;
+    this.user.subscribe(
+      (user: any) => {
+        this._fs.getActivos(user['trabajo']).subscribe(
+          (result) => {
+            if (result) {
+              var array = [];
+              for (let i in result) {
+                array.push(result[i]);
+                array[array.length - 1]['id'] = i;
+              }
+            }
+            array.forEach((dato) => {
+              this.activos.push(dato);
+            });
+            this.bandera = false;
+            this.spinner();
+          },
+          (error) => {
+            return [];
           }
-        }
-        array.forEach((dato) => {
-          this.activos.push(dato);
-        });
-        this.bandera=false;
-        this.spinner();
+        );
       },
       (error) => {
-        return [];
+        alert("error interno" + error);
+        that.activos = [];
       }
     );
-
   }
 
   private _filter(value: string): string[] {
@@ -81,10 +89,10 @@ export class ActivoslistaComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  spinner(): void{
-    if(this.bandera){
+  spinner(): void {
+    if (this.bandera) {
       this.spinnerService.show();
-    }else if(!this.bandera){
+    } else if (!this.bandera) {
       this.spinnerService.hide();
     }
   }

@@ -97,10 +97,12 @@ function get_reference(reference) {
     return database.ref(reference);
 }
 
-router.get('/activos_list', (req, res) => {
+router.get('/activos_list/:uid', (req, res) => {
     sessionStatus(req).then(
         (success) => {
-            var reference = get_reference('inventario');
+            var reference = get_reference('inventario/')
+                .orderByChild("trabajo")
+                .equalTo(req.params.uid);;
 
             reference.once("value", function (snapshot) {
                 res.json(snapshot.val());
@@ -161,7 +163,51 @@ router.get('/get_solicitudes/:uid', (req, res) => {
     ).catch((error) => {
         res.status(403).send("UNAUTHORIZED REQUEST!");
     });
-})
+});
+
+router.get('/get_prestamos/:uid', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            let reference = get_reference('prestamos/')
+                .orderByChild("usuario")
+                .equalTo(req.params.uid);
+
+            reference.once("value", function (snapshot) {
+                res.json(snapshot.val());
+            });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+router.get('/regresar_activo/:uid/:uid_activo', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            get_reference('inventario/' + req.params.uid_activo + '/dominio').set('Bodega').then(
+                (result) => { },
+                (error) => {
+                    res.status(400).send("BAD REQUEST!");
+                }
+            );
+            get_reference('prestamos/' + req.params.uid + '/entregado').set(true).then(
+                (result) => { },
+                (error) => {
+                    res.status(400).send("BAD REQUEST!");
+                }
+            );
+            get_reference('prestamos/' + req.params.uid + '/fecha_entregado').set(new Date(Date.now())).then(
+                (result) => { },
+                (error) => {
+                    res.status(400).send("BAD REQUEST!");
+                }
+            );
+            res.json({ 'exito': true });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
 
 router.post('/create_user_pr', (req, res) => {
     sessionStatus(req).then(

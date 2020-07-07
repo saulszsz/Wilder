@@ -14,3 +14,51 @@
         <button mat-button color="primary" [routerLink]="['/']">Inicio</button>
     </mat-card-actions>
 </mat-card>
+<mat-card class="example-card" *ngIf="prestamos && prestamos.length > 0 else noprestamos">
+    <mat-card-header>
+        <mat-card-title>Artículos que actualmente posees: </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="mat-card-content">
+        <mat-accordion multi>
+            <mat-expansion-panel *ngFor="let obj of prestamos; let idx = index" style="width: 100%;">
+                <mat-expansion-panel-header *ngIf="obj['activo_desc'] | async as objeto">
+                    {{ idx + 1 }}. <b>{{ objeto['nombre'] }}</b>
+                </mat-expansion-panel-header>
+                <p><b>Debes regresarlo el: </b> {{ obj['fecha_estimada_regreso'] }}</p>
+                <p><b>Observaciones: </b> {{ obj['observaciones'] }}</p>
+                <button mat-raised-button color="primary" (click)="regresarActivo(obj['id'], obj['activo'])">Regresar
+                    Activo</button>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+</mat-card>
+<ng-template #noprestamos>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>¡Excelente!, no tienes artículos pendientes de regresar.</mat-card-title>
+        </mat-card-header>
+    </mat-card>
+</ng-template>
+<mat-card class="example-card" *ngIf="prestamos_terminados && prestamos_terminados.length > 0 else nopresterminados">
+    <mat-card-header>
+        <mat-card-title>Activos que ya han sido devueltos: </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="mat-card-content">
+        <mat-accordion multi>
+            <mat-expansion-panel *ngFor="let obj of prestamos_terminados; let idx = index" style="width: 100%;">
+                <mat-expansion-panel-header *ngIf="obj['activo_desc'] | async as objeto">
+                    {{ idx + 1 }}. <b>{{ objeto['nombre'] }}</b>
+                </mat-expansion-panel-header>
+                <p><b>Observaciones: </b> {{ obj['observaciones'] }}</p>
+                <p><b>Prestado el: </b> {{ obj['fecha'] }}</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+</mat-card>
+<ng-template #nopresterminados>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>No tienes prestamos que ya han sido terminados.</mat-card-title>
+        </mat-card-header>
+    </mat-card>
+</ng-template>

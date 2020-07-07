@@ -1,5 +1,5 @@
 <div style="padding: 20px;">
-    <div *ngIf="solicitudes else nosolicitud">
+    <div *ngIf="solicitudes && solicitudes.length > 0 else nosolicitud">
         <h3>Activos que han sido solicitados:</h3>
         <mat-accordion multi>
             <mat-expansion-panel *ngFor="let obj of solicitudes; let idx = index" style="width: 100%;">
@@ -7,7 +7,7 @@
                     <b>{{ objeto['nombre'] }}</b>
                 </mat-expansion-panel-header>
                 <p *ngIf="obj['usuario'] | async as user">Solicitado por: {{ user['nombre'] }}</p>
-
+                <p>El día: {{ obj['fecha'] | date:'dd/MM/yyyy' }}</p>
                 <form (ngSubmit)="enviarPrestamo($event, idx, obj['id'], obj['id_usuario'])" [formGroup]="formulario[idx]" novalidate>
                     <h2>Formulario de Préstamo</h2>
                     <mat-form-field class="full-width-input" appearance="outline">

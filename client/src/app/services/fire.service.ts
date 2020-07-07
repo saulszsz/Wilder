@@ -98,7 +98,13 @@ export class FireService {
 
   getUser(uid: string) {
     return this._http.get(
-      `get_user/${uid}`
+      `get_user/${uid}/`
+    );
+  }
+
+  regresarActivo(uid: string, uid_activo: string) {
+    return this._http.get(
+      `regresar_activo/${uid}/${uid_activo}`
     );
   }
 
@@ -143,9 +149,9 @@ export class FireService {
     );
   }
 
-  getActivos() {
+  getActivos(trabajo_uid: string) {
     return this._http.get(
-      'activos_list'
+      `activos_list/${trabajo_uid}`
     );
   }
 
@@ -162,6 +168,7 @@ export class FireService {
     );
     return rep;
   }
+
 
   editActivo(payload: any, idActivo: string) {
     return this._http.post(
@@ -180,7 +187,7 @@ export class FireService {
     return this._http.post(
       `solicitar_activo/${idActivo}`, {
       id: idActivo,
-      fecha: new Date(),
+      fecha: new Date(Date.now()),
       id_usuario: idUser,
       company: idCompany
     }, {
@@ -195,6 +202,12 @@ export class FireService {
   getSolicitudes(idCompany: string) {
     return this._http.get(
       `get_solicitudes/${idCompany}`
+    );
+  }
+
+  getPrestamos(idUser: string) {
+    return this._http.get(
+      `get_prestamos/${idUser}`
     );
   }
 
