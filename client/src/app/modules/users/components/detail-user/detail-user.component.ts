@@ -71,7 +71,7 @@ export class DetailUserComponent implements OnInit {
         );
       },
       (error) => {
-        console.log("error interno" + error);
+        alert("error interno, snack" + error);
         that.prestamos = false;
       }
     );
