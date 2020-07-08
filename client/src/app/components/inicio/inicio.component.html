@@ -1,59 +1,56 @@
-<mat-grid-list *ngIf="user | async else demo" [cols]="colSize" rowHeight="2:2">
-    <mat-grid-tile colspan="2">
-        <a href="#">
+<!--Vista para usuarios-->
+<mat-grid-list *ngIf="user | async as user else demo" [cols]="colSize" rowHeight="2:2">
+    <mat-grid-tile colspan="1">
+        <a [routerLink]="['/users/detail/']">
             <mat-card>
-                <mat-card-title align="center">Mi Usuario</mat-card-title>
+                <mat-card-title align="center">Mi usuario</mat-card-title>
                 <mat-card-content>
-                    <br>
-                    <a [routerLink]="['/users/detail/']">
-                        <img mat-card-lg-image src="../../../assets/img_inicio/usuario.svg">
-                    </a>
-                    <br>
+                    <img mat-card-lg-image src="../../../assets/img_inicio/usuario.svg">
                 </mat-card-content>
             </mat-card>
         </a>
     </mat-grid-tile>
-    <mat-grid-tile colspan="2">
-        <a href="#">
+    <mat-grid-tile colspan="1">
+        <a [routerLink]="['/inventario/']">
             <mat-card>
-                <mat-card-title align="center">Notas</mat-card-title>
+                <mat-card-title align="center">Inventario</mat-card-title>
                 <mat-card-content>
-                    <br>
                     <img mat-card-lg-image src="../../../assets/img_inicio/bloc.svg" align="center">
                 </mat-card-content>
             </mat-card>
         </a>
     </mat-grid-tile>
-    <mat-grid-tile colspan="2">
-        <a href="#">
+    <mat-grid-tile colspan="1" *ngIf="user.tipo === 'admin'">
+        <a [routerLink]="['/requests/']">
             <mat-card>
-                <mat-card-title align="center">Mis Archivos</mat-card-title>
+                <mat-card-title align="center">Solicitudes</mat-card-title>
                 <mat-card-content>
-                    <a [routerLink]="['/archivos']"><img mat-card-lg-image src="../../../assets/img_inicio/papel.svg"
-                            layoutAlign="center"></a>
+                    <img mat-card-lg-image src="../../../assets/img_inicio/papel.svg" layoutAlign="center">
                 </mat-card-content>
             </mat-card>
         </a>
     </mat-grid-tile>
-    <mat-grid-tile colspan="2">
-        <a href="#">
+    <mat-grid-tile colspan="1" *ngIf="user.tipo === 'admin'">
+        <a [routerLink]="['/activo/0/']">
             <mat-card>
-                <mat-card-title align="center">Escanear QR</mat-card-title>
+                <mat-card-title align="center">Registrar activo</mat-card-title>
                 <mat-card-content>
                     <img mat-card-lg-image src="../../../assets/img_inicio/codigo-qr.svg" layoutAlign="center">
                 </mat-card-content>
             </mat-card>
         </a>
     </mat-grid-tile>
-    <mat-grid-tile colspan="2" rowspan="3">
+    <mat-grid-tile colspan="1" *ngIf="user.tipo === 'admin'">
         <mat-card>
-            <mat-card-title align="center">Agenda</mat-card-title>
+            <mat-card-title align="center">Lista Usuarios</mat-card-title>
             <mat-card-content>
-                <app-calendar></app-calendar>
+                <img mat-card-lg-image src="../../../assets/img_inicio/usuario.svg">
             </mat-card-content>
         </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
+
+<!--Vista general-->
 <ng-template #demo style="margin-top: 0px;">
     <mat-grid-list class="metal" cols="1" rowHeight="200px">
         <mat-grid-tile style="margin-top: 30px;">
