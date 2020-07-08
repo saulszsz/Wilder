@@ -32,7 +32,11 @@ import { GraphicsComponent } from './components/graphics/graphics.component';
 import { ChartsModule } from 'ng2-charts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
+<<<<<<< HEAD
 import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
+=======
+import { UsermenuComponent } from './components/usermenu/usermenu.component';
+>>>>>>> 38f38afbbe5bac65d2d38cf74db5f013dba9318b
 
 @NgModule({
   declarations: [
@@ -50,7 +54,11 @@ import { MantenimientoComponent } from './components/mantenimiento/mantenimiento
     MyfilesComponent,
     GraphicsComponent,
     SolicitudesComponent,
+<<<<<<< HEAD
     MantenimientoComponent
+=======
+    UsermenuComponent
+>>>>>>> 38f38afbbe5bac65d2d38cf74db5f013dba9318b
   ],
   imports: [
     BrowserModule,

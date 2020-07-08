@@ -33,6 +33,12 @@
           <li class="nav-item"><button mat-button [routerLink]="['/contact']">Contacto</button></li>
           <li class="nav-item"><button *ngIf="user | async" mat-button [routerLink]="['/graficas']">Graficas</button>
           </li>
+          <!--*ngIf="user.tipo === 'admin'"-->
+          <div *ngIf="user | async as user">
+            <li class="nav-item"><button *ngIf="user.tipo === 'admin'" mat-button [routerLink]="['/usermenu']">Usuarios</button>
+            </li>
+          </div>
+          
           <li class="nav-item"><button mat-mini-fab color="primary" (click)="habilitableSpeak()"><i
                 class="fas fa-headphones-alt"></i></button></li>
         </ul>

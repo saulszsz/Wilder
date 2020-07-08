@@ -1,4 +1,5 @@
 import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
+import { UsermenuComponent } from './components/usermenu/usermenu.component';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
 import { UsersModule } from './modules/users/users.module';
 import { ContactComponent } from './components/contact/contact.component';
@@ -11,7 +12,7 @@ import { ActivoscrudComponent } from './components/activoscrud/activoscrud.compo
 import { HelpComponent } from './components/help/help.component';
 import { MyfilesComponent } from './components/myfiles/myfiles.component';
 import { GraphicsComponent } from './components/graphics/graphics.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
@@ -22,6 +23,7 @@ const routes: Routes = [
     loadChildren: () => UsersModule,
   },
   { path: 'pendientes', component: CalendarComponent },
+  { path: 'usermenu', component: UsermenuComponent },
   { path: 'about', component: AboutComponent },
   { path: 'asked', component: AskedComponent },
   { path: 'contact', component: ContactComponent },
