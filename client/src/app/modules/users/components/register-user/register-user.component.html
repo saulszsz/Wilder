@@ -55,7 +55,7 @@
         <form [formGroup]="formulario" (ngSubmit)="envio($event)" *ngIf="!props.uid && !props.method" novalidate>
             <h2>Regístrese en Wilder</h2>
             <mat-form-field class="full-width-input" appearance="outline">
-                <mat-label>Correo Eletrónico</mat-label>
+                <mat-label>Correo Electrónico</mat-label>
                 <input matInput formControlName="correo" type="email" placeholder="Ej. email@dominio.com">
                 <mat-error *ngIf="errorHandling('correo', 'required')">
                     Por favor introduce un correo.
