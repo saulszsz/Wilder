@@ -13,7 +13,7 @@ router.post('redirect', (req, res) => {
     res.end();
 });
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
     res.clearCookie('session');
     res.json(true);
 });

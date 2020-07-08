@@ -22,13 +22,13 @@ app.use(csrfMiddleware);
 const propia = require('./apis/propia');
 const fbapi = require('./apis/firebase');
 
-app.use('/', propia);
-app.use('/', fbapi);
-
 app.all("*", (req, res, next) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
     next();
 });
+
+app.use('/', propia);
+app.use('/', fbapi);
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve('client/dist/Wilder/index.html'))
