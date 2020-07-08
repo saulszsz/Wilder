@@ -50,6 +50,12 @@ export class FireService {
     });
   }
 
+  eliminarSolicitud(id_solicitud: string, id_activo: string) {
+    return this._http.get(
+      `eliminar_solicitud/${id_solicitud}/${id_activo}`
+    );
+  }
+
   getEmailLogged(uid: string) {
     return this._http.get(
       `email_logged/${uid}`
@@ -65,6 +71,19 @@ export class FireService {
   createUserPreviousRegistering(payload: any) {
     return this._http.post(
       `create_user_pr`,
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
+    );
+  }
+
+  createMantenimiento(payload: any) {
+    return this._http.post(
+      `create_mantenimiento`,
       payload, {
       headers: {
         Accept: "application/json",
@@ -99,6 +118,12 @@ export class FireService {
   getUser(uid: string) {
     return this._http.get(
       `get_user/${uid}/`
+    );
+  }
+
+  obtenerMttos(id_activo: string) {
+    return this._http.get(
+      `get_mttos/${id_activo}/`
     );
   }
 

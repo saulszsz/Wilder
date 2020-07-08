@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { FireService } from './../../../../services/fire.service';
@@ -36,7 +37,8 @@ export class DetailUserComponent implements OnInit {
 
   constructor(
     private _fs: FireService,
-    private _router: Router
+    private _router: Router,
+    private _snack: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -65,13 +67,19 @@ export class DetailUserComponent implements OnInit {
           },
           (error) => {
             console.log(error);
-            alert("Cambiar por snack, error!");
+            this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+              duration: 8000,
+              verticalPosition: 'bottom'
+            });
             that.prestamos = false;
           }
         );
       },
       (error) => {
-        alert("error interno, snack" + error);
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
         that.prestamos = false;
       }
     );
@@ -80,11 +88,17 @@ export class DetailUserComponent implements OnInit {
   regresarActivo(id: string, id_activo: string) {
     this._fs.regresarActivo(id, id_activo).subscribe(
       (success) => {
-        alert("TODO OK,");
+        this._snack.open("Artículo devuelto a inventario.", 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
         this._router.navigate(['/']);
       },
       (error) => {
-        alert("snack: Error, todo es error");
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
       }
     )
   }
