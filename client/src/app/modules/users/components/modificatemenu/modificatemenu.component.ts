@@ -231,6 +231,7 @@ export class ModificatemenuComponent implements OnInit, AfterViewInit {
     }
     var that = this;
     that._fs.updateUser({
+      uid: this.idUser,
       tipo: 'normal',
       correo: this.formulario.get('correo').value,
       trabajo: this.formulario.get('trabajo').value,

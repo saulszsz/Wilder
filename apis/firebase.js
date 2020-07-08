@@ -400,9 +400,11 @@ router.post('/get_usuario', (req, res) => {
 
 router.put('/update_user', (req, res) => {
     var body = req.body;
+    
     console.log("prueba 2csdasasdasasfas");
     sessionStatus(req).then(
         (success) => {
+            console.log(body.uid);
             get_reference('users/' + body.uid).set({
                 email: body.correo,
                 tipo: body.tipo,

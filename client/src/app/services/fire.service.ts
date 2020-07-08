@@ -73,7 +73,7 @@ export class FireService {
   }
 
   updateUser(payload: any) {
-    console.log("prueba 1");
+    console.log("prueba fire" + payload.uid);
     return this._http.put(
       `update_user`,
       payload, {
