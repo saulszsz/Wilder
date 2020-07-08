@@ -84,6 +84,8 @@ export class ActivoslistaComponent implements OnInit {
             }
           },
           (error) => {
+            this.bandera = false;
+            this.spinner();
             return [];
           }
         );

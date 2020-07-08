@@ -49,7 +49,7 @@ export class ContactComponent implements OnInit {
         this._router.navigate(['/']);
       },
       (error) => {
-        this._snack.open("No Enviado. Error Interno." + JSON.stringify(error), 'OK', {
+        this._snack.open("No Enviado. Error Interno BATMAN." + JSON.stringify(error), 'OK', {
           duration: 8000,
           verticalPosition: 'bottom'
         });
