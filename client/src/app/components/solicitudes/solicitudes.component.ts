@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FireService } from './../../services/fire.service';
 import { Component, OnInit } from '@angular/core';
 import { map, switchMap } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -51,7 +50,7 @@ export class SolicitudesComponent implements OnInit {
     var that = this;
     this.user.subscribe(
       (user: any) => {
-        if(user.tipo != 'admin') {
+        if (user.tipo != 'admin') {
           this._router.navigate(['/inventario']);
         }
         this._fs.getSolicitudes(user.trabajo).subscribe(
@@ -60,6 +59,7 @@ export class SolicitudesComponent implements OnInit {
             for (let sol in result) {
               result[sol]['activo'] = that._fs._fireDb.object('inventario/' + result[sol]['id']).valueChanges();
               result[sol]['usuario'] = that._fs._fireDb.object('users/' + result[sol]['id_usuario']).valueChanges();
+              result[sol]['id_sol'] = sol;
               that.formulario.push(
                 this._fb.group({
                   'fecha': ['',
@@ -90,6 +90,20 @@ export class SolicitudesComponent implements OnInit {
         that.solicitudes = false;
       }
     );
+  }
+
+  noPrestar(id_solicitud: string, id_activo: string) {
+    this._fs.eliminarSolicitud(id_solicitud, id_activo).subscribe(
+      (response: any) => {
+        if (response.exito) {
+          alert("Éxito, reemplazar por snack");
+          this._router.navigate(['/inventario']);
+        }
+      },
+      (error) => {
+        alert("reemplazar por snack");
+      }
+    )
   }
 
   enviarPrestamo(event, index: number, id_activo: string, id_usuario: string) {

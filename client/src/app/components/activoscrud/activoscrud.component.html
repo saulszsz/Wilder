@@ -1,5 +1,5 @@
 <div *ngIf="user | async as user">
-  <form [formGroup]="todoForm"  class="example-form">
+  <form [formGroup]="todoForm" class="example-form">
     <mat-card *ngIf="user.tipo === 'admin' else usuarioNormal" class="example-card">
       <img style="max-width: 250px;" *ngIf="idActivo === '0' else editarQR" mat-card-image src={{qrDefault}} alt="QR">
       <ng-template #editarQR>
@@ -8,14 +8,16 @@
       <mat-card-content>
         <mat-form-field class="example-full-width">
           <mat-label>Nombre</mat-label>
-          <input name="nombre" [(ngModel)]="datosActivo.nombre" matInput placeholder="Monitor..." formControlName="v_nombre" required>
+          <input name="nombre" [(ngModel)]="datosActivo.nombre" matInput placeholder="Monitor..."
+            formControlName="v_nombre" required>
           <mat-error *ngIf="todoForm.controls['v_nombre'].touched && todoForm.controls['v_nombre'].errors?.required">
             Es necesario proporcionar el Nombre del producto
           </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Modelo</mat-label>
-          <input name="modelo" [(ngModel)]="datosActivo.modelo" matInput placeholder="XLR8" formControlName="v_modelo" required>
+          <input name="modelo" [(ngModel)]="datosActivo.modelo" matInput placeholder="XLR8" formControlName="v_modelo"
+            required>
           <mat-error *ngIf="todoForm.controls['v_modelo'].touched && todoForm.controls['v_modelo'].errors?.required">
             Es necesario proporcionar el Modelo del producto
           </mat-error>
@@ -27,14 +29,17 @@
               {{food.viewValue}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="todoForm.controls['v_categoria'].touched && todoForm.controls['v_categoria'].errors?.required">
+          <mat-error
+            *ngIf="todoForm.controls['v_categoria'].touched && todoForm.controls['v_categoria'].errors?.required">
             Es necesario proporcionar el Categoria del producto
           </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Descripcion</mat-label>
-          <textarea name="descripcion" [(ngModel)]="datosActivo.descripcion" matInput placeholder="Cuenta con..." formControlName="v_descripcion" required></textarea>
-          <mat-error *ngIf="todoForm.controls['v_descripcion'].touched && todoForm.controls['v_descripcion'].errors?.required">
+          <textarea name="descripcion" [(ngModel)]="datosActivo.descripcion" matInput placeholder="Cuenta con..."
+            formControlName="v_descripcion" required></textarea>
+          <mat-error
+            *ngIf="todoForm.controls['v_descripcion'].touched && todoForm.controls['v_descripcion'].errors?.required">
             Es necesario proporcionar una Descripcion del producto
           </mat-error>
         </mat-form-field>
@@ -43,7 +48,8 @@
       </mat-card-content>
       <mat-card-actions *ngIf="idActivo === '0' else editarBoton">
         <button mat-raised-button color="primary" [routerLink]="['/inventario']">REGRESAR</button>
-        <button (click)="registrarActivo($event, user.trabajo)" mat-raised-button color="primary" [disabled]="todoForm.invalid">REGISTRAR</button>
+        <button (click)="registrarActivo($event, user.trabajo)" mat-raised-button color="primary"
+          [disabled]="todoForm.invalid">REGISTRAR</button>
       </mat-card-actions>
       <ng-template #editarBoton>
         <mat-card-actions>
@@ -51,6 +57,8 @@
           <button (click)="editarActivo($event, user.trabajo)" mat-raised-button color="accent">EDITAR</button>
         </mat-card-actions>
         <mat-card-actions>
+          <button [routerLink]="['/mtto/'+this.idActivo+'/']" mat-raised-button color="primary">REGISTRAR
+            MTTO</button>
           <button mat-raised-button color="primary" [routerLink]="['/inventario']">REGRESAR</button>
         </mat-card-actions>
       </ng-template>
@@ -68,7 +76,8 @@
         <p><b>Fecha: </b>{{ datosActivo.fecha | date:'dd/MM/yyyy' }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button *ngIf="uid | async as uid" (click)="listaEspera(uid, user.trabajo)" [hidden]="datosActivo.dominio != 'Bodega'" mat-raised-button color="primary">SOLICITAR</button>
+        <button *ngIf="uid | async as uid" (click)="listaEspera(uid, user.trabajo)"
+          [hidden]="datosActivo.dominio != 'Bodega'" mat-raised-button color="primary">SOLICITAR</button>
       </mat-card-actions>
       <mat-card-actions>
         <button mat-raised-button color="primary" [routerLink]="['/inventario']">REGRESAR</button>

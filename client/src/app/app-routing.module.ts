@@ -1,3 +1,4 @@
+import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
 import { UsersModule } from './modules/users/users.module';
 import { ContactComponent } from './components/contact/contact.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'inventario', component: ActivoslistaComponent },
   { path: 'requests', component: SolicitudesComponent },
   { path: 'activo/:id', component: ActivoscrudComponent },
+  { path: 'mtto/:id', component: MantenimientoComponent },
   { path: 'archivos', component: MyfilesComponent },
   { path: 'graficas', component: GraphicsComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }

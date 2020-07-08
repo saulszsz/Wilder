@@ -32,6 +32,7 @@ import { GraphicsComponent } from './components/graphics/graphics.component';
 import { ChartsModule } from 'ng2-charts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
+import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { SolicitudesComponent } from './components/solicitudes/solicitudes.compo
     HelpComponent,
     MyfilesComponent,
     GraphicsComponent,
-    SolicitudesComponent
+    SolicitudesComponent,
+    MantenimientoComponent
   ],
   imports: [
     BrowserModule,
