@@ -116,7 +116,7 @@ router.get('/activos_list/:uid', (req, res) => {
 router.get('/eliminar_solicitud/:uid/:uid_activo', (req, res) => {
     sessionStatus(req).then(
         (success) => {
-            get_reference('solicitudes/').child(req.params.uid).remove().then(
+            get_reference('solicitudes/'+ req.params.uid + '/abierto').set(false).then(
                 (result) => { },
                 (error) => {
                     res.status(403).send("UNAUTHORIZED REQUEST!");
@@ -187,6 +187,22 @@ router.get('/get_solicitudes/:uid', (req, res) => {
     });
 });
 
+router.get('/get_mttos/:uid', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            let reference = get_reference('mantenimiento/')
+                .orderByChild("id_activo")
+                .equalTo(req.params.uid);
+
+            reference.once("value", function (snapshot) {
+                res.json(snapshot.val());
+            });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
 router.get('/get_prestamos/:uid', (req, res) => {
     sessionStatus(req).then(
         (success) => {
@@ -230,6 +246,45 @@ router.get('/regresar_activo/:uid/:uid_activo', (req, res) => {
         res.status(403).send("UNAUTHORIZED REQUEST!");
     });
 });
+
+
+router.post('/create_normal_user', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            let body = req.body;
+            let companies_reference = get_reference('companies/');
+            var company = companies_reference.push({
+                company_name: body.trabajo
+            });
+            var company_id = company.key;
+            var datos = {
+                email: body.correo,
+                tipo: body.tipo,
+                trabajo: company_id,
+                nombre: body.nombre,
+                apellido: body.apellido,
+                nacimiento: body.nacimiento,
+                telefono: body.telefonogit 
+            };
+            get_reference('users/').push(datos).then(
+                (result) => {
+                    console.log("Usuario creado.");
+                    console.log(JSON.stringify(result));
+                    res.json({ 'creado': true });
+                },
+                (error) => {
+                    console.log("Usuario no creado.");
+                    console.log(JSON.stringify(error));
+                    res.json({ 'creado': false });
+                }
+            );
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+
 
 router.post('/create_user_pr', (req, res) => {
     sessionStatus(req).then(

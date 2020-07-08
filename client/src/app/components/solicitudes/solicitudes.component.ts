@@ -12,6 +12,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./solicitudes.component.css']
 })
 export class SolicitudesComponent implements OnInit {
+  today: Date = new Date(Date.now())
+  today_str: string = this.today.getFullYear() + '-' +
+    (this.today.getMonth() + 1 < 10 ? '0' + (this.today.getMonth() + 1) : (this.today.getMonth() + 1).toString()) + '-' +
+    (this.today.getDate() ? '0' + this.today.getDate() : this.today.getDate().toString());
+
   uid = this._fs._afAuth.authState.pipe(
     map(authState => {
       if (!authState) {
@@ -35,6 +40,7 @@ export class SolicitudesComponent implements OnInit {
   formulario: Array<FormGroup> = [];
 
   solicitudes: any;
+  solicitudes_abiertas: any;
 
   constructor(
     private _fs: FireService,
@@ -58,6 +64,7 @@ export class SolicitudesComponent implements OnInit {
         this._fs.getSolicitudes(user.trabajo).subscribe(
           (result) => {
             var list = [];
+            var list_cerrado = [];
             for (let sol in result) {
               result[sol]['activo'] = that._fs._fireDb.object('inventario/' + result[sol]['id']).valueChanges();
               result[sol]['usuario'] = that._fs._fireDb.object('users/' + result[sol]['id_usuario']).valueChanges();
@@ -77,9 +84,10 @@ export class SolicitudesComponent implements OnInit {
                   ]
                 })
               )
-              list.push(result[sol]);
+              result[sol]['abierto'] ? list.push(result[sol]) : list_cerrado.push(result[sol]);
             }
-            that.solicitudes = list;
+            that.solicitudes = list_cerrado;
+            that.solicitudes_abiertas = list;
           },
           (error) => {
             this._snack.open("Error! " + JSON.stringify(error), 'OK', {

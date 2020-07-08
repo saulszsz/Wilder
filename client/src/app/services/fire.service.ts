@@ -68,6 +68,20 @@ export class FireService {
     );
   }
 
+
+  createNormalUser(payload: any) {
+    return this._http.post(
+      `create_normal_user`,
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
+    );
+  }
+
   createUserPreviousRegistering(payload: any) {
     return this._http.post(
       `create_user_pr`,
@@ -118,6 +132,12 @@ export class FireService {
   getUser(uid: string) {
     return this._http.get(
       `get_user/${uid}/`
+    );
+  }
+
+  obtenerMttos(id_activo: string) {
+    return this._http.get(
+      `get_mttos/${id_activo}/`
     );
   }
 
@@ -208,7 +228,8 @@ export class FireService {
       id: idActivo,
       fecha: new Date(Date.now()),
       id_usuario: idUser,
-      company: idCompany
+      company: idCompany,
+      abierto: true
     }, {
       headers: {
         Accept: "application/json",
