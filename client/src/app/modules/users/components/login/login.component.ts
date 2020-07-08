@@ -145,6 +145,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
               }
             );
           });
+      }, (error) => {
+        this._snack.open("Usuario y/o contraseña inválidos.", 'OK', {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
       });
     } else if (method == 'phone') {
       // this.props = { uid: null, method: 'phone' }

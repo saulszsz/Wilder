@@ -15,6 +15,7 @@ router.post('redirect', (req, res) => {
 
 router.get('/logout', (req, res) => {
     res.clearCookie('session');
+    res.clearCookie('XSRF-TOKEN');
     res.json(true);
 });
 
