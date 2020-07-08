@@ -38,7 +38,7 @@
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Nombre de la empresa para la que trabaja.</mat-label>
                 <input matInput formControlName="trabajo" type="text"
-                    placeholder="Introduce el nombre de la empresa para la que trabajas.">
+                    placeholder="Introduce el nombre de la empresa para la que trabajas." readonly>
                 <mat-error *ngIf="errorHandling('trabajo', 'required')">
                     Por favor, introduce el nombre de tu empresa.
                 </mat-error>

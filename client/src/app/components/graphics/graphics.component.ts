@@ -91,6 +91,15 @@ export class GraphicsComponent implements OnInit {
       (user: any) => {
         this._fs.getActivos(user['trabajo']).subscribe(
           (result) => {
+            if (result == "null" || result == null) {
+              this.bandera = false;
+              this.spinner();
+              this._snack.open("No hay datos disponibles.", 'OK', {
+                duration: 8000,
+                verticalPosition: 'bottom'
+              });
+              //this._router.navigate(['/inventario']);
+            } else {
             if (result) {
               var array = [];
               for (let i in result) {
@@ -173,6 +182,7 @@ export class GraphicsComponent implements OnInit {
 
             this.bandera = false;
             this.spinner();
+          }
           },
           (error) => {
             return [];
@@ -186,6 +196,7 @@ export class GraphicsComponent implements OnInit {
         });
       }
     );
+    console.log
   }
 
   spinner(): void {
