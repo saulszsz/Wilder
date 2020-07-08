@@ -136,7 +136,7 @@ router.get('/usuarios_list/:uid', (req, res) => {
 router.get('/eliminar_solicitud/:uid/:uid_activo', (req, res) => {
     sessionStatus(req).then(
         (success) => {
-            get_reference('solicitudes/').child(req.params.uid).remove().then(
+            get_reference('solicitudes/'+ req.params.uid + '/abierto').set(false).then(
                 (result) => { },
                 (error) => {
                     res.status(403).send("UNAUTHORIZED REQUEST!");

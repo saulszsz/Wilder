@@ -40,6 +40,7 @@ export class SolicitudesComponent implements OnInit {
   formulario: Array<FormGroup> = [];
 
   solicitudes: any;
+  solicitudes_abiertas: any;
 
   constructor(
     private _fs: FireService,
@@ -63,6 +64,7 @@ export class SolicitudesComponent implements OnInit {
         this._fs.getSolicitudes(user.trabajo).subscribe(
           (result) => {
             var list = [];
+            var list_cerrado = [];
             for (let sol in result) {
               result[sol]['activo'] = that._fs._fireDb.object('inventario/' + result[sol]['id']).valueChanges();
               result[sol]['usuario'] = that._fs._fireDb.object('users/' + result[sol]['id_usuario']).valueChanges();
@@ -82,9 +84,10 @@ export class SolicitudesComponent implements OnInit {
                   ]
                 })
               )
-              list.push(result[sol]);
+              result[sol]['abierto'] ? list.push(result[sol]) : list_cerrado.push(result[sol]);
             }
-            that.solicitudes = list;
+            that.solicitudes = list_cerrado;
+            that.solicitudes_abiertas = list;
           },
           (error) => {
             this._snack.open("Error! " + JSON.stringify(error), 'OK', {
