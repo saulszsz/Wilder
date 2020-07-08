@@ -1,4 +1,7 @@
 <h3 style="text-align: center;">Listado de Usuarios registrados.</h3>
+<div class="mx-auto" style="text-align: center;" >
+    <button mat-raised-button color="primary" [routerLink]="['/usermenu']">Regresar</button>
+</div>
 
 <div *ngIf="usuarios else vacio">
     <div *ngFor="let usuario of usuarios">
