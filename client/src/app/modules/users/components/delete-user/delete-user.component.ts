@@ -11,9 +11,7 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}
+
 
 @Component({
   selector: 'app-delete-user',
@@ -21,7 +19,7 @@ export interface DialogData {
   styleUrls: ['./delete-user.component.css']
 })
 export class DeleteUserComponent implements OnInit {
-  confirmation: boolean = false;
+  
   bandera: boolean;
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
@@ -122,7 +120,6 @@ export class DeleteUserComponent implements OnInit {
         });
       }
     );
-    this.confirmation = false;
   }
 
   private _filter(value: string): string[] {
