@@ -35,8 +35,15 @@ export class FireService {
 
   cerrarSesion() {
     var that = this;
-    return this._afAuth.signOut().then(function () {
-      that._http.get("logout");
+    this._afAuth.signOut().then(function () {
+      console.log("Sesión cerrada!");
+    });
+    return this._http.post("logout", {}, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
     });
   }
 
@@ -209,7 +216,7 @@ export class FireService {
     }
     );
   }
-  
+
 
   createPrestamo(payload: any) {
     return this._http.post(

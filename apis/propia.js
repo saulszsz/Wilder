@@ -13,9 +13,8 @@ router.post('redirect', (req, res) => {
     res.end();
 });
 
-router.get('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
     res.clearCookie('session');
-    res.clearCookie('XSRF-TOKEN');
     res.json(true);
 });
 

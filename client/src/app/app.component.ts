@@ -57,4 +57,8 @@ export class AppComponent implements OnInit {
   habilitableSpeak() {
     this.globals.role = !this.globals.role;
   }
+
+  loginUser(){
+    window.location.href = "/users/login";
+  }
 }
