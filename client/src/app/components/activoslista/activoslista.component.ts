@@ -60,18 +60,28 @@ export class ActivoslistaComponent implements OnInit {
       (user: any) => {
         this._fs.getActivos(user['trabajo']).subscribe(
           (result) => {
-            if (result) {
-              var array = [];
-              for (let i in result) {
-                array.push(result[i]);
-                array[array.length - 1]['id'] = i;
+            if (result == null || result == "null") {
+              this.bandera = false;
+              this.spinner();
+              this._snack.open("Inventario vacio.", 'OK', {
+                duration: 8000,
+                verticalPosition: 'bottom'
+              });
+            } else {
+              console.log("El resultado es: "+result);
+              if (result) {
+                var array = [];
+                for (let i in result) {
+                  array.push(result[i]);
+                  array[array.length - 1]['id'] = i;
+                }
               }
+              array.forEach((dato) => {
+                this.activos.push(dato);
+              });
+              this.bandera = false;
+              this.spinner();
             }
-            array.forEach((dato) => {
-              this.activos.push(dato);
-            });
-            this.bandera = false;
-            this.spinner();
           },
           (error) => {
             return [];
