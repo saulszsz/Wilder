@@ -1,18 +1,20 @@
 <div style="padding: 20px;">
-    <div *ngIf="solicitudes && solicitudes.length > 0 else nosolicitud">
+    <div *ngIf="solicitudes_abiertas && solicitudes_abiertas.length > 0 else nosolicitud">
         <h3>Activos que han sido solicitados:</h3>
         <mat-accordion multi>
-            <mat-expansion-panel *ngFor="let obj of solicitudes; let idx = index" style="width: 100%;">
+            <mat-expansion-panel *ngFor="let obj of solicitudes_abiertas; let idx = index" style="width: 100%;">
                 <mat-expansion-panel-header *ngIf="obj['activo'] | async as objeto">
-                    <b>{{ objeto['nombre'] }}</b>
+                    <b>{{ (idx+1) + '.' + objeto['nombre'] }}</b>
                 </mat-expansion-panel-header>
                 <p *ngIf="obj['usuario'] | async as user">Solicitado por: {{ user['nombre'] }}</p>
                 <p>El día: {{ obj['fecha'] | date:'dd/MM/yyyy' }}</p>
-                <form (ngSubmit)="enviarPrestamo($event, idx, obj['id'], obj['id_usuario'])" [formGroup]="formulario[idx]" novalidate>
+                <form (ngSubmit)="enviarPrestamo($event, idx, obj['id'], obj['id_usuario'])"
+                    [formGroup]="formulario[idx]" novalidate>
                     <h2>Formulario de Préstamo</h2>
                     <mat-form-field class="full-width-input" appearance="outline">
                         <mat-label>Fecha de Regreso: </mat-label>
-                        <input matInput formControlName="fecha" type="date" min="{{ today_str }}" placeholder="06/07/2020">
+                        <input matInput formControlName="fecha" type="date" min="{{ today_str }}"
+                            placeholder="06/07/2020">
                         <mat-error *ngIf="_form.errorHandling('fecha', 'required', formulario[idx])">
                             Por favor introduce una fecha de entrega.
                         </mat-error>
@@ -30,12 +32,29 @@
                     </mat-form-field>
                     <button type="submit" mat-raised-button color="primary">Prestar</button>
                 </form>
-                <button (click)="noPrestar(obj['id_sol'], obj['id'])" type="submit" mat-raised-button color="secondary">No Prestar</button>
+                <button (click)="noPrestar(obj['id_sol'], obj['id'])" type="submit" mat-raised-button
+                    color="secondary">No Prestar</button>
             </mat-expansion-panel>
         </mat-accordion>
     </div>
 
     <ng-template #nosolicitud>
         <h3>No hay solicitudes de préstamo de activo por el momento.</h3>
+    </ng-template>
+
+    <div *ngIf="solicitudes && solicitudes.length > 0 else nosolicitudcerrada">
+        <h3>Activos con solicitud ya cerrada:</h3>
+        <mat-accordion multi>
+            <mat-expansion-panel *ngFor="let obj of solicitudes; let idx = index" style="width: 100%;">
+                <mat-expansion-panel-header *ngIf="obj['activo'] | async as objeto">
+                    <b>{{ (idx+1) + '.' + objeto['nombre'] }}</b>
+                </mat-expansion-panel-header>
+                <p *ngIf="obj['usuario'] | async as user">Solicitado por: {{ user['nombre'] }}</p>
+                <p>El día: {{ obj['fecha'] | date:'dd/MM/yyyy' }}</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <ng-template #nosolicitudcerrada>
+        <h3>No hay solicitudes que han sido cerradas por el momento.</h3>
     </ng-template>
 </div>

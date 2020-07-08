@@ -228,7 +228,8 @@ export class FireService {
       id: idActivo,
       fecha: new Date(Date.now()),
       id_usuario: idUser,
-      company: idCompany
+      company: idCompany,
+      abierto: true
     }, {
       headers: {
         Accept: "application/json",
