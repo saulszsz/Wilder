@@ -1,5 +1,6 @@
 <!--Vista para usuarios-->
-<mat-grid-list *ngIf="user | async as user else demo" [cols]="colSize" rowHeight="2:2">
+<mat-grid-list *ngIf="user | async as user else demo" [cols]="colSize">
+    <mat-grid-tile *ngIf="colSize === 5" colspan="1"></mat-grid-tile>
     <mat-grid-tile colspan="1">
         <a [routerLink]="['/users/detail/']">
             <mat-card>
@@ -30,6 +31,18 @@
             </mat-card>
         </a>
     </mat-grid-tile>
+    <mat-grid-tile *ngIf="colSize === 5" colspan="1"></mat-grid-tile>
+    <mat-grid-tile *ngIf="colSize === 5" colspan="1"></mat-grid-tile>
+    <mat-grid-tile colspan="1" *ngIf="user.tipo === 'admin'">
+        <a [routerLink]="['/usermenu/']">
+            <mat-card>
+                <mat-card-title align="center">Usuarios</mat-card-title>
+                <mat-card-content>
+                    <img mat-card-lg-image src="../../../assets/img_users/modificarUsuario.svg">
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </mat-grid-tile>
     <mat-grid-tile colspan="1" *ngIf="user.tipo === 'admin'">
         <a [routerLink]="['/activo/0/']">
             <mat-card>
@@ -40,14 +53,17 @@
             </mat-card>
         </a>
     </mat-grid-tile>
-    <mat-grid-tile colspan="1" *ngIf="user.tipo === 'admin'">
-        <mat-card>
-            <mat-card-title align="center">Lista Usuarios</mat-card-title>
-            <mat-card-content>
-                <img mat-card-lg-image src="../../../assets/img_inicio/usuario.svg">
-            </mat-card-content>
-        </mat-card>
+    <mat-grid-tile colspan="1">
+        <a [routerLink]="['/graficas/']">
+            <mat-card>
+                <mat-card-title align="center">Graficas</mat-card-title>
+                <mat-card-content>
+                    <img mat-card-lg-image src="../../../assets/img_inicio/calendar.svg" align="center">
+                </mat-card-content>
+            </mat-card>
+        </a>
     </mat-grid-tile>
+    <mat-grid-tile *ngIf="colSize === 5" colspan="1"></mat-grid-tile>
 </mat-grid-list>
 
 <!--Vista general-->
