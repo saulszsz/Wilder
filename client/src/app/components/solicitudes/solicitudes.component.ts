@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsService } from './../../services/forms.service';
 import { Router } from '@angular/router';
 import { FireService } from './../../services/fire.service';
@@ -39,7 +40,8 @@ export class SolicitudesComponent implements OnInit {
     private _fs: FireService,
     private _router: Router,
     private _fb: FormBuilder,
-    public _form: FormsService
+    public _form: FormsService,
+    private _snack: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -80,7 +82,10 @@ export class SolicitudesComponent implements OnInit {
             that.solicitudes = list;
           },
           (error) => {
-            alert("Cambiar por snack, error!");
+            this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+              duration: 8000,
+              verticalPosition: 'bottom'
+            });
             that.solicitudes = false;
           }
         );
@@ -96,12 +101,18 @@ export class SolicitudesComponent implements OnInit {
     this._fs.eliminarSolicitud(id_solicitud, id_activo).subscribe(
       (response: any) => {
         if (response.exito) {
-          alert("Éxito, reemplazar por snack");
+          this._snack.open("Se eliminó la solicitud de manera exitosa.", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
           this._router.navigate(['/inventario']);
         }
       },
       (error) => {
-        alert("reemplazar por snack");
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
       }
     )
   }
@@ -120,12 +131,18 @@ export class SolicitudesComponent implements OnInit {
     this._fs.createPrestamo(payload).subscribe(
       (response: any) => {
         if (response.exito) {
-          alert("Éxito, reemplazar por snack");
+          this._snack.open("Se ha autorizado el préstamo", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
           this._router.navigate(['/inventario']);
         }
       },
       (error) => {
-        alert("reemplazar por snack");
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
       }
     )
   }

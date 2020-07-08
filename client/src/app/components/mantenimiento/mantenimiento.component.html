@@ -7,7 +7,7 @@
         <form [formGroup]="formulario" (ngSubmit)="envio($event)" novalidate>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Fecha de Mantenimiento</mat-label>
-                <input matInput formControlName="fecha" type="date" min="{{ today_str }}" placeholder="28-08-1999">
+                <input matInput formControlName="fecha" type="date" placeholder="28-08-1999">
                 <mat-error *ngIf="_form.errorHandling('fecha', 'required', formulario)">
                     Por favor introduce una fecha.
                 </mat-error>

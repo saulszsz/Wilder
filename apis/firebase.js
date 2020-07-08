@@ -375,7 +375,7 @@ router.post('/solicitar_activo/:id', (req, res) => {
     });
 });
 
-router.post('create_mantenimiento', (req, res) => {
+router.post('/create_mantenimiento', (req, res) => {
     sessionStatus(req).then(
         (success) => {
             get_reference('mantenimiento/').push(req.body).then(

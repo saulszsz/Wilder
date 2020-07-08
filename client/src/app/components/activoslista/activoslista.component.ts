@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FireService } from '../../services/fire.service';
@@ -40,7 +41,8 @@ export class ActivoslistaComponent implements OnInit {
   constructor(
     private _fs: FireService,
     private _router: Router,
-    private spinnerService: NgxSpinnerService
+    private spinnerService: NgxSpinnerService,
+    private _snack: MatSnackBar
   ) { }
 
   activos = [];
@@ -77,7 +79,10 @@ export class ActivoslistaComponent implements OnInit {
         );
       },
       (error) => {
-        alert("error interno" + error);
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
         that.activos = [];
       }
     );

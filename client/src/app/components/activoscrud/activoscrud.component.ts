@@ -130,7 +130,10 @@ export class ActivoscrudComponent implements OnInit {
         }
       },
       (error: any) => {
-        alert("Error! " + JSON.stringify(error));
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
       }
     );
   }

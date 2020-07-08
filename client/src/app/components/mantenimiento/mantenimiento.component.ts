@@ -16,7 +16,7 @@ export class MantenimientoComponent implements OnInit {
   activo: any
   today: Date = new Date(Date.now())
   today_str: string = this.today.getFullYear() + '-' +
-    (this.today.getMonth() + 1 < 10 ? '0' + this.today.getMonth() + 1 : (this.today.getMonth() + 1).toString()) + '-' +
+    (this.today.getMonth() + 1 < 10 ? '0' + (this.today.getMonth() + 1) : (this.today.getMonth() + 1).toString()) + '-' +
     (this.today.getDate() ? '0' + this.today.getDate() : this.today.getDate().toString());
 
   formulario: FormGroup;
@@ -111,7 +111,10 @@ export class MantenimientoComponent implements OnInit {
         }
       },
       (error: any) => {
-        alert("Error! " + JSON.stringify(error));
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
       }
     );
   }
@@ -139,7 +142,7 @@ export class MantenimientoComponent implements OnInit {
     this._fs.createMantenimiento(payload).subscribe(
       (response: any) => {
         if (response.exito) {
-          this._snack.open('El mantenimiento se ha registrado de mnanera exitosa.', 'OK', {
+          this._snack.open('El mantenimiento se ha registrado de manera exitosa.', 'OK', {
             duration: 5000,
             verticalPosition: 'top'
           });

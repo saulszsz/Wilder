@@ -51,7 +51,7 @@ import { UsermenuComponent } from './components/usermenu/usermenu.component';
     MyfilesComponent,
     GraphicsComponent,
     SolicitudesComponent,
-    MantenimientoComponent
+    MantenimientoComponent,
     UsermenuComponent
   ],
   imports: [

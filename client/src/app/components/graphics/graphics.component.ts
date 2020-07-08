@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { FireService } from '../../services/fire.service';
 import { Router } from '@angular/router';
@@ -73,7 +74,7 @@ export class GraphicsComponent implements OnInit {
     }),
   );
 
-  constructor(private _fs: FireService, private _router: Router, private spinnerService: NgxSpinnerService) { }
+  constructor(private _fs: FireService, private _router: Router, private spinnerService: NgxSpinnerService, private _snack: MatSnackBar) { }
 
   activos = [];
   activos_etq = [];
@@ -179,7 +180,10 @@ export class GraphicsComponent implements OnInit {
         );
       },
       (error) => {
-        alert("error interno, snack" + error);
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
       }
     );
   }
