@@ -187,6 +187,22 @@ router.get('/get_solicitudes/:uid', (req, res) => {
     });
 });
 
+router.get('/get_mttos/:uid', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            let reference = get_reference('mantenimiento/')
+                .orderByChild("id_activo")
+                .equalTo(req.params.uid);
+
+            reference.once("value", function (snapshot) {
+                res.json(snapshot.val());
+            });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
 router.get('/get_prestamos/:uid', (req, res) => {
     sessionStatus(req).then(
         (success) => {

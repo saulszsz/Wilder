@@ -12,7 +12,7 @@
                     <h2>Formulario de Préstamo</h2>
                     <mat-form-field class="full-width-input" appearance="outline">
                         <mat-label>Fecha de Regreso: </mat-label>
-                        <input matInput formControlName="fecha" type="date" placeholder="06/07/2020">
+                        <input matInput formControlName="fecha" type="date" min="{{ today_str }}" placeholder="06/07/2020">
                         <mat-error *ngIf="_form.errorHandling('fecha', 'required', formulario[idx])">
                             Por favor introduce una fecha de entrega.
                         </mat-error>

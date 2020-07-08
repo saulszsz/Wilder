@@ -121,6 +121,12 @@ export class FireService {
     );
   }
 
+  obtenerMttos(id_activo: string) {
+    return this._http.get(
+      `get_mttos/${id_activo}/`
+    );
+  }
+
   regresarActivo(uid: string, uid_activo: string) {
     return this._http.get(
       `regresar_activo/${uid}/${uid_activo}`

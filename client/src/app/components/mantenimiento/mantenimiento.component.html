@@ -4,7 +4,7 @@
         <mat-card-subtitle>Registrar Mantenimiento</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="mat-card-content">
-        <form [formGroup]="formulario" (ngSubmit)="envio($event)" novalidate>
+        <form [formGroup]="formulario" *ngIf="uid | async as uid" (ngSubmit)="envio($event, uid)" novalidate>
             <mat-form-field class="full-width-input" appearance="outline">
                 <mat-label>Fecha de Mantenimiento</mat-label>
                 <input matInput formControlName="fecha" type="date" placeholder="28-08-1999">

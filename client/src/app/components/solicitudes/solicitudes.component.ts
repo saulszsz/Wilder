@@ -12,6 +12,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./solicitudes.component.css']
 })
 export class SolicitudesComponent implements OnInit {
+  today: Date = new Date(Date.now())
+  today_str: string = this.today.getFullYear() + '-' +
+    (this.today.getMonth() + 1 < 10 ? '0' + (this.today.getMonth() + 1) : (this.today.getMonth() + 1).toString()) + '-' +
+    (this.today.getDate() ? '0' + this.today.getDate() : this.today.getDate().toString());
+
   uid = this._fs._afAuth.authState.pipe(
     map(authState => {
       if (!authState) {

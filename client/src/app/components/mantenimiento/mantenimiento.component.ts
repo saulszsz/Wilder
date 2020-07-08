@@ -14,10 +14,6 @@ import { switchMap, map } from 'rxjs/operators';
 export class MantenimientoComponent implements OnInit {
   idActivo: string
   activo: any
-  today: Date = new Date(Date.now())
-  today_str: string = this.today.getFullYear() + '-' +
-    (this.today.getMonth() + 1 < 10 ? '0' + (this.today.getMonth() + 1) : (this.today.getMonth() + 1).toString()) + '-' +
-    (this.today.getDate() ? '0' + this.today.getDate() : this.today.getDate().toString());
 
   formulario: FormGroup;
 
@@ -38,7 +34,6 @@ export class MantenimientoComponent implements OnInit {
       if (!uid) {
         this._router.navigate(['/']);
       } else {
-        this.uid_string = uid;
         return this._fs._fireDb.object('users/' + uid).valueChanges();
       }
     }),
@@ -119,7 +114,7 @@ export class MantenimientoComponent implements OnInit {
     );
   }
 
-  envio(evt: any) {
+  envio(evt: any, uid: string) {
     if (!this.formulario.valid) {
       this._snack.open('¡Tu formulario no está en condiciones de ser enviado!', 'OK', {
         duration: 5000,
@@ -134,7 +129,7 @@ export class MantenimientoComponent implements OnInit {
       folio: this.formulario.get('folio').value,
       costo: this.formulario.get('costo').value,
       descripcion: this.formulario.get('descripcion').value,
-      id_usuario: this.uid_string,
+      id_usuario: uid,
       id_trabajo: this.activo.trabajo,
       id_activo: this.idActivo
     };
