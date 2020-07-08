@@ -3,7 +3,7 @@
         <form (ngSubmit)="envioPrevioRegistro($event)" [formGroup]="formulario" *ngIf="props.uid" novalidate>
             <h2>Es necesario que se registre.</h2>
             <mat-form-field class="full-width-input" appearance="outline">
-                <mat-label>Correo Eletrónico</mat-label>
+                <mat-label>Correo Electrónico</mat-label>
                 <input matInput formControlName="correo" type="email" placeholder="Ej. email@dominio.com">
                 <mat-error *ngIf="errorHandling('correo', 'required')">
                     Por favor introduce un correo.

@@ -24,7 +24,19 @@ const routes: Routes = [
   }, {
     path: "detail",
     component: DetailUserComponent
-  }
+  },
+  {
+    path: "create",
+    component: CreateUserComponent
+  },
+  {
+    path: "modify",
+    component: ModifyUserComponent
+  },
+  {
+    path: "delete",
+    component: DeleteUserComponent
+  },
 ];
 
 @NgModule({

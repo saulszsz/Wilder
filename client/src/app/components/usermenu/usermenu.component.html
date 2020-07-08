@@ -1,0 +1,38 @@
+<mat-grid-list [cols]="colSize" rowHeight="2:1">
+    <mat-grid-tile>
+        <mat-card>
+            <mat-card-title align="center">Agregar Usuario</mat-card-title>
+            <mat-card-content>
+                <br>
+                <a [routerLink]="['/users/create/']">
+                    <img mat-card-lg-image src="../../../assets/img_users/agregarUsuario.svg">
+                </a>
+                <br>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card>
+            <mat-card-title align="center">Modificar Usuario</mat-card-title>
+            <mat-card-content>
+                <br>
+                <a [routerLink]="['/users/modify/']">
+                    <img mat-card-lg-image src="../../../assets/img_users/modificarUsuario.svg">
+                </a>
+                <br>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card>
+            <mat-card-title align="center">Eliminar Usuario</mat-card-title>
+            <mat-card-content>
+                <br>
+                <a [routerLink]="['/users/delete/']">
+                    <img mat-card-lg-image src="../../../assets/img_users/eliminarUsuario.svg">
+                </a>
+                <br>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
