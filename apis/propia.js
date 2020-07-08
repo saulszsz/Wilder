@@ -64,7 +64,7 @@ router.post('/enviar_contacto', (req,res) => {
         }
     });
 
-    res.send('/succes.html');
+    res.json({'exito': true});
 });
 //Fin de Cosas necesarias para enviar el formulario de contact
 
