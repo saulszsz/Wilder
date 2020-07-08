@@ -112,7 +112,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
                     that.props = { uid: user.uid, method: 'google' }
                     that.registro = r;
                     if (!that.registro) {
-                      this._router.navigate(['/']);
+                      this._snack.open("Éxito.", 'OK');
+                      window.location.href = "/";
                     }
                   },
                   (e: any) => {
@@ -121,7 +122,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 );
               },
               (error) => {
-                this._snack.open("Has tenido un errror.", 'OK');
+                this._snack.open("Has tenido un error.", 'OK');
               }
             );
           });

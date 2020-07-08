@@ -36,17 +36,7 @@ export class FireService {
   cerrarSesion() {
     var that = this;
     return this._afAuth.signOut().then(function () {
-      that._http.post("logout", {}, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
-        }
-      }).subscribe(
-        (r) => {
-          this._router.navigate(['/login']);
-        }
-      );
+      that._http.get("logout");
     });
   }
 
