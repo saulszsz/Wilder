@@ -2,7 +2,7 @@ import { FireService } from './../../../../services/fire.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 import { FormControl } from '@angular/forms';
@@ -75,7 +75,6 @@ export class DeleteUserComponent implements OnInit {
                 array.push(result[i]);
               }
             }
-
             array.forEach((dato) => {
               this.usuarios.push(dato);
             });
@@ -98,7 +97,7 @@ export class DeleteUserComponent implements OnInit {
     );
   }
 
-  
+
 
   eliminarUsuario(uid: string) {
     this._fs.deleteUsuario(uid).subscribe(
@@ -107,7 +106,7 @@ export class DeleteUserComponent implements OnInit {
           this._snack.open("Se elimino con éxito", 'OK', {
             duration: 8000,
             verticalPosition: 'bottom'
-            
+
           });
         else
           this._snack.open("No se elimino con éxito", 'OK', {
@@ -123,6 +122,7 @@ export class DeleteUserComponent implements OnInit {
         });
       }
     );
+    this.confirmation = false;
   }
 
   private _filter(value: string): string[] {
