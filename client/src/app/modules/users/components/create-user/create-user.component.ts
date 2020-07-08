@@ -129,39 +129,7 @@ export class CreateUserComponent implements OnInit, AfterViewInit {
       }, { validator: this.checkPwd });
     }
 
-    if (this.props.uid && this.props.method != 'phone') {
-      this._fs.getEmailLogged(this.props.uid).subscribe(
-        (email: string) => {
-          this.formulario.patchValue({
-            correo: email
-          });
-          this.formulario.get('correo').disable();
-        },
-        (err) => {
-          this._snack.open('¡Error al obtener correo! ' + err.message, 'OK', {
-            duration: 7000,
-            verticalPosition: 'top'
-          });
-        }
-      );
-    }
-
-    if (this.props.uid && this.props.method == 'phone') {
-      this._fs.getPhoneLogged(this.props.uid).subscribe(
-        (phone: string) => {
-          this.formulario.patchValue({
-            telefono: phone
-          });
-          this.formulario.get('telefono').disable();
-        },
-        (err) => {
-          this._snack.open('¡Error al obtener teléfono! ' + err.message, 'OK', {
-            duration: 7000,
-            verticalPosition: 'top'
-          });
-        }
-      );
-    }
+    
   }
 
   errorHandling = (control: string, error: string) => {
@@ -177,51 +145,35 @@ export class CreateUserComponent implements OnInit, AfterViewInit {
       return;
     }
     var that = this;
-    this._fs.signIn(this.formulario.get('correo').value, this.formulario.get('pwd1').value).then(({ user }) => {
-      user.getIdToken().then(
-        (idToken) => {
-          this._fs.setCookieSession(idToken).subscribe(
-            (response) => {
-              that._fs.createUserPreviousRegistering({
-                uid: user.uid,
-                tipo: 'normal',
-                correo: this.formulario.get('correo').value,
-                trabajo: this.formulario.get('trabajo').value,
-                nombre: this.formulario.get('nombre').value,
-                apellido: this.formulario.get('apellido').value,
-                nacimiento: this.formulario.get('nacimiento').value,
-                telefono: this.formulario.get('telefono').value
-              }).subscribe(
-                (result: any) => {
-                  if (result.creado)
-                    this._snack.open('¡Usuario creado!', 'OK', {
-                      duration: 5000,
-                      verticalPosition: 'top'
-                    });
-                  else
-                    this._snack.open('Usuario no creado. Consulta a tu administrador.', 'OK', {
-                      duration: 5000,
-                      verticalPosition: 'top'
-                    });
-                  this._router.navigate(['/']);
-                },
-                (error: any) => {
-                  this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
-                    duration: 5000,
-                    verticalPosition: 'top'
-                  });
-                }
-              );
-            },
-            (error) => {
-              this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
-                duration: 5000,
-                verticalPosition: 'top'
-              });
-            }
-          );
+    that._fs.createNormalUser({
+      tipo: 'normal',
+      correo: this.formulario.get('correo').value,
+      trabajo: this.formulario.get('trabajo').value,
+      nombre: this.formulario.get('nombre').value,
+      apellido: this.formulario.get('apellido').value,
+      nacimiento: this.formulario.get('nacimiento').value,
+      telefono: this.formulario.get('telefono').value
+    }).subscribe(
+      (result: any) => {
+        if (result.creado)
+          this._snack.open('¡Usuario creado!', 'OK', {
+            duration: 5000,
+            verticalPosition: 'top'
+          });
+        else
+          this._snack.open('Usuario no creado. Consulta a tu administrador.', 'OK', {
+            duration: 5000,
+            verticalPosition: 'top'
+          });
+        this._router.navigate(['/usermenu']);
+      },
+      (error: any) => {
+        this._snack.open("Error!!! " + JSON.stringify(error), 'OK', {
+          duration: 5000,
+          verticalPosition: 'top'
         });
-    });
+      }
+    );
   }
 
   checkPwd(group: FormGroup) { // here we have the 'passwords' group
