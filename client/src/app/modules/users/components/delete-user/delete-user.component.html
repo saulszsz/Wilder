@@ -1,1 +1,19 @@
-<p>delete-user works!</p>
+<h3 style="text-align: center;">Listado de Usuarios registrados.</h3>
+
+<div *ngFor="let usuario of usuarios">
+    <div *ngIf="usuario.tipo === 'normal' else nada">
+        <mat-card class="tarjetas">
+            <mat-card-header>
+                <div class="div-medio">
+                    <mat-card-title>{{ usuario.nombre }}</mat-card-title>
+                    <mat-card-subtitle>{{ usuario.trabajo }}</mat-card-subtitle>
+                </div>
+                <mat-card-content>
+                    <button (click)="eliminarUsuario(usuario.uid)" mat-raised-button color="warn">ELIMINAR</button>
+                </mat-card-content>
+            </mat-card-header>
+        </mat-card>
+    </div>
+    <ng-template #nada>
+    </ng-template>
+</div>

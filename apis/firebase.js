@@ -113,6 +113,26 @@ router.get('/activos_list/:uid', (req, res) => {
     });
 });
 
+router.get('/usuarios_list/:uid', (req, res) => {
+
+    sessionStatus(req).then(
+        (success) => {
+
+            console.log(req.params.uid);
+            var reference = get_reference('users/')
+                .orderByChild("trabajo")
+                .equalTo(req.params.uid);
+
+            reference.once("value", function (snapshot) {
+                res.json(snapshot.val());
+
+            });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
 router.get('/eliminar_solicitud/:uid/:uid_activo', (req, res) => {
     sessionStatus(req).then(
         (success) => {
@@ -260,12 +280,13 @@ router.post('/create_normal_user', (req, res) => {
             var datos = {
                 email: body.correo,
                 tipo: body.tipo,
-                trabajo: company_id,
+                trabajo: body.trabajo,
                 nombre: body.nombre,
                 apellido: body.apellido,
                 nacimiento: body.nacimiento,
-                telefono: body.telefonogit 
+                telefono: body.telefono 
             };
+
             get_reference('users/').push(datos).then(
                 (result) => {
                     console.log("Usuario creado.");
@@ -334,6 +355,23 @@ router.get('/get_user/:uid', (req, res) => {
         }
     ).catch((error) => {
         res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+router.post('/delete_usuario/:uid', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            get_reference('users/').child(req.params.uid).remove().then(
+                (result) => {
+                    res.json({ 'creado': true });
+                },
+                (error) => {
+                    res.json({ 'creado': false });
+                }
+            );
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST! create_activo");
     });
 });
 
