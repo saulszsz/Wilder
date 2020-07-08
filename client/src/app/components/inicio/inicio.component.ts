@@ -41,7 +41,7 @@ export class InicioComponent implements OnInit {
       if (this.isMobile) {
         this.colSize = 2;
       } else {
-        this.colSize = 4;
+        this.colSize = 5;
       }
     });
   }
