@@ -5,6 +5,7 @@ import { Component, OnInit, Input, AfterContentInit, AfterViewInit } from '@angu
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-user',
@@ -39,6 +40,28 @@ export class CreateUserComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
   }
+
+  uid = this._fs._afAuth.authState.pipe(
+    map(authState => {
+      if (!authState) {
+        return '';
+      } else {
+        return authState.uid;
+      }
+    })
+  );
+
+  user: any = this.uid.pipe(
+    switchMap(uid => {
+      if (!uid) {
+        this._router.navigate(['/']);
+      } else {
+        return this._fs._fireDb.object('users/' + uid).valueChanges();
+      }
+    }),
+  );
+
+  company: string = null;
 
   ngOnInit(): void {
     if (!this.props) {
@@ -128,8 +151,24 @@ export class CreateUserComponent implements OnInit, AfterViewInit {
         ],
       }, { validator: this.checkPwd });
     }
+    this.setCompany();
+  }
 
-    
+  setCompany() {
+    var that = this;
+    this.user.subscribe(
+      (user: any) => {
+        this.formulario.patchValue({
+          trabajo: user['trabajo']
+        });
+      },
+      (error) => {
+        this._snack.open('Contacta al administrador.', 'OK', {
+          duration: 8000,
+          verticalPosition: 'top'
+        });
+      }
+    );
   }
 
   errorHandling = (control: string, error: string) => {

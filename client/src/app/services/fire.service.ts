@@ -42,11 +42,7 @@ export class FireService {
           "Content-Type": "application/json",
           'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
         }
-      }).subscribe(
-        (r) => {
-          that._router.navigate(['/']);
-        }
-      );
+      });
     });
   }
 
@@ -135,6 +131,23 @@ export class FireService {
     );
   }
 
+  getUsuarios(trabajo_uid: string) {
+    return this._http.get(
+      `usuarios_list/${trabajo_uid}`
+    );
+  }
+
+  deleteUsuario(uid: string) {
+    return this._http.post(
+      `delete_usuario/${uid}`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    });
+  }
+
   obtenerMttos(id_activo: string) {
     return this._http.get(
       `get_mttos/${id_activo}/`
@@ -174,6 +187,7 @@ export class FireService {
     }
     );
   }
+  
 
   createPrestamo(payload: any) {
     return this._http.post(
