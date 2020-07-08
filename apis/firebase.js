@@ -102,11 +102,33 @@ router.get('/activos_list/:uid', (req, res) => {
         (success) => {
             var reference = get_reference('inventario/')
                 .orderByChild("trabajo")
-                .equalTo(req.params.uid);;
+                .equalTo(req.params.uid);
 
             reference.once("value", function (snapshot) {
                 res.json(snapshot.val());
             });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+router.get('/eliminar_solicitud/:uid/:uid_activo', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            get_reference('solicitudes/').child(req.params.uid).remove().then(
+                (result) => { },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+            get_reference('inventario/' + req.params.uid_activo + '/dominio').set('Bodega').then(
+                (result) => { },
+                (error) => {
+                    res.status(400).send("BAD REQUEST!");
+                }
+            );
+            res.json({ 'exito': true })
         }
     ).catch((error) => {
         res.status(403).send("UNAUTHORIZED REQUEST!");
@@ -154,6 +176,22 @@ router.get('/get_solicitudes/:uid', (req, res) => {
         (success) => {
             let reference = get_reference('solicitudes/')
                 .orderByChild("company")
+                .equalTo(req.params.uid);
+
+            reference.once("value", function (snapshot) {
+                res.json(snapshot.val());
+            });
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+router.get('/get_mttos/:uid', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            let reference = get_reference('mantenimiento/')
+                .orderByChild("id_activo")
                 .equalTo(req.params.uid);
 
             reference.once("value", function (snapshot) {
@@ -388,6 +426,24 @@ router.post('/solicitar_activo/:id', (req, res) => {
             res.json({ 'exito': true });
         }
     ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+router.post('/create_mantenimiento', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            get_reference('mantenimiento/').push(req.body).then(
+                (result) => {
+                    res.json({ 'exito': true });
+                },
+                (error) => {
+                    res.status(403).send("UNAUTHORIZED REQUEST!");
+                }
+            );
+        }
+    ).catch((error) => {
+        console.log(error);
         res.status(403).send("UNAUTHORIZED REQUEST!");
     });
 });

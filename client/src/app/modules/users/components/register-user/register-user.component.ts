@@ -196,7 +196,10 @@ export class RegisterUserComponent implements OnInit, AfterViewInit {
         this._router.navigate(['/']);
       },
       (error: any) => {
-        alert("Error!!! " + JSON.stringify(error));
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
       }
     );
   }

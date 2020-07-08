@@ -32,6 +32,7 @@ import { GraphicsComponent } from './components/graphics/graphics.component';
 import { ChartsModule } from 'ng2-charts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SolicitudesComponent } from './components/solicitudes/solicitudes.component';
+import { MantenimientoComponent } from './components/mantenimiento/mantenimiento.component';
 import { UsermenuComponent } from './components/usermenu/usermenu.component';
 
 @NgModule({
@@ -50,6 +51,7 @@ import { UsermenuComponent } from './components/usermenu/usermenu.component';
     MyfilesComponent,
     GraphicsComponent,
     SolicitudesComponent,
+    MantenimientoComponent,
     UsermenuComponent
   ],
   imports: [

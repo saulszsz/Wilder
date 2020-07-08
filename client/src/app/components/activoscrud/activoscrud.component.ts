@@ -57,6 +57,8 @@ export class ActivoscrudComponent implements OnInit {
     { value: 'otro', viewValue: 'Otro' }
   ];
 
+  mantenimientos: any;
+
   constructor(
     private _fs: FireService,
     private _route: ActivatedRoute,
@@ -67,8 +69,27 @@ export class ActivoscrudComponent implements OnInit {
 
   ngOnInit(): void {
     this.idActivo = this._route.snapshot.paramMap.get('id');
+    var that = this;
     if (this.idActivo != "0") {
       this.obtenerActivo();
+      this._fs.obtenerMttos(this.idActivo).subscribe(
+        (result) => {
+          var list = [];
+            for (let sol in result) {
+              result[sol]['activo'] = that._fs._fireDb.object('inventario/' + result[sol]['id_activo']).valueChanges();
+              result[sol]['usuario'] = that._fs._fireDb.object('users/' + result[sol]['id_usuario']).valueChanges();
+              result[sol]['trabajo'] = that._fs._fireDb.object('companies/' + result[sol]['id_trabajo']).valueChanges();
+              list.push(result[sol]);
+            }
+            that.mantenimientos = list;
+        },
+        (error) => {
+          this._snack.open("Error interno. Contacta a tu administrador.", 'OK', {
+            duration: 8000,
+            verticalPosition: 'bottom'
+          });
+        }
+      )
     }
 
     this.todoForm = this.formBuilder.group({
@@ -130,7 +151,10 @@ export class ActivoscrudComponent implements OnInit {
         }
       },
       (error: any) => {
-        alert("Error! " + JSON.stringify(error));
+        this._snack.open("Error! " + JSON.stringify(error), 'OK', {
+          duration: 8000,
+          verticalPosition: 'bottom'
+        });
       }
     );
   }
