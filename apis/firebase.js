@@ -209,6 +209,45 @@ router.get('/regresar_activo/:uid/:uid_activo', (req, res) => {
     });
 });
 
+
+router.post('/create_normal_user', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            let body = req.body;
+            let companies_reference = get_reference('companies/');
+            var company = companies_reference.push({
+                company_name: body.trabajo
+            });
+            var company_id = company.key;
+            var datos = {
+                email: body.correo,
+                tipo: body.tipo,
+                trabajo: company_id,
+                nombre: body.nombre,
+                apellido: body.apellido,
+                nacimiento: body.nacimiento,
+                telefono: body.telefonogit 
+            };
+            get_reference('users/').push(datos).then(
+                (result) => {
+                    console.log("Usuario creado.");
+                    console.log(JSON.stringify(result));
+                    res.json({ 'creado': true });
+                },
+                (error) => {
+                    console.log("Usuario no creado.");
+                    console.log(JSON.stringify(error));
+                    res.json({ 'creado': false });
+                }
+            );
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+
+
 router.post('/create_user_pr', (req, res) => {
     sessionStatus(req).then(
         (success) => {

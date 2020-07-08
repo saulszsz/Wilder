@@ -62,6 +62,20 @@ export class FireService {
     );
   }
 
+
+  createNormalUser(payload: any) {
+    return this._http.post(
+      `create_normal_user`,
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
+    );
+  }
+
   createUserPreviousRegistering(payload: any) {
     return this._http.post(
       `create_user_pr`,
