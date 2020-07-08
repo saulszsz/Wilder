@@ -42,7 +42,11 @@ export class FireService {
           "Content-Type": "application/json",
           'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
         }
-      });
+      }).subscribe(
+        (r) => {
+          this._router.navigate(['/login']);
+        }
+      );
     });
   }
 
