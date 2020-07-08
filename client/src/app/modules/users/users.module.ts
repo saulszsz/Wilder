@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { DetailUserComponent } from './components/detail-user/detail-user.component';
+import { ModificatemenuComponent } from './components/modificatemenu/modificatemenu.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,10 @@ const routes: Routes = [
     path: "delete",
     component: DeleteUserComponent
   },
+  {
+    path: "modificate/:uid",
+    component: ModificatemenuComponent
+  },
 ];
 
 @NgModule({
@@ -47,7 +52,8 @@ const routes: Routes = [
     CreateUserComponent,
     DeleteUserComponent,
     ModifyUserComponent,
-    DetailUserComponent
+    DetailUserComponent,
+    ModificatemenuComponent
   ],
   imports: [
     RouterModule,

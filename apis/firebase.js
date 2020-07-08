@@ -375,6 +375,62 @@ router.post('/delete_usuario/:uid', (req, res) => {
     });
 });
 
+router.post('/get_usuario', (req, res) => {
+    sessionStatus(req).then(
+        (success) => {
+            var uid = req.body.uid;
+            get_reference('users/' + uid).once("value", function (snapshot) {
+                var datosUsuario = (snapshot.val()/* && snapshot.val().nombre*/) || 'Anonymous';
+                //return datosActivo;
+            }).then(
+                (result) => {
+                    console.log(JSON.stringify(result));
+                    res.json(JSON.stringify(result));
+
+                },
+                (error) => {
+                    res.json(false);
+                }
+            );
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
+router.put('/update_user', (req, res) => {
+    var body = req.body;
+    
+    console.log("prueba 2csdasasdasasfas");
+    sessionStatus(req).then(
+        (success) => {
+            console.log(body.uid);
+            get_reference('users/' + body.uid).set({
+                email: body.correo,
+                tipo: body.tipo,
+                trabajo: body.trabajo,
+                nombre: body.nombre,
+                apellido: body.apellido,
+                nacimiento: body.nacimiento,
+                telefono: body.telefono
+            }).then(
+                (result) => {
+                    console.log("Usuario modificado.");
+                    console.log(JSON.stringify(result));
+                    res.json({ 'creado': true });
+                },
+                (error) => {
+                    console.log("Usuario no modificado.");
+                    console.log(JSON.stringify(error));
+                    res.json({ 'creado': false });
+                }
+            );
+        }
+    ).catch((error) => {
+        res.status(403).send("UNAUTHORIZED REQUEST!");
+    });
+});
+
 router.post('/create_activo', (req, res) => {
     var QR = "";
     sessionStatus(req).then(

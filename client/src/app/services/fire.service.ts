@@ -72,6 +72,20 @@ export class FireService {
     );
   }
 
+  updateUser(payload: any) {
+    console.log("prueba fire" + payload.uid);
+    return this._http.put(
+      `update_user`,
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
+    );
+  }
+
   createUserPreviousRegistering(payload: any) {
     return this._http.post(
       `create_user_pr`,
@@ -140,6 +154,20 @@ export class FireService {
         'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
       }
     });
+  }
+
+  getUsuario(payload: any) {
+    var rep = this._http.post(
+      `get_usuario`,
+      payload, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'XSRF-TOKEN': this._cs.get('XSRF-TOKEN')
+      }
+    }
+    );
+    return rep;
   }
 
   obtenerMttos(id_activo: string) {
