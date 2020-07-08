@@ -16,6 +16,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     this._fs.cerrarSesion();
+    this._router.navigate(['/']);
   }
 
 }
