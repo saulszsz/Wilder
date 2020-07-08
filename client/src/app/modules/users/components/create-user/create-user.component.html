@@ -73,7 +73,9 @@
                     Por favor introduce tu número de teléfono.
                 </mat-error>
             </mat-form-field>
-            <button type="submit" mat-raised-button color="primary">Terminar Registro</button>
+            <button mat-raised-button color="primary" [routerLink]="['/usermenu']" style="margin-right: 20px;">Regresar</button>
+            <button type="submit" mat-raised-button color="primary" style="margin-left: 20px;">Terminar Registro</button>
+           
         </form>
     </mat-card-content>
 </mat-card>
