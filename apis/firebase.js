@@ -272,11 +272,6 @@ router.post('/create_normal_user', (req, res) => {
     sessionStatus(req).then(
         (success) => {
             let body = req.body;
-            let companies_reference = get_reference('companies/');
-            var company = companies_reference.push({
-                company_name: body.trabajo
-            });
-            var company_id = company.key;
             var datos = {
                 email: body.correo,
                 tipo: body.tipo,
@@ -286,8 +281,7 @@ router.post('/create_normal_user', (req, res) => {
                 nacimiento: body.nacimiento,
                 telefono: body.telefono 
             };
-
-            get_reference('users/').push(datos).then(
+            get_reference('users/'+req.body.uid).set(datos).then(
                 (result) => {
                     console.log("Usuario creado.");
                     console.log(JSON.stringify(result));
@@ -301,6 +295,7 @@ router.post('/create_normal_user', (req, res) => {
             );
         }
     ).catch((error) => {
+        console.log(error);
         res.status(403).send("UNAUTHORIZED REQUEST!");
     });
 });

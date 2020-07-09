@@ -1,3 +1,4 @@
+import { environment } from './../../../../../environments/environment';
 import { WindowService } from './../../../../services/window.service';
 import { MyErrorStateMatcher } from './../../../../models/error-state-matcher/error-state-matcher.module';
 import { FireService } from './../../../../services/fire.service';
@@ -6,6 +7,9 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, switchMap } from 'rxjs/operators';
+import * as firebase from 'firebase';
+
+const app2 = firebase.initializeApp(environment.firebaseConfig, "Secundaria");
 
 @Component({
   selector: 'app-create-user',
@@ -24,6 +28,8 @@ export class CreateUserComponent implements OnInit, AfterViewInit {
   mail: string;
   pwd1: string;
   pwd2: string;
+
+  uid_str: string;
 
   @Input() props: any;
 
@@ -184,7 +190,17 @@ export class CreateUserComponent implements OnInit, AfterViewInit {
       return;
     }
     var that = this;
-    that._fs.createNormalUser({
+    app2.auth().createUserWithEmailAndPassword(this.formulario.get('correo').value, this.formulario.get('pwd1').value).then(({ user }) => {
+      console.log("User " + user.uid + " created successfully!");
+      //I don't know if the next statement is necessary 
+      that.create_user(user.uid)
+      app2.auth().signOut();
+    });
+  }
+
+  create_user(uid: string) {
+    this._fs.createNormalUser({
+      uid: uid,
       tipo: 'normal',
       correo: this.formulario.get('correo').value,
       trabajo: this.formulario.get('trabajo').value,
