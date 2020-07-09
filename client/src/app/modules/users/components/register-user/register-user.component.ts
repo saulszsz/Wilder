@@ -171,6 +171,13 @@ export class RegisterUserComponent implements OnInit, AfterViewInit {
 
   envioPrevioRegistro(evt) {
     evt.preventDefault();
+    if (!this.formulario.valid) {
+      this._snack.open('¡Tu formulario no está en condiciones de ser enviado!', 'OK', {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+      return;
+    }
     let payload = {
       uid: this.props.uid,
       tipo: 'admin',
@@ -181,6 +188,7 @@ export class RegisterUserComponent implements OnInit, AfterViewInit {
       nacimiento: this.formulario.get('nacimiento').value,
       telefono: this.formulario.get('telefono').value
     }
+
     this._fs.createUserPreviousRegistering(payload).subscribe(
       (result: any) => {
         if (result.creado)
